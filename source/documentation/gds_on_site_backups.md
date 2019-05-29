@@ -7,17 +7,30 @@ The script that does the backups is located in:
 
 `/root/Scripts/govwifi-backup.sh`
 
-You can ssh into this server:
+**Rotating our bastion server will cause these backups to fail with the following error** 
+
+*WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!*
+
+You can fix this by removing the entry from the `/root/.ssh/known_hosts` file.
+
+## SSH access requirements
+### VPN
+
+You need to be on a GovWifi specific VPN to gain access to this server.
+To get on this VPN, you will need to open a support request on the GDS helpdesk.
+
+### User Account
+
+Please speak to the RE-D team to get you set up on this.
+
+You will need someone with SSH access to set up your user account on the server:
+
+`useradd -m -G sudo USERNAME`
+
+You should now be able to ssh into this server:
 
 `ssh -i ~/.ssh/bob -vvvv bob@ah-govwf-d-01.dmz.gds`
 
-You need to be on a GovWifi specific VPN to gain access to this server.
-Please speak to the RE-D team to get you set up on this.
+## Notifications
 
 To get notifications about these backups, please subscribe to the `GovWifi-DevOps` Google Group.
-
-## Caveat 
-
-Rotating a bastion server requires that you remove it from the `known_hosts` file on this build server.
-
-`/root/.ssh/known_hosts`

@@ -11,8 +11,8 @@ You can ssh into this server:
 
 `ssh -i ~/.ssh/bob -vvvv bob@ah-govwf-d-01.dmz.gds`
 
-You need to be on a VPN to gain access to this server.
-Please speak to the security team to get you set up on this.
+You need to be on a GovWifi specific VPN to gain access to this server.
+Please speak to the RE-D team to get you set up on this.
 
 To get notifications about these backups, please subscribe to the `GovWifi-DevOps` Google Group.
 

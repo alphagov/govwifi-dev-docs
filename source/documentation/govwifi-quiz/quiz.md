@@ -100,8 +100,8 @@ The purpose of this quiz is to allow a new developer of GovWifi to be able to ge
 #### Many users at location “Stafford Crown Court” are complaining about not being able to connect to GovWifi. Find out why. (Production)
 
 - These might be some useful CloudWatch logs to look at:
-  – wifi-logging-api-docker-log-group
-  – wifi-authorisation-api-docker-log-group
+    – wifi-logging-api-docker-log-group
+    – wifi-authorisation-api-docker-log-group
 
 The Battersea Dogs & Cats Home wants to offer GovWifi in their building but their organisation name doesn’t appear in the list. Please allow them to signup, (STAGING). The network admin’s email is  [mrs.jones@battersea.org.uk](mailto:mrs.jones@battersea.org.uk).
 

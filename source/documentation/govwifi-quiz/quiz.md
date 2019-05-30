@@ -91,7 +91,7 @@ The purpose of this quiz is to allow a new developer of GovWifi to be able to ge
 
 - The frontend servers are restarted daily by the  _wifi-daily-safe-restart_  CloudWatch event. The task this runs is configured to log to the  _wifi-safe-restart-docker-log-group_CloudWatch log group so we should look there for issues.
 
-#### Restore an RDS backup for the user database and connect to it from your local machine
+#### Restore an RDS backup for the user database and connect to it from your local machine
 
 - We’d go into the RDS snapshots section and pick the one we want to restore. Connecting to the database is as described above.
 

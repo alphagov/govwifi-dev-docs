@@ -54,10 +54,11 @@ GovWifi - Is GovWifi down?
   - Always check that GovWifi is up by checking www.admin.wifi.service.gov.uk/status
   - Often these requests come from first line IT support who have not spent adequate time problem solving the issue (usually caused by an incorrect username or password, or misconfigured device).
 10. Please give me the details of the following user
+  - Always ensure that this request is coming from a known network administrator in that team
   - Usually occurs when a user breaches the local network T&Cs.
   - Access the database to find the users contact details (email or phone) given their username or mac address, pass this to the organisation.
 11. Please block the following user…
-  - We do not usually block users from GovWifi. In these cases it is usually an end user who has breached their local network T&Cs, rather than GovWifi’s.
+  - We do not usually block users from GovWifi. In these cases it is usually an end user who has breached their local network T&Cs, rather than GovWifi’s. It's not our responsibility to block users.
   - Network engineers can block users from their local network while they retain access to GovWifi at different locations.
 
 

@@ -1,4 +1,4 @@
-## Setting up Terraform in your development environment
+# Setting up Terraform
 
 Govwifi infrastructure is managed using [Terraform](https://www.terraform.io/) which is configured via [govwifi-terraform](https://github.com/alphagov/govwifi-terraform).
 

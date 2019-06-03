@@ -62,6 +62,21 @@ Run `bundle update` to make sure you're using the most recent Ruby gem versions.
 
 Run `bundle exec middleman build --verbose` to get detailed error messages to help with finding the problem.
 
+## CI / CD
+
+You can find the pipeline here. It self updates when you merge any changes.
+
+The manually deploy do:
+
+```bash
+aws ssm put-parameter \
+    --name "/cd/concourse/pipelines/govwifi/govpaas-api-endpoint" \
+    --value "https://api.cloud.service.gov.uk" \
+    --type SecureString \
+    --key-id "9044a24d-2e69-4058-ba72-52c43dec4979" \
+    --overwrite \
+    --region eu-west-2
+```
 ## Licence
 
 Unless stated otherwise, the codebase is released under [the MIT License][mit].

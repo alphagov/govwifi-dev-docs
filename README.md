@@ -37,7 +37,7 @@ You can add content by editing the `.html.md.erb` files. These files support con
 To preview your new website locally, navigate to your project folder and run:
 
 ```sh
-bundle exec middleman server
+./startup.sh
 ```
 
 👉 See the generated website on `http://localhost:4567` in your browser. Any content changes you make to your website will be updated in real time.

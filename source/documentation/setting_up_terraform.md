@@ -10,6 +10,7 @@ There are several prerequisites to running [govwifi-terraform](https://github.co
 - You have an AWS IAM user with the ability to assume a suitable role (RE:D team can set this up).
 - Your AWS configuration contains an appropriate profile wth the suitable role.
   eg.
+
   ```
   [profile govwifi]
   region = eu-west-1

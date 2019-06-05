@@ -85,7 +85,6 @@ There are 10 databases in total:
 
 ### Staging
 
-
 - Admin, MySQL 5.7
   - Primary in London
 - Sessions, MySQL 5.7
@@ -167,4 +166,4 @@ This database provides for the logging service, for tracking user sessions.
 
 Use your favourite GUI, or set up an SSH tunnel.
 
-[getting-a-secret]: ./secrets.md#Getting-a-secret
+[getting-a-secret]: /secrets.html#Getting-a-secret

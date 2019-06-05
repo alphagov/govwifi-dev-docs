@@ -1,5 +1,14 @@
 # Accessing the Infrastructure
 
+## AWS Console
+
+The GovWifi Account ID is `788375279931`.
+
+This can be used for logging into the console, or for assumed roles.
+
+Use `https://788375279931.signin.aws.amazon.com/console` or `https://govwifi.signin.aws.amazon.com/console` for
+accessing the AWS console.
+
 ## VPN
 
 All connections must be made via the GDS VPN. Please contact your local service desk for access.

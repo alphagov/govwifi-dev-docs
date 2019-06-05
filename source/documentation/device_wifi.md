@@ -10,7 +10,7 @@ Device-Wifi requires a user to have either a government email address, be sponso
 4. Provide us with your root CA certificate used to sign these client certificates.
 5. Devices can now connect to the internet via GovWifi wherever GovWifi is offered.
 
-![logo]
+![process]
 
 ## Where is the code
 You can find the code for Certificate Authentication within the [govwifi-frontend](https://github.com/alphagov/govwifi-frontend) repo
@@ -25,4 +25,4 @@ You can find the code for Certificate Authentication within the [govwifi-fronten
 - The profile should ONLY trust the GovWifi RADIUS certificate. This protects against Man in the middle attacks.
 
 
-[logo]: images/cert_auth.png "Certificate Authentication Process"
+[process]: images/cert_auth.png "Certificate Authentication Process"

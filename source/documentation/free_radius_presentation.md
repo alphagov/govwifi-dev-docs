@@ -17,7 +17,8 @@ GovWifi currently has a set of 6 RADIUS servers. These servers control network a
 ### Accounting
 
 - Runs on Port 1813.
-- Disabled for GovWifi, network admins can monitor this on their own infrastructure.
+
+- While we don't block accounting requests, we don't do anything with them. If an organisation requires accounting, they can enable it on their local infrastructure.
 
 ## Unlang
 

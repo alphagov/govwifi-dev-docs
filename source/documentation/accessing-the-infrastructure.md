@@ -69,18 +69,39 @@ ssh govwifi-bastion-london-staging
 
 ## Databases
 
-There are 4 databases, all currently located in London. 2 for staging, 2 for production.
+There are 10 databases in total:
+
+- **Production**
+  - Admin, MySQL 5.7
+    - 1x Primary in London
+  - Sessions, MySQL 5.7
+    - Primary in London
+    - Replica in London
+  - Users, MySQL 8.0
+    - Primary in London
+    - Replica in London
+    - Replica in Dublin
+- **Staging**
+  - Admin, MySQL 5.7
+    - Primary in London
+  - Sessions, MySQL 5.7
+    - Primary in London
+  - Users, MySQL 8.0
+    - Primary in London
+    - Replica in Dublin
 
 To access each one, you will need to use their respective credentials and bastion server.
 
 ### Admin database
+
+This database provides for the Admin portal, storing organisation details.
 
 **AWS Naming convention**: Used for finding the database in the AWS Console
 
 - Production: `wifi-admin-wifi-db`
 - Staging: `wifi-admin-staging-db`
 
-For anything related to the Admin panel, connect to the admin database:
+Connect to the admin database:
 
 **Endpoint**: View in the AWS Console
 
@@ -96,14 +117,37 @@ For anything related to the Admin panel, connect to the admin database:
 
 Use your favourite GUI, or set up an SSH tunnel.
 
-### Wifi database
+### Users database
+
+This database provides for the authentication service, for storing user credentials and login activity.
 
 **AWS Naming convention**: Used for finding the database in the AWS Console
 
-- Production: `wifi-wifi-db`
-- Staging: `wifi-staging-db`
+- Production: `wifi-production-user-db` and `wifi-production-user-rr`
+- Staging: `wifi-staging-user-db` and `wifi-staging-user-rr`
 
-This database provides for the authentication, logging, and user signup.
+**Endpoint**: View in the AWS Console.
+
+**Username**: View in the AWS Console, or [the terraform config][getting-a-secret].
+
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/wifi-london/secrets.tf | grep -e "^db-user"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/staging-london/secrets.tf | grep -e "^db-user"`
+
+**Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
+
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/wifi-london/secrets.tf | grep -e "^db-password"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/staging-london/secrets.tf | grep -e "^db-password"`
+
+Use your favourite GUI, or set up an SSH tunnel.
+
+### Sessions database
+
+This database provides for the logging service, for tracking user sessions.
+
+**AWS Naming convention**: Used for finding the database in the AWS Console
+
+- Production: `wifi-wifi-db` and `wifi-db-rr`
+- Staging: `wifi-staging-db`
 
 **Endpoint**: View in the AWS Console.
 

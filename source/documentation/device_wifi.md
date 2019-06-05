@@ -18,5 +18,7 @@ However with certificate based authentication it means that a device can connect
 - You can find where the EAP-TLS is handled in FreeRADIUS [here](https://github.com/alphagov/govwifi-frontend/blob/master/radius/mods-enabled/eap#L7)
 - You can find the folder where the root CA certificates are held [here](https://github.com/alphagov/govwifi-frontend/blob/4b65fd464c7362ad8bb5d0773ec61177faf90eb2/Dockerfile#L50)
 
+## Common Issues
+- Organisations may send us CA certificates that either don't have the full chain of trust or aren't actually the CA certs that signed the client certs
 
 [process]: images/cert-auth.png

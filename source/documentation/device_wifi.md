@@ -20,5 +20,14 @@ However with certificate based authentication it means that a device can connect
 
 ## Common Issues
 - Organisations may send us CA certificates that either don't have the full chain of trust or aren't actually the CA certs that signed the client certs
+- For organisations with limited IT resources GovWifi Devices is more difficult to set up and manage.
+- For organisations using a Windows operating system, GovWifi Devices is more difficult to set up.
+- Organisations have a lack of knowledge about how certificate authentication works, specifically around openSSL
+- The time taken to receive certificates from organisations is much longer than anticipated.
+- Organisations are having to seek security permissions and sign-off from decision makers, before they can send their certificate.
+- The process of receiving certificates by email and uploading them manually is time consuming for service developers.
+- Organisations may be unaware that certificates expire, which could generate a support load from end-users that is unmanageable for service  developers.
+
+For more information about the user research that has gone into Certificate Authentication thus far click [here](https://docs.google.com/presentation/d/1k0pr32ZmJ7NHVCEf4_sWLrt2pL_e5vtgcezPBdPLZ5A/edit#slide=id.g4c75c45c21_0_17)
 
 [process]: images/cert-auth.png

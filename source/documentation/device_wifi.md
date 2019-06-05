@@ -9,7 +9,7 @@ However with certificate based authentication it means that a device can connect
 2. Setup a “Certificate Authority” using a Public Key Infrastructure (PKI) software tool. This allows the organisation to sign certificates.
 3. Using your PKI, sign client certificates.
 4. Provide us with your root CA certificate used to sign these client certificates.
-5. Devices can now connect to the internet via GovWifi wherever GovWifi is offered. However that when connecting to GovWifi that EAP-TLS is selected.
+5. Devices can now connect to the internet via GovWifi wherever GovWifi is offered. However when connecting to GovWifi that EAP-TLS is selected.
 
 ![process]
 

@@ -71,24 +71,28 @@ ssh govwifi-bastion-london-staging
 
 There are 10 databases in total:
 
-- **Production**
-  - Admin, MySQL 5.7
-    - 1x Primary in London
-  - Sessions, MySQL 5.7
-    - Primary in London
-    - Replica in London
-  - Users, MySQL 8.0
-    - Primary in London
-    - Replica in London
-    - Replica in Dublin
-- **Staging**
-  - Admin, MySQL 5.7
-    - Primary in London
-  - Sessions, MySQL 5.7
-    - Primary in London
-  - Users, MySQL 8.0
-    - Primary in London
-    - Replica in Dublin
+### Production
+
+- Admin, MySQL 5.7
+  - Primary in London
+- Sessions, MySQL 5.7
+  - Primary in London
+  - Replica in London
+- Users, MySQL 8.0
+  - Primary in London
+  - Replica in London
+  - Replica in Dublin
+
+### Staging
+
+
+- Admin, MySQL 5.7
+  - Primary in London
+- Sessions, MySQL 5.7
+  - Primary in London
+- Users, MySQL 8.0
+  - Primary in London
+  - Replica in Dublin
 
 To access each one, you will need to use their respective credentials and bastion server.
 

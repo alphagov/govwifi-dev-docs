@@ -1,9 +1,9 @@
-# FreeRADIUS Notes
+# FreeRADIUS
 
 ## AAA
 
 GovWifi currently has a set of 6 RADIUS servers. These servers control network access with [AAA authentication][aaa link].
-![alt text][radius_exchange]
+![radius exchange]
 
 ### Authentication
 
@@ -17,7 +17,8 @@ GovWifi currently has a set of 6 RADIUS servers. These servers control network a
 ### Accounting
 
 - Runs on Port 1813.
-- Disabled for GovWifi, network admins can monitor this on their own infrastructure.
+
+- While we don't block accounting requests, we don't do anything with them. If an organisation requires accounting, they can enable it on their local infrastructure.
 
 ## Unlang
 
@@ -27,15 +28,15 @@ We favor keeping all complex functionality in the backend APIs, instead of in Un
 
 This way it is easier to test and change in the future.
 
-![alt text][free_radius]
+![free radius]
 
 ## FreeRADIUS Server
 
 This is the software installed on our RADIUS servers.
 
-It is opensource and can be found on [Github][free_radius_server_link].
+It is opensource and can be found on [Github][free radius server link].
 
-![alt text][free_radius_server]
+![free radius server]
 
 ## Debugging
 
@@ -51,7 +52,7 @@ Production and staging logs can be found in CloudWatch under `wifi-frontend-dock
 
 It will contain all the details of the authentication request which can be used to diagnose issues.
 
-![alt text][free radius logs]
+![free radius logs]
 
 ### Mailing List
 
@@ -65,7 +66,7 @@ In order to simulate UDP requests locally, there is a tool called [eapol_test][e
 
 This is currently used in full-stack automated testing and health checking.
 
-![alt text][eapol test]
+![eapol test]
 
 ### Common error messages
 ```
@@ -85,10 +86,10 @@ The server knows the IP but it failed to authenticate with its pre-shared key.
 [eapol test link]: http://deployingradius.com/scripts/eapol_test/
 [eapol test]: /images/eapol_test.png "EAPOL test"
 [free radius logs]: /images/free_radius_logs.png "Radius Verbose logging"
-[free_radius]: /images/free_radius.png "Free RADIUS"
-[free_radius_server]: /images/free_radius_server.png "Free RADIUS Server"
-[free_radius_server_link]: https://github.com/FreeRADIUS/freeradius-server
+[free radius]: /images/free_radius.png "Free RADIUS"
+[free radius server]: /images/free_radius_server.png "Free RADIUS Server"
+[free radius server link]: https://github.com/FreeRADIUS/freeradius-server
 [mailing list link]: http://lists.freeradius.org/mailman/listinfo/freeradius-users
-[radius_exchange]: /images/radius_exchange.png "Exchange with Supplicant"
+[radius exchange]: /images/radius_exchange.png "Exchange with Supplicant"
 [unlang docs link]: https://freeradius.org/radiusd/man/unlang.html
 [govwifi terraform link]: https://github.com/alphagov/govwifi-terraform

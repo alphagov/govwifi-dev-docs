@@ -112,8 +112,8 @@ Connect to the admin database:
 
 **Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
 
-- Production secret name: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/wifi-london/secrets.tf | grep admin-db-password`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/staging-london/secrets.tf | grep admin-db-password`
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars | grep admin-db-password`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars | grep admin-db-password`
 
 Use your favourite GUI, or set up an SSH tunnel.
 
@@ -130,13 +130,13 @@ This database provides for the authentication service, for storing user credenti
 
 **Username**: View in the AWS Console, or [the terraform config][getting-a-secret].
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/wifi-london/secrets.tf | grep -e "^db-user"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/staging-london/secrets.tf | grep -e "^db-user"`
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-username"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars  | grep -e "^user-db-username"`
 
 **Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/wifi-london/secrets.tf | grep -e "^db-password"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/staging-london/secrets.tf | grep -e "^db-password"`
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-password"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-password"`
 
 Use your favourite GUI, or set up an SSH tunnel.
 
@@ -153,13 +153,13 @@ This database provides for the logging service, for tracking user sessions.
 
 **Username**: View in the AWS Console, or [the terraform config][getting-a-secret].
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/wifi-london/secrets.tf | grep -e "^db-user"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show  govwifi/staging-london/secrets.tf | grep -e "^db-user"`
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-user"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars  | grep -e "^db-user"`
 
 **Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/wifi-london/secrets.tf | grep -e "^db-password"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show govwifi/staging-london/secrets.tf | grep -e "^db-password"`
+- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-password"`
+- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-password"`
 
 Use your favourite GUI, or set up an SSH tunnel.
 

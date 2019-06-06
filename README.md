@@ -64,19 +64,11 @@ Run `bundle exec middleman build --verbose` to get detailed error messages to he
 
 ## CI / CD
 
-You can find the pipeline here. It self updates when you merge any changes.
+You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs). It self updates when you merge any changes.
 
-The manually deploy do:
+See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14) to set up variables.
 
-```bash
-aws ssm put-parameter \
-    --name "/cd/concourse/pipelines/govwifi/govpaas-api-endpoint" \
-    --value "https://api.cloud.service.gov.uk" \
-    --type SecureString \
-    --key-id "9044a24d-2e69-4058-ba72-52c43dec4979" \
-    --overwrite \
-    --region eu-west-2
-```
+
 ## Licence
 
 Unless stated otherwise, the codebase is released under [the MIT License][mit].

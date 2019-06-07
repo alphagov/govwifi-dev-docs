@@ -40,6 +40,7 @@ To preview your new website locally, navigate to your project folder and run:
 ./startup.sh
 ```
 
+
 👉 See the generated website on `http://localhost:4567` in your browser. Any content changes you make to your website will be updated in real time.
 
 To shut down the Middleman instance running on your machine, use `ctrl+C`.

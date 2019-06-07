@@ -39,7 +39,7 @@ resources:
     # See https://github.com/alphagov/tech-ops/blob/master/reliability-engineering/pipelines/internal-apps.yml
     type: cf
     source:
-      api: ((govpaas-api-endpoint))
+      api: "https://api.cloud.service.gov.uk"
       organization: "govwifi"
       space: "production"
       username: ((govpaas-username))

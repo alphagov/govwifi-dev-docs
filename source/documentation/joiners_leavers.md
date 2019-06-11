@@ -16,7 +16,7 @@ joiners should be given access to, and leavers be removed from.
 1. [Request an AWS account](https://gds-request-an-aws-account.cloudapps.digital/).
 2. Ask RE:D to add you to GovWifi account(s).
 3. [Set up your access to the infrastructure](/accessing-the-infrastructure.html) - includes access to databases and ssh.
-4. We use PaaS in some places. See [Gov.uk Platform as a Service - Get started](https://docs.cloud.service.gov.uk/get_started.html). Once you have an account, ask your Tech Lead to add you to the `govwifi` organization.
+4. We use GovPaaS in some places. See [Gov.uk Platform as a Service - Get started](https://docs.cloud.service.gov.uk/get_started.html). Once you have an account, ask your Tech Lead to add you to the `govwifi` organization.
 
 ### Secrets
 

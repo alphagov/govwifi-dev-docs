@@ -37,8 +37,9 @@ You can add content by editing the `.html.md.erb` files. These files support con
 To preview your new website locally, navigate to your project folder and run:
 
 ```sh
-bundle exec middleman server
+./startup.sh
 ```
+
 
 👉 See the generated website on `http://localhost:4567` in your browser. Any content changes you make to your website will be updated in real time.
 
@@ -61,6 +62,13 @@ Every time you run this command, the `build` folder gets generated from scratch.
 Run `bundle update` to make sure you're using the most recent Ruby gem versions.
 
 Run `bundle exec middleman build --verbose` to get detailed error messages to help with finding the problem.
+
+## CI / CD
+
+You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs). It self updates when you merge any changes.
+
+See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14) to set up variables.
+
 
 ## Licence
 

@@ -33,7 +33,6 @@ To understand how all fits together, [check the Service Operation Manual](https:
 ### Monitoring and support
 
 - Alerts and logs can be found on [Cloudwatch](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#).
-- We have SMS set up. **TODO: Emile, please fill in!!**
 - [Sentry SaaS](https://sentry.io/organizations/government-digital-services/projects/) uses a shared password, see [secrets][secrets].
 - [Zendesk ticketing system](https://govuk.zendesk.com/agent/dashboard)
     - create a ticket (or ask your Tech Lead) to be added to "GovWifi queues" and assign it to `2nd/3rd Line -- Zendesk Administration`

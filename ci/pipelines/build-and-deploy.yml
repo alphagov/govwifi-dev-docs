@@ -25,11 +25,9 @@ resources:
     type: git
     source:
       uri: "https://github.com/alphagov/govwifi-dev-docs.git"
-      branch: master
 
   - name: govwifi-dev-docs-pr
     type: pull-request
-    check_every: 1m
     source:
       repository: alphagov/govwifi-dev-docs
       access_token: ((github-access-token))
@@ -44,7 +42,6 @@ resources:
       space: "production"
       username: ((govpaas-username))
       password: ((govpaas-password))
-      skip_cert_check: false
 
 jobs:
   - name: self-update
@@ -131,6 +128,7 @@ jobs:
             path: sh
             dir: repo
             args:
+            - -eu
             - -c
             - |
               apt-get update

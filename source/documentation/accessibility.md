@@ -1,4 +1,4 @@
-# Accessibility 
+# Accessibility
 
 ## Upgrading GOV.UK Frontend
 
@@ -57,3 +57,24 @@ should also make future upgrades easier.
 [frontend]: https://github.com/alphagov/govuk-frontend
 [design-system]: https://design-system.service.gov.uk
 [upgrade-guide]: https://design-system.service.gov.uk/get-started/updating-your-code
+
+#### Issues
+
+Some issues arose from our porting effort:
+
+* moving to `libsassc` proved more difficult than expected as there are some [known
+  bugs](https://github.com/alphagov/govuk-frontend/issues/1350) with the newer gem and
+  `govuk-frontend`, and some other gems in our dependencies haven't been ported either
+  (govuk-lint, which is [being retired](https://github.com/alphagov/govuk-lint/issues/109) in
+  the [process](https://github.com/alphagov/govuk-lint/issues/70));
+
+* we missed a very important detail for the design of the new pages: any product in the
+  government that is part of the GaaP effort (Notify, Pay, Registers, Wifi) should follow the
+  example provided in
+  [alphagov/product-page-example](https://github.com/alphagov/product-page-example/), with a
+  compact header bar that fits in one row and makes better use of screen estate. It wasn't
+  documented anywhere but pointed out to us by a designer in Notify.
+
+* some of the patterns we use haven't been ratified by the design system yet: the side
+  navigation is still custom (as is the design system's own sidebar) and roughly follows the
+  example of the other GaaP products.

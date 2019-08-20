@@ -58,7 +58,7 @@ should also make future upgrades easier.
 [design-system]: https://design-system.service.gov.uk
 [upgrade-guide]: https://design-system.service.gov.uk/get-started/updating-your-code
 
-#### Issues
+### Issues
 
 Some issues arose from our porting effort:
 

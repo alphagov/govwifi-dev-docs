@@ -21,7 +21,7 @@ always involve RE.
 We currently have two dashboards in Grafana:
 
 1. The first is for monitoring performance of GovWifi Product Pages and Tech Docs, and is available
-[here](https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi?orgId=1&refresh=10s).
+[here](https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi).
 
 2. The second is for monitoring GovWifi's SLIs for authentication journeys, as well as success rates
 for SMS and email responses, and is available

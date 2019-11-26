@@ -25,7 +25,7 @@ We currently have two dashboards in Grafana:
 
 2. The second is for monitoring GovWifi's SLIs for authentication journeys, as well as success rates
 for SMS and email responses, and is available
-[here](https://grafana-paas.cloudapps.digital/d/THPLfGxWk/govwifi-cloudwatch?orgId=4).
+[here](https://grafana-paas.cloudapps.digital/d/THPLfGxWk/govwifi-cloudwatch.
 
 Both of these are currently shown on the TV monitor.
 

@@ -14,9 +14,8 @@ The top monitor has technical dashboards worth keeping an eye on throughout the 
 Grafana is an open source analytics and monitoring platform, and we use it for monitoring the health 
 of GovWifi in realtime.
 
-In the past, GovWifi used to be part of a shared organisation on Grafana. Now, GovWifi has its own
-organisation, and we have admin-level access so we can now make our own changes without having to 
-always involve RE. 
+GovWifi has its own organisation, and we have admin-level access so we can now make our own changes 
+without having to always involve RE. 
 
 We currently have two dashboards in Grafana:
 

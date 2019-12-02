@@ -21,7 +21,7 @@ To get on this VPN, you will need to open a support request on the GDS helpdesk.
 
 ### User Account
 
-Please speak to the RE-D team to get you set up on this.
+Please speak to the RE-Gov.Wifi team to get you set up on this.
 
 You will need someone with SSH access to set up your user account on the server:
 

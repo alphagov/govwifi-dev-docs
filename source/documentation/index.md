@@ -1,6 +1,8 @@
-# Govwifi developer documentation
+# GovWifi Team Manual
 
-This is the technical documentation for the [Govwifi](https://www.wifi.service.gov.uk/) team in the [Government Digital Service (GDS)](https://gds.blog.gov.uk/). For other projects built by GDS, see the [Service Toolkit](https://www.gov.uk/service-toolkit).
+This is the technical documentation for the internal GDS [GovWifi](https://www.wifi.service.gov.uk/) team.
+
+If you're looking for the technical guidance for GovWifi, see the [technical documentation for GovWifi](https://docs.wifi.service.gov.uk/).
 
 ## Applications overview
 
@@ -57,5 +59,3 @@ Once everything is green on CI, you can ask a team member to review your PR.
 ### Merging and deploying changes
 
 Once approved and merged your PR is automatically built and deployed to our staging environment where you can perform further acceptance testing. After that deploying to production is a manual step in Concourse CI.
-
-

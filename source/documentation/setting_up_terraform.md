@@ -7,7 +7,7 @@ Govwifi infrastructure is managed using [Terraform](https://www.terraform.io/) w
 There are several prerequisites to running [govwifi-terraform](https://github.com/alphagov/govwifi-terraform) `make` commands successfully:
 
 - Your GPG key ID has been added to [govwifi-build](https://github.com/alphagov/govwifi-build/blob/master/passwords/.gpg-id) and secrets in this project have been re-encrypted.
-- You have an AWS IAM user with the ability to assume a suitable role (RE:D team can set this up).
+- You have an AWS IAM user with the ability to assume a suitable role (RE-GovWifi team can set this up).
 - Your AWS configuration contains an appropriate profile wth the suitable role.
   eg.
 

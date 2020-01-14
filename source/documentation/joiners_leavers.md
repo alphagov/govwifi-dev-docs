@@ -9,12 +9,12 @@ joiners should be given access to, and leavers be removed from.
 ### Try it out!
 
 1. [Sign up to GovWifi!](https://www.wifi.service.gov.uk/about-govwifi/connect-to-govwifi/)
-2. Ask your tech lead to get added to the [Admin Portal](https://admin.wifi.service.gov.uk/) and [Admin Portal - Staging](https://admin.staging.wifi.service.gov.uk/)
+2. Ask your tech lead to add you to the [Admin Portal](https://admin.wifi.service.gov.uk/) and [Admin Portal - Staging](https://admin.staging.wifi.service.gov.uk/)
 
 ### Infrastructure
 
 1. [Request an AWS account](https://gds-request-an-aws-account.cloudapps.digital/).
-2. Ask RE:D (#re-d on slack) to add you to GovWifi account(s).
+2. Ask RE-GovWifi (#re-govwifi on slack) to add you to GovWifi account(s).
 3. [Set up your access to the infrastructure][accessing-the-infrastructure] - includes access to databases and ssh.
 4. We use GovPaaS in some places. See [Gov.uk Platform as a Service - Get started](https://docs.cloud.service.gov.uk/get_started.html). Once you have an account, ask your Tech Lead to add you to the `govwifi` organization.
 

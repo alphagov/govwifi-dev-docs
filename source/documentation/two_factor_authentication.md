@@ -46,18 +46,13 @@ With this method we can include or exclude users from other organisations, it's 
 
 ## Resetting 2FA
 
-Currently there isn't a convenient method for resetting a user's 2FA. This means that when a user changes authentication device they may need developer assistance to set up 2FA again.
+A super admin user can reset two factor authentication for any user, by going to that user's
+organisation page and clicking on the 'Reset 2FA' button next to the user's name under 'Team'
+section.
 
-To reset a user's 2FA credentials in a Rails console:
+An organisation's admin user can reset two factor authentication for any user part of their own
+organisation, by going to 'Team members' page and clicking on the 'Reset 2FA' link next to the
+user's name in the members listing.
 
-```
-current_user.second_factor_attempts_count=nil
-current_user.encrypted_otp_secret_key=nil
-current_user.encrypted_otp_secret_key_iv=nil
-current_user.encrypted_otp_secret_key_salt=nil
-current_user.totp_timestamp=nil
-current_user.otp_secret_key=nil
-current_user.save!
-```
-
-This may also be done via a Rails migration or directly against the relevant database.
+Note that the button or link to reset two factor authentication will only be shown against the names
+of users who have already configured two factor authentication.

@@ -2,12 +2,11 @@
 
 ## AWS Console
 
-The GovWifi Account ID is `788375279931`.
+Access is via [gds-users](https://gds-users.signin.aws.amazon.com/console), and then assuming your role from the GovWifi account.
 
-This can be used for logging into the console, or for assumed roles.
+Staging and Production are hosted within the same AWS account.
 
-Use `https://788375279931.signin.aws.amazon.com/console` or `https://govwifi.signin.aws.amazon.com/console` for
-accessing the AWS console.
+The GovWifi Account ID is `788375279931` and your role is in the form `firstname.lastname-admin` or `firstname.lastname-readonly`.
 
 ## VPN
 

@@ -2,7 +2,7 @@
 
 ## AWS Console
 
-Access is via [gds-users][https://gds-users.signin.aws.amazon.com/console] and then assuming your role from the GovWifi account.
+Access is via [gds-users](https://gds-users.signin.aws.amazon.com/console), and then assuming your role from the GovWifi account.
 
 Staging and Production are hosted within the same AWS account.
 

@@ -65,7 +65,7 @@ Run `bundle exec middleman build --verbose` to get detailed error messages to he
 
 ## CI / CD
 
-You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs). It self updates when you merge any changes.
+You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs-deploy). It self updates when you merge any changes.
 
 See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14) to set up variables.
 

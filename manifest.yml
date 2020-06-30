@@ -6,3 +6,5 @@ applications:
   path: ./build
   buildpacks:
    - staticfile_buildpack
+  routes:
+    - route: govwifi-dev-docs.cloudapps.digital

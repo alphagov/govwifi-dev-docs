@@ -1,5 +1,9 @@
 # Accessing the Infrastructure
 
+## Overview
+
+An overview of the infrastructure is shown below ![arch-diagram][arch-diagram]
+
 ## AWS Console
 
 Access is via [gds-users](https://gds-users.signin.aws.amazon.com/console), and then assuming your role from the GovWifi account.
@@ -165,4 +169,5 @@ This database provides for the logging service, for tracking user sessions.
 
 Use your favourite GUI, or set up an SSH tunnel.
 
+[arch-diagram]: /images/govwifi_architecture_diagram.png "Govwifi Architecture Diagram"
 [getting-a-secret]: /secrets.html#Getting-a-secret

@@ -1,5 +1,9 @@
 # Accessing the Infrastructure
 
+## Overview
+
+An overview of the infrastructure is shown below ![arch-diagram][arch-diagram]
+
 ## Adding new AWS users
 
 You can add new AWS users to the govwifi AWS accounts by:
@@ -201,6 +205,7 @@ This database provides for the logging service, for tracking user sessions.
 
 Use your favourite GUI, or set up an SSH tunnel.
 
+[arch-diagram]: /images/govwifi_architecture_diagram.png "Govwifi Architecture Diagram"
 [getting-a-secret]: /secrets.html#Getting-a-secret
 [gds-cli]: https://github.com/alphagov/gds-cli
 [tech-ops-private-site]: https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf

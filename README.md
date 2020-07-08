@@ -40,6 +40,10 @@ To preview your new website locally, navigate to your project folder and run:
 ./startup.sh
 ```
 
+Or you can run it on Docker:
+```sh
+make serve
+```
 
 👉 See the generated website on `http://localhost:4567` in your browser. Any content changes you make to your website will be updated in real time.
 

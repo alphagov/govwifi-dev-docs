@@ -1,4 +1,4 @@
-# Two factor authentication
+# Admin Portal: Multi-factor authentication (MFA)
 
 Two factor authentication is currently only enforced for Super Admin users in the Admin application.
 

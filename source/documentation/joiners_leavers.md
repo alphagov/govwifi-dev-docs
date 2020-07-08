@@ -36,7 +36,7 @@ To understand how all fits together, [check the Service Operation Manual](https:
 - [Sentry SaaS](https://sentry.io/organizations/government-digital-services/projects/) uses a shared password, see [secrets][secrets].
 - [Zendesk ticketing system](https://govuk.zendesk.com/agent/dashboard)
     - create a ticket (or ask your Tech Lead) to be added to "GovWifi queues" and assign it to `2nd/3rd Line -- Zendesk Administration`
-    - see [Zendesk Summary][zendesk_summary] for triaging and common requests.
+    - see [Zendesk Summary][support_zendesk] for triaging and common requests.
 
 
 ### Other bits and bobs
@@ -76,4 +76,4 @@ For completeness, the following accounts exist but are not being used. They use 
 [accessing-the-infrastructure]: /accessing-the-infrastructure.html
 [deploying]: /deploying.html
 [secrets]: /secrets.html
-[zendesk_summary]: /zendesk_summary.html
+[support_zendesk]: /support_zendesk.html

@@ -1,4 +1,4 @@
-# Certificate Authentication (Alpha)
+# Device Wifi: Certificate Authentication (Alpha)
 
 ## What is Certificate Authentication
 GovWifi requires a user to have either a government email address, be sponsored by someone with a government email address, or have a mobile phone number. Many users re-used their own personal username and password multiple times for managed devices as a workaround for not having a certificate based system to use.

@@ -1,4 +1,4 @@
-# Deploying
+# Deploying Applications
 
 Deploying 9 systems out at the same time can be a non-trivial task. This should
 help explain how we do it.
@@ -54,7 +54,7 @@ They deploy out to [GovPaaS][govpaas] whenever a change is made to the `master` 
 
 - Push to the master branch
 - Concourse will build + deploy to GovPaaS
-- Verify contents is deployed (you may need to add a `GET` parameter to bust the cache) 
+- Verify contents is deployed (you may need to add a `GET` parameter to bust the cache)
 
 
 [gds_concourse]: https://cd.gds-reliability.engineering/

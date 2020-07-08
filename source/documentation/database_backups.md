@@ -1,13 +1,13 @@
-# On site MYSQL backups
+# Database Backups
 
 All the GovWifi databases are backed up at 3am daily by the internal GDS build server.
 In order to connect to mysql, it has to go through the bastion server.
 
-The script that does the backups is located in: 
+The script that does the backups is located in:
 
 `/root/Scripts/govwifi-backup.sh`
 
-**Rotating our bastion server will cause these backups to fail with the following error** 
+**Rotating our bastion server will cause these backups to fail with the following error**
 
 *WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!*
 

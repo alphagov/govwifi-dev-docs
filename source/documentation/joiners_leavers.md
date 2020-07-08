@@ -3,6 +3,12 @@
 This should be a complete list of tools/services that new technology team
 joiners should be given access to, and leavers be removed from.
 
+Use the following Trello templates to track the actions when onboarding or offboarding a team member:
+
+- [TEMPLATE: GovWifi Onboarding - [new team member]](https://trello.com/c/6auYddpE)
+- [TEMPLATE: GovWifi Offboarding - [team member]](https://trello.com/c/dVPUsDCT)
+
+Remember to review the templates if there are changes to the joiners or leavers checklist!
 
 ## Joiners checklist
 
@@ -41,7 +47,7 @@ To understand how all fits together, [check the Service Operation Manual](https:
 
 ### Other bits and bobs
 
-- Trello [GovWifi](https://trello.com/govwifi) team
+- Trello [GovWifi](https://trello.com/govwifi201920) team
 - [Notify](https://www.notifications.service.gov.uk/accounts)
   - GovWifi
   - GovWifi-Staging

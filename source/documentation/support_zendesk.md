@@ -1,4 +1,4 @@
-# GovWifi Zendesk Summary
+# Support: Zendesk
 
 ## Macros:
 
@@ -60,6 +60,3 @@ GovWifi - Is GovWifi down?
 11. Please block the following user…
   - We do not block users from GovWifi. In these cases it is usually an end user who has breached their local network T&Cs, rather than GovWifi’s. It's not our responsibility to block users.
   - Network engineers can block users from their local network while they retain access to GovWifi at different locations.
-
-
-

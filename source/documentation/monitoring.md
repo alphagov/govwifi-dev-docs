@@ -1,4 +1,4 @@
-# Team Dashboard
+# Monitoring
 
 We now have dashboards!
 
@@ -11,11 +11,11 @@ The top monitor has technical dashboards worth keeping an eye on throughout the 
 
 ### Grafana
 
-Grafana is an open source analytics and monitoring platform, and we use it for monitoring the health 
+Grafana is an open source analytics and monitoring platform, and we use it for monitoring the health
 of GovWifi in realtime.
 
-GovWifi has its own organisation, and we have admin-level access so we can now make our own changes 
-without having to always involve RE. 
+GovWifi has its own organisation, and we have admin-level access so we can now make our own changes
+without having to always involve RE.
 
 We currently have two dashboards in Grafana, which are both shown on the TV monitor:
 
@@ -25,17 +25,17 @@ We currently have two dashboards in Grafana, which are both shown on the TV moni
 2. The second is for monitoring GovWifi's SLIs for authentication journeys, as well as success rates
 for SMS and email responses, and is available
 [here](https://grafana-paas.cloudapps.digital/d/THPLfGxWk/govwifi-slis?orgId=4).
-    
+
     Grafana currently gets these metrics from AWS CloudWatch. In order to grant Grafana access to
     these, we are using an access key generated for the `monitor` IAM user in our AWS account.
 
 ### Concourse
 
-Concourse is an open source CI/CD platform, and we use it for automating jobs for building, testing 
+Concourse is an open source CI/CD platform, and we use it for automating jobs for building, testing
 and deploying software, as part of pipelines.
 
-Most of GovWifi's core pipelines are exposed (i.e. public, but read-only and without logs). These 
-are available [here](https://cd.gds-reliability.engineering/?search=team%3A%20govwifi), and are 
+Most of GovWifi's core pipelines are exposed (i.e. public, but read-only and without logs). These
+are available [here](https://cd.gds-reliability.engineering/?search=team%3A%20govwifi), and are
 shown on the TV monitor.
 
 It is useful to keep an eye on these, so that blocked pipelines can be spotted early and resolved.
@@ -44,7 +44,7 @@ It is useful to keep an eye on these, so that blocked pipelines can be spotted e
 
 Fourth Wall is a GDS application for monitoring pull requests and their build statuses.
 
-We list all of our repositories on Fourth Wall on the TV monitor, as it helps in identifying 
+We list all of our repositories on Fourth Wall on the TV monitor, as it helps in identifying
 important and urgent pull requests that should be prioritised.
 
 In order for Fourth Wall to make calls to Github's APIs, we're using a personal access token
@@ -52,7 +52,7 @@ generated for our `github-jenkins` Github user.
 
 ### Google Analytics
 
-We currently have a tab with default Google Analytics dashboard open. This will be iterated over 
+We currently have a tab with default Google Analytics dashboard open. This will be iterated over
 to make it more useful in the near future.
 
 ## General
@@ -71,5 +71,5 @@ This dashboard provides a convenient list of upcoming meetings to join throughou
 
 ### Trello
 
-Our TV monitor has its own Trello account (`@gds9097chromebox`), and has guest read-only access to 
+Our TV monitor has its own Trello account (`@gds9097chromebox`), and has guest read-only access to
 our team's boards.

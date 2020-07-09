@@ -1,8 +1,10 @@
 # GovWifi Secrets
 
-All secrets are stored in https://github.com/alphagov/govwifi-build, and are encrypted using GPG.
+All secrets are stored in [govwifi-build][govwifi-build], and are encrypted using GPG.
 
-All shell commands assume you are running from within the [`govwifi-terraform`][govwifi-terraform] repository.
+All shell commands assume you are running from within the [`govwifi-terraform`][govwifi-terraform]
+repository since the [govwifi-build][govwifi-build] repository is cloned in the
+`.private` directory of [`govwifi-terraform`][govwifi-terraform].
 
 ## Tools
 
@@ -64,14 +66,25 @@ Throughout the documentation, there will be references to specific secrets store
 To read individual secrets, run the command:
 
 ```sh
-PASSWORD_STORE_DIR=.private/passwords pass show '<secret name>'
+PASSWORD_STORE_DIR=<password_store_dir> pass show <secret_name>
+```
 
-# example, access the Staging Bastion SSH Key
+where:
+
+1. `<password_store_dir>` is the path of the `passwords` directory of the
+[govwifi-build](https://github.com/alphagov/govwifi-build) repository on your
+local machine.
+
+2. `<secret_name>` is the path of the secret that you want to display. You can omit
+   this to get a list of all secret paths.
+
+For example, if you want to access the Staging Bastion SSH Key:
+
+```sh
 PASSWORD_STORE_DIR=.private/passwords pass show keys/govwifi-staging-bastion-key
 ```
 
 
-
-
 [passwordstore]: https://www.passwordstore.org/
 [govwifi-terraform]: https://github.com/alphagov/govwifi-terraform
+[govwifi-build]: https://github.com/alphagov/govwifi-build

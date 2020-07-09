@@ -76,31 +76,18 @@ Remember that there are 2 regions, so there may be more than 2 bastions.
 
 #### SSH Config
 
-It is recommended to set up an ssh config for ease of use. All further instructions will
-assume you use similar naming.
+It is recommended to set up an ssh config for ease of use. Instructions how to
+set up your SSH config is in the Password Store of Govwifi where you can run:
 
-**Note**: The IP addresses have been redacted. Please substitute in the correct IP addresses.
-
-```
-AddKeysToAgent = yes
-
-Host govwifi-bastion-london-staging <redacted IP address>
-    Hostname <redacted IP address>
-    User ubuntu
-    IdentityFile ~/.ssh/govwifi/bastion-staging
-
-Host govwifi-bastion-london-production <redacted IP address>
-    Hostname <redacted IP address>
-    User ubuntu
-    IdentityFile ~/.ssh/govwifi/bastion-production
-
-Host govwifi-bastion-ireland-production <redacted IP address>
-    Hostname <redacted IP address>
-    User ubuntu
-    IdentityFile ~/.ssh/govwifi/bastion-production
+```sh
+PASSWORD_STORE_DIR=<password_store_dir> pass show ssh/instructions.txt
 ```
 
-You should now be able to connect to each of the hosts using ssh.
+where `<password_store_dir>` is the path of the `passwords` directory of the
+[govwifi-build](https://github.com/alphagov/govwifi-build) repository on your
+local machine.
+
+You should now be able to connect to each of the hosts using ssh. For e.g.
 
 ```sh
 ssh govwifi-bastion-london-staging

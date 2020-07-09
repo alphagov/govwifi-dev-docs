@@ -2,7 +2,7 @@
 
 We now have dashboards!
 
-We currently display dashboards on our TV monitors (two of them), running on ChromeOS. This section 
+We currently display dashboards on our TV monitors (two of them), running on ChromeOS. This section
 outlines what's currently displayed on them.
 
 ## Technical
@@ -20,7 +20,7 @@ without having to always involve RE.
 We currently have two dashboards in Grafana, which are both shown on the TV monitor:
 
 1. The first is for monitoring performance of GovWifi Product Pages and Tech Docs, and is available
-[here](https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi-product-page-and-tech-docs?orgId=4).
+[here](https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi).
 
 2. The second is for monitoring GovWifi's SLIs for authentication journeys, as well as success rates
 for SMS and email responses, and is available

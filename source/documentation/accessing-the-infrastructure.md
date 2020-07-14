@@ -58,7 +58,7 @@ The Radius servers are configured to use elastic IPs (EIPs). There are six in to
 
 It is critical the EIPs do not change since this would break the configuration between organisations and our services, thereby removing organisations' access to GovWifi.
 
-In order to prevent this from happening unintentionally, we configure AWS to deny any request to release the EIPs unless it's from the GovWifi AWS account. EIPs are now managed by terraform in the [`aws-billing-account`][aws-billing-account] repo and protected from accidental change.
+In order to prevent this from happening unintentionally, we configure AWS to deny any request to release the EIPs unless it's from the GovWifi AWS account. Deletion of EIPs is now managed by terraform in the [`aws-billing-account`][aws-billing-account] repo and protected from accidental change.
 
 ## Bastions
 

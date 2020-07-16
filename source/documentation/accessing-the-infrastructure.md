@@ -15,7 +15,7 @@ You can add new AWS users to the govwifi AWS accounts by:
 
 1. Deploy the terraform changes by:
 
-     a. go to the govwifi account terraform directory of repository [tech-ops-private][tech-ops-private]:
+     a. go to the govwifi account terraform directory of repository [tech-ops-private][tech-ops-private-site]:
 
      ```sh
      cd terraform/deployments/re-govwifi/account/
@@ -51,6 +51,14 @@ The GovWifi Account ID is `788375279931` and your role is in the form `firstname
 ## VPN
 
 All connections must be made via the GDS VPN. Please contact your local service desk for access.
+
+## Elastic IPs
+
+The Radius servers are configured to use elastic IPs (EIPs). There are six in total: three for the London AWS region and three for Ireland. Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
+
+It is critical the EIPs do not change since this would break the configuration between organisations and our services, thereby removing organisations' access to GovWifi.
+
+In order to prevent this from happening unintentionally, we configure AWS to deny any request to release the EIPs unless it's from the GovWifi AWS account. Deletion of EIPs is now managed by terraform in the [`aws-billing-account`][aws-billing-account] repo and protected from accidental change.
 
 ## Bastions
 
@@ -197,3 +205,4 @@ Use your favourite GUI, or set up an SSH tunnel.
 [gds-cli]: https://github.com/alphagov/gds-cli
 [tech-ops-private-site]: https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf
 [tech-ops-private-site]: https://github.com/alphagov/tech-ops-private
+[aws-billing-account]: https://github.com/alphagov/aws-billing-account/blob/master/account_terraform/service_control_policies.tf

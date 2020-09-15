@@ -38,6 +38,28 @@ It is opensource and can be found on [Github][free radius server link].
 
 ![free radius server]
 
+## The RADIUS Healthcheck
+
+The Route53 healthcheck connects to port 3000 on a specific radius machine. For example:
+```http://12.345.678.91:3000/
+```
+A ruby process listens on port 3000. When it receives a request for “/“ it automatically runs an eapol_test command. The code for this can be seen here: https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28 . The eapol_test command will connect to the Authentication API, and if it is successful it will return a 200 response.
+
+The configuration file for the healthcheck eapol_test can be found here:
+https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/peap-mschapv2.conf.erb
+
+If you need to manually test the healthcheck in a radius docker container you can do:
+```eapol_test -c /usr/src/healthcheck/peap-mschapv2.conf -s $(echo $HEALTH_CHECK_RADIUS_KEY)
+```
+
+The secret can also be found by logging in as a govwifi administrator( for staging you would login [here](https://admin.staging.wifi.service.gov.uk/) ), switching to the GDS CTS organisation, then selecting “Locations” and scrolling to “Health check user”
+
+It should also be noted that the last login of the health check user is no longer recorded in the User database.
+
+The failure of the health check does not actually trigger a new Radius docker container to be spawned. It only sends a notification email to govwifi-devops@digital.cabinet-office.gov.uk .
+
+You can learn more about the healthcheck [here](https://github.com/alphagov/govwifi-frontend#healthcheck).
+
 ## Debugging
 
 ### Verbose Logging

@@ -1,0 +1,37 @@
+---
+title: Manual
+layout: core
+hide_in_navigation: true
+---
+
+<% content_for :sidebar do %>
+  <ul>
+    <li>
+      <a href="/manual.html">
+        <span>Manual</span>
+      </a>
+      <ul>
+        <% manual.manual_pages_grouped_by_section.each do |section_name, pages| %>
+          <li>
+            <a href="<%= "##{section_name.parameterize}" %>">
+              <span><%= section_name %></span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+<% end %>
+
+<% manual.manual_pages_grouped_by_section.each do |section_name, pages| %>
+  <h2 id='<%= section_name.parameterize %>'><%= section_name %></h2>
+
+  <% pages.group_by { |page| page.data.type }.each do |type, pages| %>
+    <h3><%= type == "learn" ? "Learn" : "How to..." %></h3>
+    <ul>
+      <% pages.each do |page| %>
+        <li><%= link_to page.data.title, page.path %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

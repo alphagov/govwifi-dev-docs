@@ -1,0 +1,10 @@
+<% html = "#{yield}" %>
+
+<% content_for :sidebar do %>
+  <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
+  <%= single_page_table_of_contents html, max_level: 3 %>
+<% end %>
+
+<% wrap_layout :core do %>
+  <%= html %>
+<% end %>

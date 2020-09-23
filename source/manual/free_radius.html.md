@@ -1,3 +1,11 @@
+---
+title: FreeRADIUS
+parent: "/manual.html"
+layout: manual_layout
+section: Infrastructure
+type: learn
+---
+
 # FreeRADIUS
 
 ## AAA

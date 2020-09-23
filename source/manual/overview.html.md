@@ -1,3 +1,11 @@
+---
+title: Overview
+parent: "/manual.html"
+layout: manual_layout
+type: learn
+section: Overview
+---
+
 # Applications overview
 
 Our public-facing websites are:

@@ -1,3 +1,11 @@
+---
+title: Database Backups
+parent: "/manual.html"
+layout: manual_layout
+section: Backups
+type: learn
+---
+
 # Database Backups
 
 All the GovWifi databases are backed up at 3am daily by the internal GDS build server.

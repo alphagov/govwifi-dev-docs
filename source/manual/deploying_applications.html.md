@@ -1,4 +1,11 @@
-# Deploying Applications
+---
+title: Deploy Applications
+parent: "/manual.html"
+layout: manual_layout
+section: Applications
+---
+
+# Deploy Applications
 
 Deploying 9 systems out at the same time can be a non-trivial task. This should
 help explain how we do it.

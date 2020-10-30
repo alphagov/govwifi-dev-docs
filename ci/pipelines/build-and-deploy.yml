@@ -14,6 +14,8 @@ resource_types:
   type: registry-image
   source:
     repository: teliaoss/github-pr-resource
+    username: ((docker_hub_username))
+    password: ((docker_hub_authtoken))
 
 resources:
   - name: tech-ops
@@ -82,6 +84,8 @@ jobs:
             source:
               repository: govsvc/aws-ruby
               tag: 2.6.1
+              username: ((docker_hub_username))
+              password: ((docker_hub_authtoken))
           inputs:
             - name: govwifi-dev-docs-pr
               path: repo
@@ -109,7 +113,7 @@ jobs:
     serial: true
     plan:
       - get: govwifi-dev-docs
-        passed: [self-update]      
+        passed: [self-update]
         trigger: true
       - task: bundle-govwifi-dev-docs
         timeout: 15m
@@ -120,6 +124,8 @@ jobs:
             source:
               repository: govsvc/aws-ruby
               tag: 2.6.1
+              username: ((docker_hub_username))
+              password: ((docker_hub_authtoken))
           inputs:
             - name: govwifi-dev-docs
               path: repo

@@ -1,30 +1,34 @@
-# Style guide 
+---
+title: Style guide
+---
 
-The GovWIfi style guide describes the way we write for our users. 
+# Style guide
+
+The GovWIfi style guide describes the way we write for our users.
 
 It covers style, spelling and grammar conventions for all user-facing content published on:
 
 - the [product pages](https://www.wifi.service.gov.uk/)
-- the [admin site](https://admin.wifi.service.gov.uk/users/sign_in) 
+- the [admin site](https://admin.wifi.service.gov.uk/users/sign_in)
 - related guidance and documentation
 
 It includes the most relevant parts of the [GOV.UK style guide](https://www.gov.uk/guidance/style-guide/a-to-z-of-gov-uk-style), plus some terms that are specific to GovWifi. If there’s a point of style that is not covered here, check the GOV.UK style guide.
 
-These may be the best solutions generally, but they may not suit every piece of content. They’ll also change based on things we discover in user research. 
+These may be the best solutions generally, but they may not suit every piece of content. They’ll also change based on things we discover in user research.
 
-If you have any questions, speak to a content designer. 
+If you have any questions, speak to a content designer.
 
-## A to Z of style 
+## A to Z of style
 
-### allow list 
+### allow list
 
-The list of public sector organisations who are eligible to use GovWifi. 
+The list of public sector organisations who are eligible to use GovWifi.
 
 Use allow list as the noun and allow as the verb. Do not use white list or whitelist.
 
 We’d like to change this term to something more descriptive and accurate eventually.
 
-### bullet points and steps 
+### bullet points and steps
 
 You can use bullet points to make text easier to read. Make sure that:
 
@@ -38,21 +42,21 @@ You can use bullet points to make text easier to read. Make sure that:
 
 #### steps
 
-Use numbered steps instead of bullet points to guide a user through a process. 
+Use numbered steps instead of bullet points to guide a user through a process.
 
 You do not need a lead-in line. You can include links, downloads and multiple sentences per step. Each step ends in a full stop because each step should be a complete sentence.
 
-### email 
+### email
 
-Email is one word. Use a lower case ‘e’ unless it’s the first word in a new sentence. 
+Email is one word. Use a lower case ‘e’ unless it’s the first word in a new sentence.
 
 Do not write email messages or e-mails.
 
 ### email addresses
 
-Write email addresses out in full, in lower case and as active links. 
+Write email addresses out in full, in lower case and as active links.
 
-Do not include any other words in the link text. Do not put a full stop after an email address even if it’s the end of a sentence. 
+Do not include any other words in the link text. Do not put a full stop after an email address even if it’s the end of a sentence.
 
 ### error messages
 
@@ -60,7 +64,7 @@ Error messages should:
 
 - follow the GOV.UK style guide and design system principles
 - be in the active voice – 'Enter your name' not 'Your name must have an entry'
-- explain why the error has happened without blaming the user 
+- explain why the error has happened without blaming the user
 - tell the person exactly what they need to do – avoid ‘Fill in this question’ or ‘Answer this question’
 - be written consistently – if one message is 'Enter your name' another one for a missing address should be similar, for example ‘Enter your address’, not 'Please provide an entry for your address'
 
@@ -76,25 +80,25 @@ If a required entry from a list of options is blank, use a format like:
 
 ### GovWifi
 
-The service name. 
+The service name.
 
-### GovWifi account 
+### GovWifi account
 
-The credentials that let an end user access the internet using GovWifi. 
+The credentials that let an end user access the internet using GovWifi.
 
-### GovWifi admin 
+### GovWifi admin
 
-The application that lets organisations manage GovWifi for their buildings. 
+The application that lets organisations manage GovWifi for their buildings.
 
 The group of people who use the GovWifi admin are admin users. They have a GovWifi admin account.
 
-Internally it’s fine to refer to it as the admin site or application. 
+Internally it’s fine to refer to it as the admin site or application.
 
 ### numbers
 
-Write all numbers in numerals except where it’s part of a common expression and it would look strange, for example ‘one or two of them’. 
+Write all numbers in numerals except where it’s part of a common expression and it would look strange, for example ‘one or two of them’.
 
-### phone numbers 
+### phone numbers
 
 Use phone number, mobile phone number or international phone number. There’s no need to write telephone in full.
 
@@ -118,25 +122,25 @@ When a number is memorable, group the numbers into easily remembered units like 
 
 ### plain English
 
-All content on GovWifi should be written in plain English.  Sometimes it won’t be obvious which plain English term to use. If you’re not sure, speak to a content designer. 
+All content on GovWifi should be written in plain English.  Sometimes it won’t be obvious which plain English term to use. If you’re not sure, speak to a content designer.
 
 See [Writing for GOV.UK](https://www.gov.uk/guidance/content-design/writing-for-gov-uk#plain-english) for more information and a list of words to avoid.
 
-### public sector 
+### public sector
 
 Use sentence case, so public sector not Public Sector.
 
-### public sector organisations 
+### public sector organisations
 
-Public sector organisations can offer GovWifi to people in their buildings. It refers to any organisation that is wholly controlled by or funded by the government. 
+Public sector organisations can offer GovWifi to people in their buildings. It refers to any organisation that is wholly controlled by or funded by the government.
 
 Spell out the full name of the organisation the first time you use it, with the acronym in brackets if necessary. For example, the Department for Digital, Culture, Media and Sport (DCMS). After that you can just use the acronym.
 
 All organisations are singular, for example: ‘the government has decided to sell assets’.
 
-### RADIUS 
+### RADIUS
 
-Always capitalised. 
+Always capitalised.
 
 ### sign in and sign up
 
@@ -144,18 +148,18 @@ Use sign in as the call-to-action where users need to enter their details to acc
 
 Do not use signin or signup as a noun - say what the user actually needs to enter (‘enter your username’ not ‘enter your signin details’)
 
-### text messages 
+### text messages
 
-Use text messages. Do not use texts or SMS. 
+Use text messages. Do not use texts or SMS.
 
 You can use text as a verb, for example “Text ‘Go’ to 07537 417 417”.
 
-### two-factor authentication 
+### two-factor authentication
 
-Spell it out in full the first time you use it. After that, you can abbreviate it to ‘2FA’. 
+Spell it out in full the first time you use it. After that, you can abbreviate it to ‘2FA’.
 
-Ideally, we wouldn’t use this in user-facing content. It’s usually clearer to tell the user what they need to do, for example, ‘enter the security code from your authentication app’. 
+Ideally, we wouldn’t use this in user-facing content. It’s usually clearer to tell the user what they need to do, for example, ‘enter the security code from your authentication app’.
 
 ### wifi
 
-All lower case, no hyphen. 
+All lower case, no hyphen.

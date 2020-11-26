@@ -1,6 +1,6 @@
 # Style guide 
 
-The GovWIfi style guide describes the way we write for our users. 
+The GovWifi style guide describes the way we write for our users. 
 
 It covers style, spelling and grammar conventions for all user-facing content published on:
 
@@ -118,7 +118,7 @@ When a number is memorable, group the numbers into easily remembered units like 
 
 ### plain English
 
-All content on GovWifi should be written in plain English.  Sometimes it won’t be obvious which plain English term to use. If you’re not sure, speak to a content designer. 
+All content on GovWifi should be written in plain English. Sometimes it won’t be obvious which plain English term to use. If you’re not sure, speak to a content designer. 
 
 See [Writing for GOV.UK](https://www.gov.uk/guidance/content-design/writing-for-gov-uk#plain-english) for more information and a list of words to avoid.
 

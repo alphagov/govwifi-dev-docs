@@ -94,6 +94,10 @@ The group of people who use the GovWifi admin are admin users. They have a GovWi
 
 Internally it’s fine to refer to it as the admin site or application.
 
+### IP address 
+
+Or IP addresses. Do not use IP or IPs.
+
 ### numbers
 
 Write all numbers in numerals except where it’s part of a common expression and it would look strange, for example ‘one or two of them’.

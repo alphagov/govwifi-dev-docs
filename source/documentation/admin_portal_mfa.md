@@ -1,6 +1,6 @@
 # Two-factor authentication (2FA)
 
-2FA is mandatory for 'super admin' users in the GovWifi admin site. It's optional for admin users.
+2FA is mandatory for super admin users (the GovWifi team) in the GovWifi admin site. It's currrently optional for admin users.
 
 We use the [`two_factor_authentication`](https://github.com/Houdini/two_factor_authentication) gem to integrate the Time-based One Time Password (TOTP) functionality
 with the existing Devise authentication modules.
@@ -46,13 +46,13 @@ With this method we can include or exclude users from other organisations, it's 
 
 ## Resetting 2FA
 
-A 'super admin' user can reset 2FA for any user, by going to that user's
+A super admin user can reset 2FA for any user, by going to that user's
 organisation page and clicking on the 'Reset 2FA' button next to the user's name under 'Team'
 section.
 
-An organisation's admin user can reset 2FA for any user part of their own
+Admin users can reset 2FA for any user part of their own
 organisation, by going to 'Team members' page and clicking on the 'Reset 2FA' link next to the
 user's name in the members listing.
 
-The button or link to reset 2FAn will only be shown against the names
+The button or link to reset 2FA will only be shown against the names
 of users who have already configured 2FA.

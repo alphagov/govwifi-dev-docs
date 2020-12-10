@@ -9,7 +9,7 @@ Deploying GovWifi is done via Concourse, [hosted by GDS][gds_concourse].
 
 You will need to be part of the GovWifi team, and logged in.
 
-## Core Services
+## Core services
 
 For the core services, there is a [central deployment pipeline][concourse_deploy_pipeline].
 

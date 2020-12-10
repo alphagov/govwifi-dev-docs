@@ -1,6 +1,6 @@
 # Two-factor authentication (2FA)
 
-2FA is mandatory for super admin users (the GovWifi team) in the GovWifi admin site. It's currrently optional for admin users.
+2FA is mandatory for super admin users in the GovWifi admin site. It's currrently optional for admin users.
 
 We use the [`two_factor_authentication`](https://github.com/Houdini/two_factor_authentication) gem to integrate the Time-based One Time Password (TOTP) functionality
 with the existing Devise authentication modules.

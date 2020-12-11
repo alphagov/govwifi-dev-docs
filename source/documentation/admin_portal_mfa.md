@@ -1,18 +1,18 @@
-# Admin Portal: Multi-factor authentication (MFA)
+# Two-factor authentication (2FA)
 
-Two factor authentication is currently only enforced for Super Admin users in the Admin application.
+2FA is mandatory for super admin users in the GovWifi admin site. It's currrently optional for admin users.
 
 We use the [`two_factor_authentication`](https://github.com/Houdini/two_factor_authentication) gem to integrate the Time-based One Time Password (TOTP) functionality
 with the existing Devise authentication modules.
 
 
-## 2FA Set up
+## 2FA set up
 
-The Admin application contains a custom setup step which differs from the presumptions of the `two_factor_authentication` gem.
+The GovWifi admin site contains a custom set up step which differs from the presumptions of the `two_factor_authentication` gem.
 
-Where 2FA is enforced for a user they will be presented with a setup step as they log in to the Admin app.
+Where 2FA is enforced for a user they will be presented with a set up step as they sign in.
 
-A QR code will be generated for them and this should be scanned with an appropriate authenticator phone application.
+A QR code will be generated for them. They need to scan this with an authenticator app.
 
 ![Setting up 2FA](images/setup-2fa.png)
 
@@ -46,13 +46,13 @@ With this method we can include or exclude users from other organisations, it's 
 
 ## Resetting 2FA
 
-A super admin user can reset two factor authentication for any user, by going to that user's
+A super admin user can reset 2FA for any user, by going to that user's
 organisation page and clicking on the 'Reset 2FA' button next to the user's name under 'Team'
 section.
 
-An organisation's admin user can reset two factor authentication for any user part of their own
+Admin users can reset 2FA for any user part of their own
 organisation, by going to 'Team members' page and clicking on the 'Reset 2FA' link next to the
 user's name in the members listing.
 
-Note that the button or link to reset two factor authentication will only be shown against the names
-of users who have already configured two factor authentication.
+The button or link to reset 2FA will only be shown against the names
+of users who have already configured 2FA.

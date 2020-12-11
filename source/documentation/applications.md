@@ -3,7 +3,7 @@
 Our public-facing websites are:
 
 - A [product page](https://github.com/alphagov/govwifi-product-page) explaining the benefits of GovWifi
-- An [admin platform](https://github.com/alphagov/govwifi-admin) for organiations to self-serve changes to their GovWifi installation
+- An [admin site](https://github.com/alphagov/govwifi-admin) for organiations to make changes to their GovWifi installation
 - [Technical documentation](https://github.com/alphagov/govwifi-tech-docs), explaining GovWifi in more detail
 - A [redirection service](https://github.com/alphagov/govwifi-redirect) to handle "www" requests to these sites
 
@@ -24,17 +24,17 @@ Other repositories:
 - [Acceptance tests](https://github.com/alphagov/govwifi-acceptance-tests), which pulls together GovWifi end-to-end, from the various repositories, and runs tests against it.
 
 
-## Get started developing with Govwifi applications
+## Get started developing with GovWifi applications
 
-Govwifi applications are written in [Ruby](https://www.ruby-lang.org/en/) using either [Rails](https://rubyonrails.org/) and [Sinatra](http://sinatrarb.com/) web frameworks.
+GovWifi applications are written in [Ruby](https://www.ruby-lang.org/en/) using either [Rails](https://rubyonrails.org/) and [Sinatra](http://sinatrarb.com/) web frameworks.
 
 
-To get started you'll need Ruby installed on your system. We recommend using a Ruby version manager like [rbenv](https://github.com/rbenv/rbenv) which will allow you to install the correct version of Ruby for Govwifi projects.
+To get started you'll need Ruby installed on your system. We recommend using a Ruby version manager like [rbenv](https://github.com/rbenv/rbenv) which will allow you to install the correct version of Ruby for GovWifi projects.
 
 
 ### Building a development / test environment
 
-Each Govwifi application Github repository contains a [README](https://github.com/alphagov/govwifi-admin/blob/master/README.md) detailing how to build a development environment for running tests and making local changes.
+Each GovWifi application Github repository contains a [README](https://github.com/alphagov/govwifi-admin/blob/master/README.md) detailing how to build a development environment for running tests and making local changes.
 
 Most of the projects use a combination of [Make](https://www.gnu.org/software/make/), [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/) to create the necessary containers and seed data for a local development environment.
 

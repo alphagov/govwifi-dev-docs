@@ -9,7 +9,7 @@ joiners should be given access to, and leavers be removed from.
 ### Try it out!
 
 1. [Sign up to GovWifi!](https://www.wifi.service.gov.uk/about-govwifi/connect-to-govwifi/)
-2. Ask your tech lead to add you to the [Admin Portal](https://admin.wifi.service.gov.uk/) and [Admin Portal - Staging](https://admin.staging.wifi.service.gov.uk/)
+2. Ask your tech lead to add you to [GovWifi admin](https://admin.wifi.service.gov.uk/) and [GovWifi admin - staging](https://admin.staging.wifi.service.gov.uk/)
 
 ### Infrastructure
 

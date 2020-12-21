@@ -196,7 +196,6 @@ This database provides for the logging service, for tracking user sessions.
 
 Use your favourite GUI, or set up an SSH tunnel.
 
-[arch-diagram]: /images/govwifi_architecture_diagram.png "Govwifi Architecture Diagram"
 [getting-a-secret]: /secrets.html#Getting-a-secret
 [gds-cli]: https://github.com/alphagov/gds-cli
 [tech-ops-private-site]: https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf

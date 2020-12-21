@@ -1,9 +1,5 @@
 # Accessing the Infrastructure
 
-## Overview
-
-An overview of the infrastructure is shown below ![arch-diagram][arch-diagram]
-
 ## Adding new AWS users
 
 You can add new AWS users to the govwifi AWS accounts by:

@@ -9,7 +9,7 @@ Deploying GovWifi is done via Concourse, [hosted by GDS][gds_concourse].
 
 You will need to be part of the GovWifi team, and logged in.
 
-## Core Services
+## Core services
 
 For the core services, there is a [central deployment pipeline][concourse_deploy_pipeline].
 
@@ -17,7 +17,7 @@ The code is hosted in the [pipeline repo][concourse_deploy_pipeline_repo]
 
 This covers the:
 
-- Admin portal
+- Admin site
 - Authentication API
 - Logging API
 - User Signup API
@@ -43,7 +43,7 @@ This ensures that an update to a service will work between the rest of the servi
 - Run the job in the pipeline, titled `Confirm Deploy to <service> Production`
 - Concourse will deploy to the Production environments
 
-## Docs and the Product Page
+## Docs and the product page
 
 The [Dev Docs][dev-docs-repo], [Tech Docs][tech-docs-repo], and [Product Page][product-page-repo] each have their
 own pipelines located in their repos.

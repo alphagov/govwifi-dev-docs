@@ -8,7 +8,7 @@ However with certificate based authentication it means that a device can connect
 Note that this is an alpha feature. A handful of organisations were selected to participate in the alpha pilot, and it is not currently open to new organisations.
 
 ## How it works
-1. Register your organisation with the GovWifi Admin portal and setup the “GovWifi” SSID on your local network.
+1. Register your organisation on the GovWifi admin site and setup the “GovWifi” SSID on your local network.
 2. Setup a “Certificate Authority” using a Public Key Infrastructure (PKI) software tool. This allows the organisation to sign certificates.
 3. Using your PKI, sign client certificates (i.e. certificates to be used by any devices being connected to GovWifi).
 4. Provide us with your root/intermediate CA certificate used to sign these client certificates.

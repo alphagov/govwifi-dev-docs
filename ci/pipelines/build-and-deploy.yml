@@ -54,14 +54,8 @@ jobs:
         submodules: none
     - get: govwifi-dev-docs
       trigger: true
-    - task: set-pipelines
-      file: tech-ops/ci/tasks/self-updating-pipeline.yaml
-      input_mapping: {repository: govwifi-dev-docs}
-      params:
-        CONCOURSE_TEAM: govwifi
-        CONCOURSE_PASSWORD: ((readonly_local_user_password))
-        PIPELINE_PATH: ci/pipelines/build-and-deploy.yml
-        PIPELINE_NAME: dev-docs-deploy
+    - set_pipeline: self
+      file: govwifi-dev-docs/ci/pipelines/build-and-deploy.yml
 
   - name: build
     interruptible: true

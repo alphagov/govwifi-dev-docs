@@ -55,6 +55,18 @@ generated for our `github-jenkins` Github user.
 We currently have a tab with default Google Analytics dashboard open. This will be iterated over
 to make it more useful in the near future.
 
+### Prometheus
+
+[Prometheus](https://prometheus.io/docs/introduction/overview/) is an open source software application used for event monitoring and alerting. It records real-time metrics in a time series database built using a HTTP pull model, with flexible queries and real-time alerting.
+
+We run a Prometheus server which scrapes metrics from Prometheus log exporters running on the FreeRADIUS containers. 
+
+These Prometheus log exporters provide a wide range of information about the actual FreeRADIUS server state and the packages being processed.
+
+The information is used for diagnostics and tracking service availability.
+
+Please speak to the reliability engineers on the team about access.
+
 ## General
 
 The bottom monitor has general team-specific things, mostly for meetings and ceremonies.

@@ -91,7 +91,7 @@ where `<password_store_dir>` is the path of the `passwords` directory of the
 [govwifi-build](https://github.com/alphagov/govwifi-build) repository on your
 local machine.
 
-You should now be able to connect to each of the hosts using ssh and the hostnames mentioned in `instructions.txt`
+You should now be able to connect to each of the hosts using ssh and the hostnames mentioned in `instructions.txt`.
 
 Example: 
 

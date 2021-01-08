@@ -1,46 +1,83 @@
-# Device Wifi: Certificate Authentication (Alpha)
+# About the 'device wifi' alpha
 
-## What is Certificate Authentication
-GovWifi requires a user to have either a government email address, be sponsored by someone with a government email address, or have a mobile phone number. Many users re-used their own personal username and password multiple times for managed devices as a workaround for not having a certificate based system to use.
+This page explains the 'device wifi' alpha that we ran in early 2020.
 
-However with certificate based authentication it means that a device can connect rather than a person, this removes the need to remember a username and password everytime you want to connect to the internet. This then also solves the problem of IT manager's needing to connect dozens of managed devices.
+A few organisations took part. Device wifi is not currently available to organisations and we're not progressing this at the moment (January 2021). We may do so in the future though.
 
-Note that this is an alpha feature. A handful of organisations were selected to participate in the alpha pilot, and it is not currently open to new organisations.
+Device wifi is also referred to as 'certificate-based authentication'.
+
+## What is device wifi?
+
+ Currently, end users need to create their GovWifi account themselves by either:
+
+- sending a blank email to us from a public sector email address
+- sending a text message to us
+- asking a public sector worker to email us with the end user's email address
+
+They then get sent credentials to sign in with.
+
+With device wifi, the device connects to the internet using trusted certificates, instead of the person's username and password.
+
+## The user need
+
+Some organisations told us they needed devices to connect to the internet through certificates instead of credentials. They were already using workarounds to meet their needs.
+
+To connect multiple managed devices to GovWifi quickly, staff members working in IT teams have used their own GovWifi usernames and passwords. This includes when they needed to:
+
+- make sure lots of new people joining at once would have immediate access to the internet
+- connect standalone devices, like printers, monitors or shared laptops
+
+This means that the IT staff member's GovWifi account details were associated to hundreds of devices. Any malicious internet activity on those devices would be attributed to them.
 
 ## How it works
-1. Register your organisation on the GovWifi admin site and setup the “GovWifi” SSID on your local network.
-2. Setup a “Certificate Authority” using a Public Key Infrastructure (PKI) software tool. This allows the organisation to sign certificates.
-3. Using your PKI, sign client certificates (i.e. certificates to be used by any devices being connected to GovWifi).
-4. Provide us with your root/intermediate CA certificate used to sign these client certificates.
-5. Devices can now connect to the internet via GovWifi wherever GovWifi is offered. However when connecting to GovWifi that EAP-TLS is selected.
+
+Certificate based authentication gives devices automatic access to GovWifi as long as they have a valid certificate issued by Public Key Infrastructure (PKI) trusted by GovWifi service. Organisations become trusted when their Certification Authority (CA) certificates are uploaded to the FreeRADIUS infrastructure.
+
+1. Organisations register on the GovWifi admin site.
+2. They set up the “GovWifi” SSID on their local network.
+3. They set up a “Certificate Authority” using a Public Key Infrastructure (PKI) software tool. This lets them sign certificates.
+4. Using their PKI, they can sign client certificates (certificates that will be used by any devices being connected to GovWifi).
+5. They give us their root/intermediate CA certificate used to sign these client certificates.
+6. Devices can now connect to the internet via GovWifi wherever GovWifi is offered. When connecting to GovWifi, EAP-TLS needs to be selected.
 
 ![process]
 
-## Where is the code
-- You can find the code for Certificate Authentication within the [govwifi-frontend](https://github.com/alphagov/govwifi-frontend) repo
-- You can find where the EAP-TLS is handled in FreeRADIUS [here](https://github.com/alphagov/govwifi-frontend/blob/master/radius/mods-enabled/eap#L7)
-- You can find the folder where the root CA certificates are held [here](https://github.com/alphagov/govwifi-frontend/blob/4b65fd464c7362ad8bb5d0773ec61177faf90eb2/Dockerfile#L49)
+## Where to find the code
 
-## Common tasks
+The code for certificate authentication is in the [govwifi-frontend repo](https://github.com/alphagov/govwifi-frontend).
 
-### Receive changes to root/intermediate CA certificates from organisations
+The EAP-TLS is handled in [FreeRADIUS](https://github.com/alphagov/govwifi-frontend/blob/master/radius/mods-enabled/eap#L7).
 
-As mentioned above, organisations send us their root/intermediate CA certificates. These are kept in `govwifi-build`, in the encrypted file `passwords/certs/production/ca.pem.gpg`. Therefore, in case an organisation wants to send us new certificates or delete existing ones, this file would need to be edited to add or remove them. To edit this, do this:
+There's a [root CA certificates folder](https://github.com/alphagov/govwifi-frontend/blob/4b65fd464c7362ad8bb5d0773ec61177faf90eb2/Dockerfile#L49) in.
+
+### How to receive changes to root/intermediate CA certificates from organisations
+
+Receiving changes to certificates would be a common task for developers if we supported device wifi.
+
+Organisations send us their root/intermediate CA certificates. These are kept in `govwifi-build`, in the encrypted file `passwords/certs/production/ca.pem.gpg`. If an organisation wants to send us new certificates or delete existing ones, this file would need to be edited to add or remove them.
+
+To edit this file, do this:
 
 `PASSWORD_STORE_DIR=<password_store_dir> pass edit passwords/certs/production/ca.pem`
 
-Once a change has been made to this file and it has been merged into the main branch, the Concourse pipeline `sync-frontend-certs` gets triggered, which syncs the certificates to an S3 bucket which is read by the FreeRADIUS servers during initialisation. Note that this is only synced to staging automatically, and syncing to production must be triggered manually from Concourse, in order for any changes to take effect for production users.
+Once a change has been made to this file and it has been merged into the main branch, the Concourse pipeline `sync-frontend-certs` gets triggered, which syncs the certificates to an S3 bucket which is read by the FreeRADIUS servers during initialisation.
 
-## Common issues
-- Organisations may send us CA certificates that either don't have the full chain of trust or aren't actually the CA certs that signed the client certs
-- For organisations with limited IT resources GovWifi Devices is more difficult to set up and manage.
-- For organisations using a Windows operating system, GovWifi Devices is more difficult to set up.
-- Organisations have a lack of knowledge about how certificate authentication works, specifically around openSSL
-- The time taken to receive certificates from organisations is much longer than anticipated.
-- Organisations are having to seek security permissions and sign-off from decision makers, before they can send their certificate.
-- The process of receiving certificates by email and uploading them manually is time consuming for service developers.
-- Organisations may be unaware that certificates expire, which could generate a support load from end-users that is unmanageable for service  developers.
+This is only synced to staging automatically. Syncing to production must be triggered manually from Concourse, in order for any changes to take effect for production users.
 
-For more information about the user research that has gone into Certificate Authentication thus far click [here](https://docs.google.com/presentation/d/1k0pr32ZmJ7NHVCEf4_sWLrt2pL_e5vtgcezPBdPLZ5A/edit#slide=id.g4c75c45c21_0_17)
+## Common issues with device wifi
+
+We know that:
+
+- device wifi is more difficult to set up and manage than the current GovWifi offer, especially for organisations with limited IT resource or using a Windows operating system
+- some organisations do not know how certificate authentication works, specifically openSSL
+- organisations may not know that certificates expire
+- the time taken to receive certificates from organisations is much longer than anticipated
+- organisations have to get security permissions and sign off from decision makers before they can send certificates
+- organisations may send us CA certificates that either don't have the full chain of trust or aren't actually the CA certificates that signed the client certificates
+- the process of receiving certificates by email and uploading them manually is time consuming
 
 [process]: images/cert-auth.png
+
+## Find out more
+
+You can [read more about device wifi](https://drive.google.com/drive/folders/1TFz9ltcEAMkUI1sePreig9od87vWx6dK).

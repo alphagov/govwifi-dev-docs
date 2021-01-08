@@ -28,7 +28,7 @@ These lists are not exhaustive, so sometimes we need to add organisations and do
 
 ### Check if it’s a public sector organisation
 
-If someone wants to know if their organisation or email domain can use GovWifi, check that they it's a public sector organisation. You can usually tell by Googling it.
+If someone wants to know if their organisation or email domain can use GovWifi, check that it's a public sector organisation. You can usually tell by Googling it.
 
 If it's a public sector organisation:
 
@@ -53,7 +53,6 @@ If you’re not sure:
 
 If individual users are having problems that are not related to their username and password, it's probably due to local issues - not GovWifi. This includes:
 
-- their device not connecting to the network
 - connectivity dropping or slow internet speeds
 - not being able to access certain websites or do specific things on the network
 

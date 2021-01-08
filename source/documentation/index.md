@@ -1,5 +1,17 @@
 # GovWifi Team Manual
 
-This is the technical documentation for the internal GDS [GovWifi](https://www.wifi.service.gov.uk/) team.
+This is the Team Manual for GovWifi. It should be a clear, accurate source of information about working on the service.
 
-If you're looking for the technical guidance for GovWifi, see the [technical documentation for GovWifi](https://docs.wifi.service.gov.uk/).
+In particular, it aims to be:
+- an introduction to the service for new starters
+- a practical guide to common tasks that the team do
+
+These pages are public. We work in the open, so feel free to add and update them with anything you think would be useful. However, do not add:
+
+- anyone’s personal details without their consent
+- passwords
+- Secrets
+- IP addresses
+- any sensitive information - for example, about strategy or technology - that would be a risk to GovWifi or GDS if it was public
+
+If you’re not sure, check with the product manager, delivery manager or tech lead. 

@@ -1,9 +1,6 @@
 # Monitoring
 
-We now have dashboards!
-
-We currently display dashboards on our TV monitors (two of them), running on ChromeOS. This section
-outlines what's currently displayed on them.
+This section explains how to read the display dashboards on our TV monitors in the office. 
 
 ## Technical
 
@@ -59,7 +56,7 @@ to make it more useful in the near future.
 
 [Prometheus](https://prometheus.io/docs/introduction/overview/) is an open source software application used for event monitoring and alerting. It records real-time metrics in a time series database built using a HTTP pull model, with flexible queries and real-time alerting.
 
-We run a Prometheus server which scrapes metrics from Prometheus log exporters running on the FreeRADIUS containers. 
+We run a Prometheus server which scrapes metrics from Prometheus log exporters running on the FreeRADIUS containers.
 
 These Prometheus log exporters provide a wide range of information about the actual FreeRADIUS server state and the packages being processed.
 

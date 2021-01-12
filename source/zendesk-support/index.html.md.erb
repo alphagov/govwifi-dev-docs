@@ -1,0 +1,98 @@
+---
+title: Zendesk
+weight: 9
+---
+
+# Zendesk support: how to respond to common questions
+
+This section explains what to do in response to common support questions, where there:
+
+- is not a macro for that situation
+- is a macro, but there are extra are things you need to do before you can send it
+
+If you need information about the Zendesk schedule, process or interface, see the [Zendesk best practice slide deck](https://docs.google.com/presentation/d/1K8jYWmk0fq__hcfG6YmelNRE7YsEtDvd9TKneQwyI4E/edit#slide=id.p8).
+
+## I need to reset my password
+
+We have a stock response for this in Zendesk. Use the macro ‘GovWifi - end user - asking for new or existing sign in details’.
+
+Users often ask to reset their password but they do not usually need to do this. If they’ve forgotten or lost their password, they can get a reminder by following the sign up instructions again.
+
+When they email or text us, we can tell if they have a GovWifi account already. If they do, we’ll send their existing username and password in reply.
+
+If a user thinks that their password has been compromised, then we can delete their account. Developers can do this. The user can then sign up to GovWifi again using the same email address.
+
+## Can my organisation use GovWifi?
+
+All public sector organisations can offer GovWifi. This means they must be funded or controlled by the UK government.
+
+End users do not have to be from a public sector organisation to create a GovWifi account. However, only people with public sector email addresses can get a username and password via the email sign up route.
+
+We have a register of public sector organisations that organisations need to be on before they can offer GovWifi. We also have a list of approved email domains that a domain needs to be on before a person can use the email sign up route.
+
+These lists are not exhaustive, so sometimes we need to add organisations and domains to these ‘allow lists’ manually.
+
+### Check if it’s a public sector organisation
+
+If someone wants to know if their organisation or email domain can use GovWifi, check that it's a public sector organisation. You can usually tell by Googling it.
+
+If it's a public sector organisation:
+
+1. Go to the [GovWifi Super admin site](https://admin.wifi.service.gov.uk/users/sign_in).
+2. Go to the ‘allow list’ section.
+3. Follow the steps to add the organisation and its email domain to the allow list.
+4. In Zendesk, select the macro ‘GovWifi - request to add a new email domain’.
+5. Edit the macro - there are 3 possible responses depending on whether the organisation is public sector or not. You need to send the part that confirms the organisation is now approved.
+
+If it's not a public sector organisation:
+
+1. In Zendesk, select the macro ‘GovWifi - request to add a new email domain’.
+2. Edit the macro - there are 3 possible responses depending on whether the organisation is public sector or not. You need to send the part that says we cannot approve the organisation.
+
+If you’re not sure:
+
+1. In Zendesk, select the macro ‘GovWifi - request to add a new email domain’.
+2. Edit the macro - there are 3 possible responses depending on whether the organisation is public sector or not. You need to send the part that asks for more information.
+3. If the person responds and it’s still unclear, copy in the service owner who will take it from there.
+
+## I’m having problems using the internet once connected
+
+If individual users are having problems that are not related to their username and password, it's probably due to local issues - not GovWifi. This includes:
+
+- connectivity dropping or slow internet speeds
+- not being able to access certain websites or do specific things on the network
+
+Users with these issues should contact IT support for the building they’re in. The IT team will be able to look for problems with the device or local network.  
+
+This is because GovWifi is not a network itself. It's an authentication layer that sits on top of an organisation’s existing wifi infrastructure. It just appears as a network to end users so they know they can use their username and password to get on the internet. The network is managed by the building’s IT team, who also set the policies for network use.
+
+## I need information about a user
+
+If an organisation knows an individual user has done something malicious or breached an acceptable use policy on its network, it can ask for the information we hold about that user.
+
+We have either the email address or phone number of all users with GovWifi accounts.
+
+Before you can provide user information to an organisation:
+
+1. Go to the [Super admins site](https://admin.wifi.service.gov.uk/users/sign_in).
+2. Go to the 'Team members' section and check that the request is coming from an admin user at that organisation.
+3. Go to the ‘Organisations’ section and search the organisation name.
+4. You’ll see a section called ‘MOU’ which will show whether the organisation has signed the Memorandum of Understanding (MOU). The MOU sets out the terms that we share personal data under.
+
+If the organisation has not signed the MOU, go to Zendesk and send the macro response ‘GovWifi - admin user - asking for info about an end user - MOU not signed’. Escalate to the service owner if the organisation has any questions about this.
+
+If it has signed the MOU, you can send them the information.
+
+### How to find the information
+
+User information is stored in a database. Only developers can access it.
+
+If you’re not a developer, ask one of them to get the information for you. It usually takes a couple of days, as it takes a while and has to be prioritised around other work.
+
+To send them the information, use the Zendesk macro 'GovWifi - admin user - MOU signed'. Some organisations are not aware that end users can sign up by text message, so explain this if you're sending them a phone number.
+
+## Can you block a user on our network?
+
+No. If an organisation wants to block a user, the IT team will need to do this locally.
+
+The user will still be able to access the internet using GovWifi in other buildings.

@@ -1,0 +1,60 @@
+---
+title: GovWifi infrastructure
+weight: 7
+---
+
+# Learn about the infrastructure
+
+This section gives an overview of the GovWifi infrastructure.
+
+## VPN
+
+All connections must be made via the GDS VPN. Please contact your local service desk for access.
+
+## Elastic IPs
+
+The Radius servers are configured to use elastic IPs (EIPs). There are six in total: three for the London AWS region and three for Ireland. Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
+
+It is critical the EIPs do not change since this would break the configuration between organisations and our services, thereby removing organisations' access to GovWifi.
+
+In order to prevent this from happening unintentionally, we configure AWS to deny any request to release the EIPs unless it's from the GovWifi AWS account. Deletion of EIPs is now managed by terraform in the [`aws-billing-account`][aws-billing-account] repo and protected from accidental change.
+
+## Bastions
+
+The bastion servers act as a gateway to their respective clusters + databases.
+That is to say:
+
+- To access any Staging database or server, you must access via the staging bastion.
+- To access any Production database or server, you must access via the production bastion.
+
+## Databases
+
+There are 10 databases in total:
+
+### Production
+
+- Admin, MySQL 5.7
+  - Primary in London
+- Sessions, MySQL 5.7
+  - Primary in London
+  - Replica in London
+- Users, MySQL 8.0
+  - Primary in London
+  - Replica in London
+  - Replica in Dublin
+
+### Staging
+
+- Admin, MySQL 5.7
+  - Primary in London
+- Sessions, MySQL 5.7
+  - Primary in London
+- Users, MySQL 8.0
+  - Primary in London
+  - Replica in Dublin
+
+[getting-a-secret]: /secrets.html#Getting-a-secret
+[gds-cli]: https://github.com/alphagov/gds-cli
+[tech-ops-private-site]: https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf
+[tech-ops-private-site]: https://github.com/alphagov/tech-ops-private
+[aws-billing-account]: https://github.com/alphagov/aws-billing-account/blob/master/account_terraform/service_control_policies.tf

@@ -1,0 +1,39 @@
+---
+title: Access bastion servers
+weight: 30
+---
+
+# Access bastion servers
+
+## Secrets
+
+[Extract the SSH Key secrets](/infrastructure/secrets/#get-started-using-secrets) for the bastion server:
+
+- staging secret name: `keys/govwifi-staging-bastion-key`
+- production secret name: `keys/govwifi-bastion-key`
+
+Find out the Elastic IPs for the bastion servers. You can do this by going into the AWS console,
+and find the instances with the Bastion name in.
+
+Remember that there are 2 regions, so there may be more than 2 bastions.
+
+## SSH Config
+
+It is recommended to set up an ssh config for ease of use. Instructions how to
+set up your SSH config is in the Password Store of Govwifi where you can run:
+
+```sh
+PASSWORD_STORE_DIR=<password_store_dir> pass show ssh/instructions.txt
+```
+
+where `<password_store_dir>` is the path of the `passwords` directory of the
+[govwifi-build](https://github.com/alphagov/govwifi-build) repository on your
+local machine.
+
+You should now be able to connect to each of the hosts using ssh and the hostnames mentioned in `instructions.txt`.
+
+Example:
+
+```sh
+ssh example.hostname
+```

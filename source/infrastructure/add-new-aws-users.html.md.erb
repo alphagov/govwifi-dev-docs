@@ -1,0 +1,39 @@
+---
+title: Adding new AWS users
+weight: 10
+---
+
+# Adding new AWS users
+
+You can add new AWS users to the GovWifi AWS accounts by:
+
+1. first verifying with the GovWifi developers whether to grant `admin` or `read-only` access.
+
+1. adding the user with the appropriate privileges to the [Terraform code that describes GovWifi's account](https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf). You need to get the pull request approved and merged by Reliability Engineering.
+
+1. deploying the Terraform changes by:
+
+     a. going to the [GovWifi account directory Terraform](https://github.com/alphagov/tech-ops-private/tree/master/reliability-engineering/terraform):
+
+     ```sh
+     cd terraform/deployments/re-govwifi/account/
+     ```
+
+     b. using the [gds-cli](https://github.com/alphagov/gds-cli), initialise Terraform if you have not done so previously:
+
+     ```sh
+     gds aws govwifi -- terraform init
+     ```
+
+     c. planning the Terraform project to make sure the changes are what you intend to deploy:
+
+     ```sh
+     gds aws govwifi -- terraform plan
+     ```
+
+     d. applying the Terraform changes if you are happy to proceed:
+
+     ```sh
+     gds aws govwifi -- terraform apply
+     ```
+

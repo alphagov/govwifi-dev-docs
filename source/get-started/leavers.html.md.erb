@@ -1,0 +1,59 @@
+---
+title: Leaving
+weight: 10
+---
+
+# Leaving the GovWifi team
+
+All good things must come to an end!
+
+## Things that will need to be done for everyone
+
+These are the things that will need to be done for everyone who leaves the team.
+
+### Remove their access to GovWifi admin
+
+Their access to GovWifi admin on production and staging should be removed. This also includes GovWifi 'Super Admin' permissions.
+
+### Remove permissions
+
+Their access to the following should be removed:
+
+- the GovWifi Trello team and boards
+- the team Google Drive
+- Zendesk - they should be removed from `[2nd/3rd Lin -- Zendesk Administration]` view
+
+They should also removed from these Google groups:
+
+- GovWifi-Core-Team
+- GovWifi-Support
+
+Depending on their role, their access may also need to be removed from:
+
+- GovWifi’s Notify account
+- GovWifi’s Notify staging account
+- Google Analytics
+- the GovWifi-Critical-Alerts Google group
+- the GovWifi-Feedback Google group
+
+If they use GitHub, the tech lead will remove them from the relevant GitHub teams (e.g. `govwifi-developers`). If they are also leaving GDS, the tech lead only needs to remove membership from the `alphagov` organisation on GitHub.
+
+## Things that will need to be done for a developer
+
+Remove them from the `GovWifi-DevOps` Google group.
+
+### Infrastructure
+
+- [Remove access to the infrastructure](/infrastructure/#learn-about-infrastructure) - this includes access to databases and ssh.
+- [Remove access to GOV.UK PaaS (Platform as a Service)](https://docs.cloud.service.gov.uk/orgs_spaces_users.html#remove-users-from-an-org) - the tech lead will remove them from the GovWifi organisation.
+
+### Secrets
+
+Their access to secrets would need to be removed.
+
+### Monitoring tools
+
+Their access to these should be removed:
+
+- [Concourse](https://cd.gds-reliability.engineering/)
+- [Grafana](https://grafana-paas.cloudapps.digital/?orgId=4)

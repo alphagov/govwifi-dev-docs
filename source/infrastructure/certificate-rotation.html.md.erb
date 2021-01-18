@@ -5,16 +5,22 @@ last_reviewed_on: 2021-01-10
 review_in: 6 months
 ---
 
-# GovWifi Certificates
+# GovWifi certificates
 
-GovWifi certificates are rotated every couple of years.
+We rotate the GovWifi certificate every couple of years.
 
-The actual rotation is handled by the SREs. In addition, the following will also need to be updated once this is done:
+The actual rotation is handled by the SREs. 
 
-## Product pages
+When the rotation is done, we need to update the following things.
 
-There are a number of pages here which include information about the certificate GovWifi uses, including text and screenshots images. These would need to be updated in order to remain relevant and correct.
+## Update the product pages
 
-## Email template
+The [product pages](https://www.wifi.service.gov.uk/) mention the certificate GovWifi uses in text and screenshots. 
 
-The welcome email includes certificate details, including issuer and thumbprint. These would need to be updated.
+You can find and update this content in the [product pages repo](https://github.com/alphagov/govwifi-product-page) on Github.
+
+## Update the email template
+
+When new end users sign up, they receive an email. The email includes certificate details like the issuer and thumbprint. 
+
+You can find and update the template in [Notify](https://www.notifications.service.gov.uk/sign-in).

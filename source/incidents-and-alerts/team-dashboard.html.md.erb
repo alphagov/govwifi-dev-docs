@@ -69,7 +69,32 @@ These Prometheus log exporters provide a wide range of information about the act
 
 The information is used for diagnostics and tracking service availability.
 
-Please speak to the reliability engineers on the team about access.
+If you have ssh access you can run follow the instructions below to see the dashboard.
+If not, please speak to the reliability engineers on the team about access.
+
+Staging
+
+```
+ssh -L 9090:127.0.0.1:9090 prometheus.staging.govwifi
+```
+
+Production Ireland
+
+```
+ssh -L 9090:127.0.0.1:9090 prometheus-ie.govwifi
+```
+
+Production London
+
+```
+ssh -L 9090:127.0.0.1:9090 prometheus.govwifi
+```
+
+After running the command you should be able to access the Prometheus dashboard
+by entering the following address in your browser:
+
+[http://localhost:9090/](http://localhost:9090/)
+
 
 ## General
 

@@ -45,21 +45,29 @@ This ensures that an update to a service will work between the rest of the servi
 
 ### Trigger a deployment
 
-1. Push to the master branch.
+1. Merge your development branch to `master`.
 2. Concourse will test, build and deploy to the Staging environments.
 3. Run the job in the pipeline, titled `Confirm Deploy to <service> Production`.
 4. Concourse will deploy to the Production environments.
 
 ## Docs and the product page
 
-The [Dev Docs][dev-docs-repo], [Tech Docs][tech-docs-repo], and [Product Page][product-page-repo] each have their
-own pipelines located in their repos.
+The [Dev Docs][dev-docs-repo], [Tech Docs][tech-docs-repo], and [Product Page][product-page-repo] 
+use a static site generator called [Middleman][middleman].
 
-They deploy out to [GovPaaS][govpaas] whenever a change is made to the `master` branch of each repo.
+### Pull Request Previews
 
-### Trigger a deployment
+Automatic branch previews are deployed to Heroku.
 
-1. Push to the master branch.
+When a PR is raised, a deploy is triggered automatically and the link appears inline on the PR.
+
+### Production
+
+Each repo has it's own pipeline which deploys out to [GovPaaS][govpaas] whenever a change is made to the `master` branch.
+
+#### Trigger a deployment
+
+1. Merge your development branch to `master`.
 2. Concourse will build + deploy to GovPaaS.
 3. Verify contents is deployed (you may need to add a `GET` parameter to bust the cache).
 
@@ -71,3 +79,4 @@ They deploy out to [GovPaaS][govpaas] whenever a change is made to the `master` 
 [tech-docs-repo]: https://github.com/alphagov/govwifi-tech-docs
 [product-page-repo]: https://github.com/alphagov/govwifi-product-page
 [govpaas]: https://www.cloud.service.gov.uk/
+[middleman]: https://middlemanapp.com/

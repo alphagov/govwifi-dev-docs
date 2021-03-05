@@ -73,6 +73,12 @@ You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/go
 
 See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14) to set up variables.
 
+## How to contribute
+
+1. Fork the project (or clone for internal contributors)
+2. Create a feature or fix branch
+3. Make your changes (with tests if applicable)
+4. Raise a pull request
 
 ## Licence
 

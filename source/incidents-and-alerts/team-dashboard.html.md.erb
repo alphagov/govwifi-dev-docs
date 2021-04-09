@@ -1,8 +1,8 @@
 ---
 title: Team dashboards
 weight: 10
-last_reviewed_on: 2021-01-10
-review_in: 3 months
+last_reviewed_on: 2021-04-08
+review_in: 6 months
 ---
 
 # Team dashboards
@@ -18,20 +18,20 @@ The top monitor has technical dashboards worth keeping an eye on throughout the 
 Grafana is an open source analytics and monitoring platform, and we use it for monitoring the health
 of GovWifi in realtime.
 
-GovWifi has its own organisation, and we have admin-level access so we can now make our own changes
-without having to always involve RE.
+We have access to two types of Grafana metrics.
 
-We currently have two dashboards in Grafana, which are both shown on the TV monitor:
+#### Self Hosted
 
-1. The first is for monitoring performance of GovWifi Product Pages and Tech Docs, and is available
+This is used for monitoring GovWifi infrastructure and APIs. In-depth information on the technical setup of this is available [here](https://docs.google.com/document/d/1mmYZPagv0pPrs4f4iGANEoj5GTMisZU1RyN1qaP5dck/) (you must be a member of the Govwifi team to view this document). You can access this dashboard at the links below (you must be signed into the dashboard to do this):
+
+[Production](https://grafana.wifi.service.gov.uk/)
+[Staging](https://grafana.staging.wifi.service.gov.uk/)
+
+#### Hosted on PaaS(Platform as a Service)
+
+Our [PaaS](https://docs.cloud.service.gov.uk/#gov-uk-platform-as-a-service) hosted Grafana has its own organisation, developers and RE have admin-level access. It is used for monitoring performance of GovWifi Product Pages and Tech Docs, and is available
 [here](https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi).
 
-2. The second is for monitoring GovWifi's SLIs for authentication journeys, as well as success rates
-for SMS and email responses, and is available
-[here](https://grafana-paas.cloudapps.digital/d/THPLfGxWk/govwifi-slis?orgId=4).
-
-    Grafana currently gets these metrics from AWS CloudWatch. In order to grant Grafana access to
-    these, we are using an access key generated for the `monitor` IAM user in our AWS account.
 
 ### Concourse
 

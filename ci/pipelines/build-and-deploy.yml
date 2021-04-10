@@ -90,6 +90,7 @@ jobs:
             - -c
             - |
               apt-get update
+              curl -sL https://deb.nodesource.com/setup_14.x | bash -
               apt-get install -y nodejs
               bundle install --without development
               bundle exec middleman build

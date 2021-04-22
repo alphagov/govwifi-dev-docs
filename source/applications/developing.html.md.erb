@@ -23,11 +23,11 @@ Most of the projects use a combination of [Make](https://www.gnu.org/software/ma
 
 Please read the [GDS Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md) which details how your code commits should be structured.
 
-Once you're happy with your changes locally, submit a pull request.
+Once you're happy with your changes locally, submit a pull request. Raising a pull request in GitHub automatically notifies the #govwifi-monitoring Slack channel.
 
 We follow the [GDS Way for pull request best practices](https://gds-way.cloudapps.digital/standards/pull-requests.html#content).
 
-Pull request titles should be pithy and under Github's 72 character limit.
+Pull request titles should be pithy and under Github's 72 character limit. If the PR is a work in progress add `WIP` to the title so GitHub won't alert in the #govwifi-monitoring channel.
 
 Use this format for the pull request description:
 
@@ -36,14 +36,12 @@ Use this format for the pull request description:
 Describe the change
 
 ### Why
-Describe why you made the change
+Describe why the change was necessary
 ```
 
 If applicable, link to a Trello card or screen shots.
 
 Pull requests are linted and tests are run on [Concourse CI](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/admin-pr), the resulting status is shown on the PR.
-
-Once everything is green on CI, you can ask a team member to review your PR.
 
 ## Merging and deploying changes
 

@@ -1,7 +1,7 @@
 ---
 title: Access databases
 weight: 40
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -11,7 +11,7 @@ To access each one, you will need to use their respective credentials and bastio
 
 ## Admin database
 
-This database provides for the Admin portal, storing organisation details.
+This database exists for the Admin site, storing organisation details.
 
 **AWS Naming convention**: Used for finding the database in the AWS Console
 
@@ -27,16 +27,17 @@ Connect to the admin database:
 - Production: `grep 'admin-db-username' '.private/non-encrypted/secrets-to-copy/govwifi/wifi-london/variables.auto.tfvars'`
 - Staging: `grep 'admin-db-username' '.private/non-encrypted/secrets-to-copy/govwifi/staging-london/variables.auto.tfvars'`
 
-**Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
+**Password**: Get the password from AWS Secrets Manager:
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars | grep admin-db-password`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars | grep admin-db-password`
+- Log in to the AWS console
+- Navigate to the Secrets Manager service
+- Search for 'RDS'
 
 Use your favourite GUI, or set up an SSH tunnel.
 
 ## Users database
 
-This database provides for the authentication service, for storing user credentials and login activity.
+This database exists for the authentication service, for storing user credentials and login activity.
 
 **AWS Naming convention**: Used for finding the database in the AWS Console
 
@@ -50,16 +51,17 @@ This database provides for the authentication service, for storing user credenti
 - Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-username"`
 - Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars  | grep -e "^user-db-username"`
 
-**Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
+**Password**: Get the password from AWS Secrets Manager:
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-password"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^user-db-password"`
+- Log in to the AWS console
+- Navigate to the Secrets Manager service
+- Search for 'RDS'
 
 Use your favourite GUI, or set up an SSH tunnel.
 
 ## Sessions database
 
-This database provides for the logging service, for tracking user sessions.
+This database exists for the logging service, for tracking user sessions.
 
 **AWS Naming convention**: Used for finding the database in the AWS Console
 
@@ -73,9 +75,10 @@ This database provides for the logging service, for tracking user sessions.
 - Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-user"`
 - Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/staging-london/secrets.auto.tfvars  | grep -e "^db-user"`
 
-**Password**: Get the password from the [encrypted terraform secrets][getting-a-secret]:
+**Password**: Get the password from AWS Secrets Manager:
 
-- Production: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-password"`
-- Staging: `PASSWORD_STORE_DIR=.private/passwords pass show secrets-to-copy/govwifi/wifi-london/secrets.auto.tfvars  | grep -e "^db-password"`
+- Log in to the AWS console
+- Navigate to the Secrets Manager service
+- Search for 'RDS'
 
 Use your favourite GUI, or set up an SSH tunnel.

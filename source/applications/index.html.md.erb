@@ -1,7 +1,7 @@
 ---
 title: Applications
 weight: 5
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -16,16 +16,17 @@ Our public-facing websites are:
 
 Our services include:
 
-- [Frontend servers](https://github.com/alphagov/govwifi-frontend), instances of freeRADIUS that act as authentication servers
-- An [authentication API](https://github.com/alphagov/govwifi-authentication-api), which the frontend calls to help authenticate GovWifi requests
-- A [logging API](https://github.com/alphagov/govwifi-logging-api), which the frontend calls to record each GovWifi request
+- [FreeRADIUS servers](https://github.com/alphagov/govwifi-frontend), instances of FreeRADIUS that act as authentication servers (also known as the "frontend" servers)
+- An [authentication API](https://github.com/alphagov/govwifi-authentication-api), which the FreeRADIUS servers call to help authenticate GovWifi requests
+- A [logging API](https://github.com/alphagov/govwifi-logging-api), which the FreeRADIUS servers call to record each GovWifi request
 - A [user signup API](https://github.com/alphagov/govwifi-user-signup-api), which handles incoming sign-up texts and e-mails (with a little help from AWS)
 
 We manage our infrastructure via:
 
 - Terraform, see [govwifi-terraform](https://github.com/alphagov/govwifi-terraform)
-- The [safe restarter](https://github.com/alphagov/govwifi-safe-restarter), which uses a [CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html) strategy to increase the stability of the frontends
+- The [safe restarter](https://github.com/alphagov/govwifi-safe-restarter), which uses a [CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html) strategy to increase the stability of the FreeRADIUS servers
 
 Other repositories:
 
 - [Acceptance tests](https://github.com/alphagov/govwifi-acceptance-tests), which pulls together GovWifi end-to-end, from the various repositories, and runs tests against it.
+- [Smoke tests](https://github.com/alphagov/govwifi-smoke-tests), a collection of rspec with Capybara tests, using Firefox to access the live application. These smoke test the primary service journeys (authentication, sign-up, and admin site user journeys).

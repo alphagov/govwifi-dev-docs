@@ -1,7 +1,7 @@
 ---
 title: Learn about FreeRADIUS
 weight: 80
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -9,7 +9,7 @@ review_in: 6 months
 
 ## AAA
 
-GovWifi currently has a set of 6 RADIUS servers. These servers control network access with [AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
+GovWifi currently has a set of six RADIUS servers. These servers control network access with [AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
 ![Exchange with Supplicant](/images/radius_exchange.png)
 
 ### Authentication
@@ -23,9 +23,8 @@ GovWifi currently has a set of 6 RADIUS servers. These servers control network a
 
 ### Accounting
 
-- Runs on Port 1813.
-
-- While we don't block accounting requests, we don't do anything with them. If an organisation requires accounting, they can enable it on their local infrastructure.
+- Runs on Port 1813. Although port 1813 is open and running GovWifi does not perform any accounting.
+- We don't block accounting requests, but we don't do anything with them –– instead our configuration returns a NOOP. If an organisation requires accounting, they can enable it on their local infrastructure.
 
 ## Unlang
 
@@ -41,17 +40,17 @@ This way it is easier to test and change in the future.
 
 This is the software installed on our RADIUS servers.
 
-It is opensource and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
+It is open source and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
 
 ![FreeRADIUS server](/images/free_radius_server.png)
 
 ## The RADIUS Healthcheck
 
-The [Route53 healthcheck](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html) connects to port `3000` on a specific radius machine. For example:
+The [Route53 healthcheck](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html) connects to port `3000` on a specific FreeRADIUS servers. For example:
 ```http://12.345.678.91:3000/
 ```
 
-A ruby process listens on port `3000`. When it receives a request for `"/"`, it automatically runs an [`eapol_test`](https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28) command, which then connects to the Authentication API and returns a `200` response in case a successful response is received.
+A Ruby process listens on port `3000`. When it receives a request for `"/"`, it automatically runs an [`eapol_test`](https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28) command, which then connects to the Authentication API and returns a `200` response in case a successful response is received.
 
 The [configuration for the healthcheck](https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/peap-mschapv2.conf.erb) `eapol_test` can be found on GitHub.
 

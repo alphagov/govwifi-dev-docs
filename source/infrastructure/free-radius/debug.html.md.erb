@@ -1,7 +1,7 @@
 ---
 title: Debug FreeRADIUS
 weight: 100
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -9,9 +9,9 @@ review_in: 6 months
 
 ## Verbose Logging
 
-Starting the freeRADIUS server with the `-X` flag will enable verbose logging.
+Starting the FreeRADIUS server with the `-X` flag will enable verbose logging.
 
-This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to the volume of transactions on production, enabling this may have an impact on performance.
+This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to the volume of transactions on production, enabling this will have an impact on performance.
 
 A better way to use this would be to enable it on staging and to have the client who is having trouble connect to that IP.
 

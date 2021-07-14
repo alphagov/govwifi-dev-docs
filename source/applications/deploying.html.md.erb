@@ -1,7 +1,7 @@
 ---
 title: Deploying applications
 weight: 20
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -14,7 +14,7 @@ help explain how we do it.
 
 Deploying GovWifi is done via Concourse, [hosted by GDS][gds_concourse].
 
-You will need to be part of the GovWifi team, and logged in.
+You will need to be part of the GovWifi Github team, logged in to the Concourse console via Github single sign-on, and be on the VPN.
 
 ## Core services
 
@@ -35,8 +35,9 @@ The general process is:
 
 1. Run tests.
 2. Deploy Staging.
-3. Wait for user to allow Production deploy.
-4. Deploy Production.
+3. Run the [smoke tests] (except for Frontend FreeRADIUS and Safe Restarter).
+4. Manually trigger "Confirm Deploy to <service> Production" to allow Production deploy.
+5. Deploy Production.
 
 Each service is deployed independently.
 
@@ -80,3 +81,4 @@ Each repo has it's own pipeline which deploys out to [GovPaaS][govpaas] whenever
 [product-page-repo]: https://github.com/alphagov/govwifi-product-page
 [govpaas]: https://www.cloud.service.gov.uk/
 [middleman]: https://middlemanapp.com/
+[smoke tests]: https://github.com/alphagov/govwifi-smoke-tests

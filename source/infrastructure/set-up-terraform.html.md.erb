@@ -1,7 +1,7 @@
 ---
 title: Set up Terraform
 weight: 60
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
@@ -21,17 +21,19 @@ There are several prerequisites to running [govwifi-terraform](https://github.co
   ```
   [profile govwifi]
   region = eu-west-1
-  role_arn=arn:aws:iam::1234567890:role/your.name
-  mfa_serial=arn:aws:iam::1234567890:mfa/your.name@digital.cabinet-office.gov.uk
+  role_arn=arn:aws:iam::1234567890:role/first-name.last-name
+  mfa_serial=arn:aws:iam::1234567890:mfa/first-name.last-name@digital.cabinet-office.gov.uk
   ```
 
-- You've installed Terraform version `0.11.14`, this can easily be installed alongside other versions using [tfenv](https://github.com/tfutils/tfenv).
+- You've installed Terraform version declared in the [.terraform-version file](https://github.com/alphagov/govwifi-terraform/blob/master/.terraform-version). This can easily be installed alongside other versions using [tfenv](https://github.com/tfutils/tfenv).
 - (Optional) [aws-vault](https://github.com/99designs/aws-vault) is a useful AWS credential management tool. If you have other AWS credentials on you system this may help switch profiles.
-
+- (Optional) [gds-cli](https://github.com/alphagov/gds-cli) can be useful for automating some of the AWS credential management. Ask the team for help setting this up.
 
 ### Running Terraform for the first time
 
 If you are running terraform commands for the first time you'll need to initialise terraform, this involves decrypting secrets and getting the backend state from S3. This is handled by one make command:
+
+**Note**: `env` refers to `staging | staging-london | wifi | wifi-london`
 
 ```
 aws-vault exec govwifi -- make <env> init-backend

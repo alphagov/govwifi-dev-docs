@@ -1,0 +1,44 @@
+---
+title: Deploy FreeRADIUS changes
+weight: 60
+last_reviewed_on: 2021-07-13
+review_in: 6 months
+---
+
+# Deploy FreeRADIUS changes
+
+GovWifi's implementation of FreeRADIUS is managed by the [`alphagov/govwifi-frontend`](https://github.com/alphagov/govwifi-frontend) repo.
+
+This repo generates an ECR image containing the FreeRADIUS server code which will run on ECS.
+
+Pushing these images to ECR is handled in Concourse via the [`Frontend` pipeline](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/deploy?group=Frontend) under the main `deploy` pipeline.
+
+Ensure the image has been pushed by checking that the ECS registry tags have been updated with the SHA shown in the Concourse log.
+
+## Manually restarting the ECS tasks
+
+Open ECS AWS pages for `staging-frontend-cluster` in London and Ireland in new tabs.
+
+If you deployed to production, the cluster is called `wifi-frontend-cluster`.
+
+Navigate to the "Tasks" tab on the ECS cluster page.
+
+Restart one ECS task at a time in each region by selecting the task and clicking the "Stop" button. This will stop the task and a new one will automatically be started by ECS.
+
+The newly started task will use the most recent ECS task definition as well as the most recent ECR image.
+
+Once the first set tasks have been stopped and restarted in a region, and healthchecks are green with no alarms raised, then restart the remaining three in the other region.
+
+To check the containers are healthy, navigate to the "Healthchecks" section of the Route53 AWS page and ensure all the healthchecks for each region on healthy.
+
+## Deploying certificates and keys
+
+Deploying certificates and keys is managed by the Concourse `sync-frontend-certs` pipeline which pulls from the `alphagov/govwifi-build` repo.
+
+Certificates are stored encrypted under `passwords/certs/`, and hosted in S3 buckets.
+
+All S3 buckets should contain the CA certificates.
+
+Staging buckets should hold the keys and certificates prefixed with `staging`.
+
+Production buckets should hold the keys and certificates prefixed with `wifi`.

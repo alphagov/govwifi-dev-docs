@@ -1,7 +1,7 @@
 ---
 title: Access bastion servers
 weight: 30
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-21
 review_in: 6 months
 ---
 
@@ -21,16 +21,13 @@ Remember there are two regions, so there may be more than two bastions.
 
 ## SSH Config
 
-We recommended setting up an SSH config for ease of use. Instructions how to
-set up your SSH config exist in the Password Store of GovWifi where you can run:
+We recommended setting up an SSH config for ease of use. Instructions how to set up your SSH config exist in the Password Store of GovWifi where you can run:
 
 ```sh
 PASSWORD_STORE_DIR=<password_store_dir> pass show ssh/instructions.txt
 ```
 
-where `<password_store_dir>` is the path of the `passwords` directory of the
-[govwifi-build](https://github.com/alphagov/govwifi-build) repository on your
-local machine.
+where `<password_store_dir>` is the path of the `passwords` directory of the [govwifi-build](https://github.com/alphagov/govwifi-build) repository on your local machine.
 
 You should now be able to connect to each of the hosts using `ssh` and the hostnames mentioned in `instructions.txt`.
 

@@ -1,0 +1,94 @@
+---
+title: View CloudWatch logs
+weight: 20
+last_reviewed_on: 2021-07-15
+review_in: 6 months
+---
+
+# View CloudWatch logs
+
+
+## Access to CloudWatch
+
+You must be on-boarded to GovWifi's AWS account in order to access CloudWatch logs.
+
+Please speak to the GovWifi reliability engineers or the delivery manager about this process.
+
+## Logging in to CloudWatch
+
+Log in to GovWifi AWS via the [`gds-cli`](https://github.com/alphagov/gds-cli) or the [AWS console](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin).
+
+You must be on the VPN to log in.
+
+### CLI login
+
+Ensure `gds-cli` is configured on your laptop and your AWS credentials are set up.
+
+Then run:
+
+```sh
+$ gds aws govwifi -l
+```
+
+Using the AWS service search bar, navigate to the CloudWatch service section.
+
+### Console login
+
+1. Log in to the [AWS console](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin)
+2. Navigate to [CloudWatch](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#)
+3. Choose [“Log groups”](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups) from the “Logs” sidebar. You can also use [“Insights”](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:logs-insights) which is a log aggregation tool in CloudWatch.
+
+You can read more about the CloudWatch Insights query DSL [here](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html).
+
+## CloudWatch logs
+
+CloudWatch contains unstructured system and application logs for GovWifi's APIs and infrastructure components.
+
+Since the service is region-based, make sure you're reviewing logs for the correct region by selecting the relevant region from the AWS service bar.
+
+### Application log types
+
+The application log group naming is inconsistent. It roughly uses the following convention:
+
+```
+<environment>-<service>-log-group
+```
+
+|   Service/API  | Environment |                  Log group                 |
+|----------------|-------------|--------------------------------------------|
+| FreeRADIUS     | Staging     | `staging-frontend-docker-log-group`          |
+|                | Production  | `wifi-frontend-docker-log-group`             |
+| Admin          | Staging     | `staging-admin-log-group`                    |
+|                | Production  | `wifi-admin-log-group`                       |
+| Authentication | Staging     | `staging-authorisation-api-docker-log-group` |
+|                | Production  | `wifi-authorisation-api-docker-logs`         |
+| User Sign-up   | Staging     | `staging-user-signup-api-docker-log-group`   |
+|                | Production  | `wifi-user-signup-api-docker-log-group`      |
+| Logging        | Staging     | `staging-logging-api-docker-log-group`       |
+|                | Production  | `wifi-logging-api-docker-log-group`          |
+| Grafana        | Staging     | `staging-grafana-log-group`                  |
+|                | Production  | `wifi-grafana-log-group`                     |
+| Prometheus     | Staging     | `staging-prometheus-log-group`               |
+|                | Production  | `wifi-prometheus-log-group`                  |
+
+**Note**:
+
+- "Production" is referred to as "wifi" throughout the infrastructure. So `wifi-admin-log-group` refers to the Production Admin API log group.
+- There's a naming conflation between the Authentication API and "authorisation" in the logs. This is a misnomer.
+
+### System log types
+
+System logs for EC2 instances follow a separate pattern:
+
+```
+<environment>-<instance name>/var/log/<log-type.log>
+```
+
+|  EC2 instance  | Environment |                  Log group                 |
+|----------------|-------------|--------------------------------------------|
+| Bastion        | Staging     | `staging-bastion/var/log/*`                |
+|                | Production  | `wifi-bastion/var/log/*`                   |
+| Frontend ECS cluster | Staging | `staging/var/log/*`                      |
+|                | Production  | `wifi/var/log/*`                           |
+
+**Note**: The Frontend ECS clusters which run on EC2 instances don't have an instance name in their log group naming pattern.

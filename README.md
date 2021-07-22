@@ -13,10 +13,7 @@ You’re welcome to use the template even if your service isn’t considered par
 
 ## Before you start
 
-To use the Tech Docs Template you need:
-
-- [Ruby][install-ruby]
-- [Middleman][install-middleman]
+Follow the [Get started guide for Tech docs](https://tdt-documentation.london.cloudapps.digital/create_project/get_started/#get-started)
 
 ## Making changes
 
@@ -97,7 +94,5 @@ The documentation is [© Crown copyright][copyright] and available under the ter
 [multipage]: https://tdt-documentation.london.cloudapps.digital/multipage.html#build-a-multipage-site
 [example-content]: https://tdt-documentation.london.cloudapps.digital/content.html#content-examples
 [partials]: https://tdt-documentation.london.cloudapps.digital/single_page.html#add-partial-lines
-[install-ruby]: https://tdt-documentation.london.cloudapps.digital/install_macs.html#install-ruby
-[install-middleman]: https://tdt-documentation.london.cloudapps.digital/install_macs.html#install-middleman
 [gem]: https://github.com/alphagov/tech-docs-gem
 [template]: https://github.com/alphagov/tech-docs-template

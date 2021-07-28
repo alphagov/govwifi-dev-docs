@@ -60,9 +60,15 @@ The main criteria is that registered users cannot authenticate on RADIUS service
 
 Possible examples are:
 
-- a serious outage with the production platform - for example, a failure of one or both AWS regions, leading to a loss of functionality and authentication for users
-an issue with AWS Elastic Load Balancer leading to increased traffic and authentication failure for users
-- loss of ownership of RADIUS Elastic IP, meaning we’d have to ask organisations to re-configure their infrastructure to use new IP addresses, causing major remedial work and reputational damage
+- A serious outage with the production platform, for example:
+  - Failure of one or both AWS regions leading to users being unable
+    to authenticate
+  - Issue with AWS Elastic Load Balancer leading to increased
+    traffic and authentication failure for users
+- Loss of ownership of RADIUS Elastic IPs
+  - This would mean we’d have to ask organisations to re-configure
+    their infrastructure to use new IP addresses, causing major
+    remedial work and reputational damage
 
 We must:
 

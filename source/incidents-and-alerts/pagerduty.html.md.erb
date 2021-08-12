@@ -1,0 +1,97 @@
+---
+title: PagerDuty
+weight: 10
+last_reviewed_on: 2021-08-12
+review_in: 3 months
+---
+
+# Alerts and PagerDuty
+
+For out of hours alerting, PagerDuty is used. PagerDuty listens to
+notifications from AWS about a subset of the CloudWatch alarms.
+
+## CloudWatch alarms
+
+There are alarms in all three AWS regions.
+
+### US East (`us-east-1`)
+
+#### `wifi-Dublin-Frontend-overall-healthcheck`
+
+This alarm enters the ALARM state if the healthchecks for all three
+RADIUS servers in the Dublin region are failing.
+
+This means access points connecting to the Ireland region RADIUS
+servers could be unable to authenicate users.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.
+
+#### `wifi-London-Frontend-overall-healthcheck`
+
+This alarm enters the ALARM state if the healthchecks for all three
+RADIUS servers in the London region are failing.
+
+This means access points connecting to the London region RADIUS
+servers could be unable to authenicate users.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.
+
+### Ireland (`eu-west-1`)
+
+#### `wifi authentication API no healthy hosts`
+
+This alarm enters the ALARM state if there are no healthy hosts behind
+the load balancer for the Authentication API.
+
+As this is relied upon by the RADIUS servers in the Ireland region,
+this could mean that access points using RADIUS servers in this region
+are unable to authenticate users.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.
+
+### London (`eu-west-2`)
+
+#### `wifi authentication API no healthy hosts`
+
+This alarm enters the ALARM state if there are no healthy hosts behind
+the load balancer for the Authentication API.
+
+As this is relied upon by the RADIUS servers in the Ireland region,
+this could mean that access points using RADIUS servers in this region
+are unable to authenticate users.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.
+
+#### `wifi user signup API no healthy hosts`
+
+This alarm enters the ALARM state if there are no healthy hosts behind
+the load balancer for the User Signup API.
+
+This service handles users signing up for GovWifi via text messages
+and emails. If there are no healthy hosts, it's likely that this
+functionality isn't working.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.
+
+#### `wifi admin no healthy hosts`
+
+This alarm enters the ALARM state if there are no healthy hosts behind
+the load balancer for the Admin app.
+
+The Admin application allows organisations to manage their GovWifi
+installation. If there are no healthy hosts, it's likely that the
+application is unusable.
+
+To start investigating this, check the status of the load balancer and
+the related target group. If there are targets, but the healthchecks
+are failing, then investigate the cause of the healthcheck failures.

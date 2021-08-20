@@ -1,17 +1,16 @@
 ---
-title: How to renew the Jenkins GPG Key
+title: Renew the Jenkins GPG Key
 weight: 100
-last_reviewed_on: 2021-01-25
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
-# How To Renew The Jenkins GPG Key
+# Renew the Jenkins GPG key
 
-If you see an error stating that this key has expired, please contact the SRE
-team. You may encounter this error when trying to re-encrypt the secrets in
-[govwifi-build](https://github.com/alphagov/govwifi-build) or in output of one of our Concourse pipelines - [such as this one](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/sync-frontend-certs).
+**Note**: GovWifi no longer uses Jenkins, the naming of the GPG key is a relic of when the team maintained a Jenkins pipeline.
 
-If you are a member of the SRE team and you are looking for further
-documentation, please see the instructions in Google Drive in the private GovWifi
-Team folder (Govwifi > Technical:developer work > Tech Docs ) entitled
-"Rotate Jenkins GPG Key".
+If you see an error stating that this key has expired, please contact the GovWifi SREs.
+
+You may encounter this error when trying to re-encrypt the secrets in [govwifi-build](https://github.com/alphagov/govwifi-build) or in output of one of our Concourse pipelines - [like the `sync-frontend-certs` pipeline](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/sync-frontend-certs).
+
+If you are a member of the SRE team and you are looking for further documentation, please review [these instructions](https://docs.google.com/document/d/16xFh1ZSAnw5o-MN5rP8BRz0701AlJ4rWXG3jY7YNWjY/edit).

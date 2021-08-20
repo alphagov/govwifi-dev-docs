@@ -1,13 +1,13 @@
 ---
 title: GovWifi Team Manual
 weight: 1
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-21
 review_in: 6 months
 ---
 
 # Two-factor authentication (2FA)
 
-2FA is mandatory for super admin users in the GovWifi admin site. It's currrently optional for admin users.
+2FA is mandatory for admin users when signing into GovWifi admin.
 
 We use the [`two_factor_authentication`](https://github.com/Houdini/two_factor_authentication) gem to integrate the Time-based One Time Password (TOTP) functionality
 with the existing Devise authentication modules.
@@ -47,15 +47,11 @@ config.delete_cookie_on_logout = false # Delete cookie when user signs out, to f
 The `two_factor_authentication` gem will enforce 2FA for all users by default. We control how 2FA is applied via the [`need_two_factor_authentication?` method on the User model](https://github.com/alphagov/govwifi-admin/blob/master/app/models/user.rb#L54).  
 With this method we can include or exclude users from other organisations, it's also possible to configure whether 2FA is necessary in specific environments.
 
-## Resetting 2FA
+## Reset 2FA
 
-A super admin user can reset 2FA for any user, by going to that user's
-organisation page and clicking on the 'Reset 2FA' button next to the user's name under 'Team'
-section.
+Admins can reset 2FA for other admins who are part of their organisation. They can do this from the 'Team members' section of their GovWifi admin account. 
 
-Admin users can reset 2FA for any user part of their own
-organisation, by going to 'Team members' page and clicking on the 'Reset 2FA' link next to the
-user's name in the members listing.
+If this does not work, or if the admin does not have a team member who can do this for them, we have a [manual process](https://docs.google.com/document/d/1WDG-owrxYe58GDSjkxco1u7E-EG5_t7HLCaHT2udIvw/edit#heading=h.dr97twgaw0tc). This involves the GovWifi team setting up a video call with the admin and asking to see some ID. This is to be sure it's really them trying to access GovWifi admin.
 
-The button or link to reset 2FA will only be shown against the names
-of users who have already configured 2FA.
+Admins may get in touch with us to ask about resetting their 2FA. There's more information about how to respond to these requests in the [Zendesk section of the Team Manual](https://govwifi-dev-docs.cloudapps.digital/zendesk-support/). 
+

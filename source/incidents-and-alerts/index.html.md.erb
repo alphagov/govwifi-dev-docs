@@ -1,7 +1,7 @@
 ---
 title: Incident management
 weight: 8
-last_reviewed_on: 2021-04-12
+last_reviewed_on: 2021-07-21
 review_in: 3 months
 ---
 
@@ -15,11 +15,11 @@ Alerts come from different sources.
 
 ### Sentry alerts
 
-Emails are sent to the GovWifi developers mailbox. Notifications are sent to the #govwifi Slack channel.
+Emails are sent to the GovWifi developers mailbox. Notifications are sent to the #govwifi-monitoring Slack channel.
 
 ### AWS Cloudwatch alerts
 
-Emails are sent to GovWifi critical alerts mailbox.
+Emails are sent to GovWifi critical alerts mailbox. Notifications are sent to the #govwifi-monitoring Slack channel.
 
 ### StatusPage alerts
 
@@ -60,9 +60,15 @@ The main criteria is that registered users cannot authenticate on RADIUS service
 
 Possible examples are:
 
-- a serious outage with the production platform - for example, a failure of one or both AWS regions, leading to a loss of functionality and authentication for users
-an issue with AWS Elastic Load Balancer leading to increased traffic and authentication failure for users
-- loss of ownership of RADIUS Elastic IP, meaning we’d have to ask organisations to re-configure their infrastructure to use new IP addresses, causing major remedial work and reputational damage
+- A serious outage with the production platform, for example:
+  - Failure of one or both AWS regions leading to users being unable
+    to authenticate
+  - Issue with AWS Elastic Load Balancer leading to increased
+    traffic and authentication failure for users
+- Loss of ownership of RADIUS Elastic IPs
+  - This would mean we’d have to ask organisations to re-configure
+    their infrastructure to use new IP addresses, causing major
+    remedial work and reputational damage
 
 We must:
 

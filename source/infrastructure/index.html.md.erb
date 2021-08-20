@@ -1,13 +1,13 @@
 ---
 title: GovWifi infrastructure
 weight: 7
-last_reviewed_on: 2021-01-10
+last_reviewed_on: 2021-07-13
 review_in: 6 months
 ---
 
 # Learn about the infrastructure
 
-This section gives an overview of the GovWifi infrastructure. A diagram of our infrastructure is available [here](https://drive.google.com/drive/u/0/folders/1G3JIDH6JOx6VUhlnx4pVIl2gOKFQThj3).
+This section gives an overview of the GovWifi infrastructure. A diagram of our infrastructure is available [on Google Drive under "GovWifi Architecture Diagram"](https://drive.google.com/drive/u/0/folders/1G3JIDH6JOx6VUhlnx4pVIl2gOKFQThj3).
 
 ## VPN
 
@@ -15,7 +15,7 @@ All connections must be made via the GDS VPN. Please contact your local service 
 
 ## Elastic IPs
 
-The Radius servers are configured to use elastic IPs (EIPs). There are six in total: three for the London AWS region and three for Ireland. Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
+The RADIUS servers are configured to use elastic IPs (EIPs). There are six in total: three for the London AWS region and three for Ireland. Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
 
 It is critical the EIPs do not change since this would break the configuration between organisations and our services, thereby removing organisations' access to GovWifi.
 
@@ -23,11 +23,11 @@ In order to prevent this from happening unintentionally, we configure AWS to den
 
 ## Bastions
 
-The bastion servers act as a gateway to their respective clusters + databases.
+There are two bastion servers, one per region. The bastion servers act as a gateway to the components in their respective regions and environments.
 That is to say:
 
-- To access any Staging database or server, you must access via the staging bastion.
-- To access any Production database or server, you must access via the production bastion.
+- To access any Staging database or server, you must access via the Staging bastion.
+- To access any Production database or server, you must access via the Production bastion.
 
 ## Databases
 

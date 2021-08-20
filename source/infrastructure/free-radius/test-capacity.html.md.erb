@@ -1,0 +1,78 @@
+---
+title: Test capacity
+weight: 100
+last_reviewed_on: 2021-08-20
+review_in: 6 months
+---
+
+# Capacity Testing
+
+To simulate RADIUS connections you can use the eapol_test tool with GNU parallel. There are other RADIUS performance testing tools available, however they do not support TLS and EAP which is why we need to use eapol_test.
+
+As eapol_test only supports a singular test, we must utilise GNU parallel to coordinate and record the running of many tests. Parallel can run tasks in parallel and sequentially.
+
+GNU parallel will run tasks in parallel up to the number of cores or CPUs available. As the RADIUS servers only have two cores it will only run two tests simultaneously.
+
+## Connection and setup
+
+Start by choosing a staging RADIUS server to connect to and then follow the [SSH instructions](https://govwifi-dev-docs.cloudapps.digital/infrastructure/access-bastion-servers.html#ssh-config) in order to access the machine.
+
+Run the following commands from your laptop (must be on the GDS VPN).
+
+```
+$ ssh radius<number>.staging.govwifi
+$ docker ps -a
+$ docker exec -it <docker container ID> /bin/sh
+$ apk add parallel bash
+```
+
+This command connects to designated RADIUS machine, uses docker to connect the relevant running container, and adds GNU parallel and bash to the container.
+
+## Configure capacity test script
+
+This script simulates connecting to RADIUS using eapol_test and GNU parallel.
+
+Run this command from within the docker container.
+
+```
+$ cat << EOF > test_capacity.sh
+#!/usr/bin/env bash
+number="${1:-10}"
+export START=$(date)
+seq $number | parallel --no-notice --env HEALTH_CHECK_RADIUS_KEY --joblog log.txt eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s $HEALTH_CHECK_RADIUS_KEY
+sed -i  "s/$HEALTH_CHECK_RADIUS_KEY/<secret>/g" log.txt
+export END=$(date)
+echo "Start Time: $START"
+echo "  End Time: $END"
+EOF
+
+$ chmod +x test_capacity.sh
+```
+
+## Running capacity tests
+
+### To run 55 test logins:
+`./test_capacity.sh 55`
+
+### To run a single test login:
+`eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s $HEALTH_CHECK_RADIUS_KEY`
+
+or
+
+`./test_capacity.sh 1`
+
+
+## Results
+```
+/usr/src/healthcheck # ./test_capacity.sh 6
+/usr/src/healthcheck # cat log.txt
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+1	:	1599839779.690	     0.023	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 1
+2	:	1599839779.692	     0.029	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 2
+3	:	1599839779.719	     0.033	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 3
+4	:	1599839779.728	     0.029	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 4
+6	:	1599839779.763	     0.029	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 6
+5	:	1599839779.757	     0.039	0	59014	0	0	eapol_test -r0 -t3 -c peap-mschapv2.conf -a 127.0.0.1 -s <secret> 5
+```
+
+The "Exitval" field shows whether eapol_test returned 0 for success and !0 for a failures.

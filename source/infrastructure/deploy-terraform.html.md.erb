@@ -1,0 +1,23 @@
+---
+title: Deploy Terraform
+weight: 60
+last_reviewed_on: 2021-09-15
+review_in: 6 months
+---
+
+# Deploy Terraform
+
+Terraform is deployed on the commandline using `make` commands configured in the `govwifi-terraform` [Makefile](https://github.com/alphagov/govwifi-terraform/blob/master/Makefile).
+
+Please refer to the `govwifi-terraform` [README](https://github.com/alphagov/govwifi-terraform/blob/master/README.md) for detailed instructions on running Terraform.
+
+The instructions here provide a high level overview of deploying changes in our Terraform
+
+**Environments**
+
+| Environment |  Region |         Name        |  AWS Account        |
+|:-----------:|:-------:|:-------------------:|:-------------------:|
+| Staging     | London  | staging-london-temp | 99**********        |
+|             | Ireland | staging-dublin-temp | 99**********        |
+| Production  | London  | wifi-london         | 78**********        |
+|             | Ireland | wifi                | 78**********        |

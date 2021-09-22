@@ -1,7 +1,7 @@
 ---
 title: Access bastion servers
 weight: 30
-last_reviewed_on: 2021-07-21
+last_reviewed_on: 2021-09-22
 review_in: 6 months
 ---
 
@@ -11,13 +11,11 @@ review_in: 6 months
 
 [Extract the SSH Key secrets](/infrastructure/secrets/#get-started-using-secrets) for the bastion server:
 
-- staging secret name: `keys/govwifi-staging-bastion-key`
+- staging secret name: `keys/govwifi-staging-temp-bastion-key-20200717`
 - production secret name: `keys/govwifi-bastion-key`
 
 Find out the Elastic IPs for the bastion servers. You can do this by logging into the AWS console,
 and finding the instances which contain the word "Bastion".
-
-Remember there are two regions, so there may be more than two bastions.
 
 ## SSH Config
 

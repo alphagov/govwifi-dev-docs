@@ -1,0 +1,92 @@
+---
+title: Deploy Terraform
+weight: 60
+last_reviewed_on: 2021-09-21
+review_in: 6 months
+---
+
+# Deploy Terraform
+
+Terraform is deployed on the commandline using `make` commands configured in the `govwifi-terraform` [Makefile](https://github.com/alphagov/govwifi-terraform/blob/master/Makefile).
+
+Please refer to the `govwifi-terraform` [README](https://github.com/alphagov/govwifi-terraform/blob/master/README.md) for detailed instructions on running Terraform.
+
+The instructions here provide a high level overview of deploying changes in our Terraform
+
+**Environments**
+
+| Environment |  Region |         Name        |  AWS Account        |
+|:-----------:|:-------:|:-------------------:|:-------------------:|
+| Staging     | London  | staging-london-temp | 99**********        |
+|             | Ireland | staging-dublin-temp | 99**********        |
+| Production  | London  | wifi-london         | 78**********        |
+|             | Ireland | wifi                | 78**********        |
+
+**Note**
+
+Our secondary AWS account used for staging includes the suffix `temp`. This was to avoid a naming conflict with our staging components that previously existed in the primary AWS account.
+
+It will be changed in the future.
+
+## Prerequisites
+
+These must be complete in order to deploy Terraform changes:
+
+* On-boarded to GovWifi's AWS account
+* AWS credentials set up on laptop
+
+It's recommended but not required to use the [`gds-cli`](https://github.com/alphagov/gds-cli).
+
+## Deploy to Staging
+
+Deployments in `govwifi-terraform` pull in changes using modules configured in the `main.tf` file located in `govwifi` sub-directory.
+
+For staging, these are:
+
+* [`govwifi/staging-london-temp`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-london-temp)
+* [`govwifi/staging-dublin-temp`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-dublin-temp)
+
+To deploy Terraform changes to the staging environment, navigate to the project root:
+
+```
+$ cd govwifi-terraform
+```
+
+Ensure the branch is up-to-date by pulling the latest changes from git (`git pull`).
+
+Run the relevant `make` command, pointing to the desired staging environment and region:
+
+```
+$ make staging-london-temp plan
+```
+
+If you are using the `gds-cli`, use to the staging GovWifi account:
+
+```
+$ gds aws govwifi-staging -- make staging-london-temp plan
+```
+
+## Deploy to production
+
+The deploy process is very similar to staging.
+
+The production modules in `govwifi-terraform` are:
+
+* [`govwifi/wifi-london`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/wifi-london)
+* [`govwifi/wifi`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/wifi)
+
+**Note**: `wifi` refers to components in eu-west-1 (Ireland).
+
+Follow the same instructions for staging (i.e., navigate to the root project directory and ensure the branch is up-to-date).Ireland
+
+The `make` command for production is:
+
+```
+$ make wifi-london plan
+```
+
+If using the `gds-cli` it's:
+
+```
+$ gds aws govwifi -- make wifi-london plan
+```

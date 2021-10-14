@@ -1,13 +1,13 @@
 ---
 title: Developing applications
 weight: 10
-last_reviewed_on: 2021-07-13
+last_reviewed_on: 2021-10-14
 review_in: 3 months
 ---
 
 # Get started with the applications
 
-GovWifi applications are written in [Ruby](https://www.ruby-lang.org/en/) using either [Rails](https://rubyonrails.org/) and [Sinatra](http://sinatrarb.com/) web frameworks. Our [infrastructure](https://github.com/alphagov/govwifi-terraform) is written in Terraform.
+GovWifi applications are written in [Ruby](https://www.ruby-lang.org/en/) using either [Rails](https://rubyonrails.org/) or [Sinatra](http://sinatrarb.com/) web frameworks. Our [infrastructure](https://github.com/alphagov/govwifi-terraform) is written in Terraform.
 
 To get started you'll need Ruby installed on your system. We recommend using a Ruby version manager like [rbenv](https://github.com/rbenv/rbenv) which will allow you to install the correct version of Ruby for GovWifi projects.
 
@@ -21,7 +21,7 @@ Most of the projects use a combination of [Make](https://www.gnu.org/software/ma
 
 ## Bug and feature workflow
 
-Please read the [GDS Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md) which details how your code commits should be structured.
+Please read the [GDS Git style guide](https://github.com/alphagov/styleguides/blob/master/git.md) which details how your code commits should be structured.
 
 Once you're happy with your changes locally, submit a pull request. Raising a pull request in GitHub automatically notifies the #govwifi-monitoring Slack channel.
 
@@ -46,3 +46,7 @@ Pull requests are linted and tests are run on [Concourse CI](https://cd.gds-reli
 ## Merging and deploying changes
 
 Once approved and merged your PR is automatically built and deployed to our staging environment where you can perform further acceptance testing and smoke testing. After that deploying to production is a manual step in Concourse CI.
+
+Our pipelines include a step to force an update to the ECS tasks which are configured to use the latest image pushed to ECR.
+
+The update ECS tasks command is a function declared in the [`aws_helpers.sh` script](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101), part of the `govwifi-concourse-deploy-pipeline` repo. This function is called by the `deploy.sh` script which is found in many of our repos (see [`govwifi-admin`](https://github.com/alphagov/govwifi-admin/blob/master/ci/tasks/scripts/deploy.sh) as an example).

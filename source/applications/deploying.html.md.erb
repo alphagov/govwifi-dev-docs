@@ -47,15 +47,16 @@ This ensures that an update to a service will work between the rest of the servi
 ### Trigger a deployment
 
 1. Merge your development branch to `master`.
-2. Concourse will test, build and deploy to the Staging environments.
+2. Concourse will test, build, and deploy a new image to ECR in Staging.
 3. Run the job in the pipeline, titled `Confirm Deploy to <service> Production`.
-4. Concourse will deploy to the Production environments.
+4. Concourse will deploy a new image to ECR in Production.
 
-Deployments push a new image to ECR and then [force the relevant ECS task to update](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101).
+Deployments also force the relevant ECS task to update via the `deploy.sh` script (e.g., [here](https://github.com/alphagov/govwifi-logging-api/blob/master/ci/tasks/scripts/deploy.sh#L14) and [see here for the specific command](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101)).
 
-Forcing the tasks to update means the ECS task definition will point to the newly deployed (latest) image in ECR for either Staging or Production.
+Forcing the task to update means the ECS task definition will point to the newly deployed (latest) image in ECR for either Staging or Production.
 
 **Note**: `govwifi-frontend` is an exception to this pattern. In order to propagate changes, the `frontend-cluster` tasks must be restarted.
+
 We recommend restarting the cluster using the `safe-restarter` scheduled task which is part of the `api-cluster`. This can take 1-2 hours.
 
 ## Docs and the product page

@@ -58,7 +58,7 @@ If you need to manually test the healthcheck in a radius docker container you ca
 ```eapol_test -c /usr/src/healthcheck/peap-mschapv2.conf -s $(echo $HEALTH_CHECK_RADIUS_KEY)
 ```
 
-The secret can also be found by logging in as a GovWifi administrator( for staging you would login [here](https://admin.staging.wifi.service.gov.uk/) ), switching to the GDS CTS organisation, then selecting “Locations” and scrolling to “Health check user”
+The secret can also be found by logging in as a GovWifi administrator (for staging you would login [here](https://admin.staging-temp.wifi.service.gov.uk/) ), switching to the GDS CTS organisation, then selecting “Locations” and scrolling to “Health check user”.
 
 It should also be noted that the last login of the health check user is no longer recorded in the User database.
 

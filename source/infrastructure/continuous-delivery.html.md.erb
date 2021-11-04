@@ -1,0 +1,68 @@
+---
+title: Continuous Delivery
+weight: 70
+last_reviewed_on: 2021-10-29
+review_in: 6 months
+---
+
+# Continuous Delivery
+
+GovWifi uses [Concourse](https://concourse-ci.org/) for its continuous delivery.
+
+Previously, the team was part of a multi-tenanted Concourse, known as Big Concourse, maintained by the GDS Automate team.
+Big Concourse will be decommissioned on 15 December, 2021.
+
+The team migrated to a single-tenanted Concourse, known as GovWifi Concourse, maintained by the GovWifi team and based
+on the [`big-little-concourse`](https://github.com/alphagov/big-little-concourse-deployment) repo developed by the
+Platform as a Service (PaaS) team.
+
+## GovWifi Concourse
+
+GovWifi Concourse is configured in the following repositories:
+
+**GovWifi Concourse Terraform**
+
+- [`govwifi-concourse-deployment`](https://github.com/alphagov/govwifi-concourse-deployment): a forked copy of the [`big-little-concourse`](https://github.com/alphagov/big-little-concourse-deployment) repo.
+- [`govwifi-concourse`](https://github.com/alphagov/govwifi-concourse): a companion repo to `govwifi-concourse-deployment`.
+
+**GovWifi Concourse pipeline configuration**
+
+- [`govwifi-concourse-deploy-pipeline`](https://github.com/alphagov/govwifi-concourse-deploy-pipeline): the team's main
+deploy pipeline for the majority of its apps.
+- [`govwifi-concourse-runner`](https://github.com/alphagov/govwifi-concourse-runner): the runner image for GovWifi pipelines.
+- [`govwifi-builder-task`](https://github.com/alphagov/govwifi-builder-task): a task for building Docker images without a Docker daemon.
+
+There is further pipeline configuration in many of the GovWifi repos under a `ci` directory.
+
+This includes task configuration (e.g., deploy, pre-build), relevant scripts, and a "pull request" YAML
+configuration (`pr.yml`) for specific pull request pipelines that run tasks like `lint` and `test`.
+
+GovWifi Concourse is configured with three teams:
+
+- `main`: owned by the GovWifi RE GitHub team; meant for elevated admin privileges on pipelines and configuration.
+- `govwifi`: owned by the GovWifi CI/CD GitHub team; meant for general use, including running pipelines.
+- `sandbox`: owned by the GovWifi RE GitHub team; meant for testing Concourse configuration, spikes, etc.
+
+### Access GovWifi Concourse
+
+In order to access GovWifi Concourse you must be on the VPN and be an approved member of the relevant GitHub team.
+
+Please speak to the GovWifi SREs if you require access.
+
+The GovWifi Concourse console can be accessed [here](https://govwifi-cd.wifi.service.gov.uk/).
+
+### Update GovWifi Concourse
+
+GovWifi Concourse is updated by running Terraform on `govwifi-concourse-deployment`. Instructions for running Terraform are in the repo's [README](https://github.com/alphagov/govwifi-concourse-deployment#running-terraform-for-govwifi-concourse).
+
+Pipelines are updated using Concourse's `fly` command. Instructions for updating pipelines using `fly` are also listed on the repo's [README](https://github.com/alphagov/govwifi-concourse-deployment#terraform-init-and-setting-up-fly).
+
+### Monitor GovWifi Concourse
+
+GovWifi Concourse uses Prometheus and a Grafana-based monitoring setup for general observability of its infrastructure.
+
+You must be on the VPN and be part of the relevant GitHub team in order to access the GovWifi Concourse Grafana.
+
+The GovWifi Concourse Grafana dashboard can be accessed [here](https://grafana.monitoring.govwifi-cd.wifi.service.gov.uk/).
+
+Prometheus acts a data source for Grafana, pulling data from the relevant components to be displayed on Grafana dashboards.

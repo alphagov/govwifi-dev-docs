@@ -12,9 +12,9 @@ help explain how we do it.
 
 ## Concourse
 
-Deploying GovWifi is done via Concourse, [hosted by GDS][gds_concourse].
+Deploying GovWifi is done via Concourse, [maintained by GovWifi][govwifi_concourse].
 
-You will need to be part of the GovWifi Github team, logged in to the Concourse console via Github single sign-on, and be on the VPN.
+You will need to be part of the GovWifi CI/CD Github team, logged in to the Concourse console via Github single sign-on, and be on the VPN.
 
 ## Core services
 
@@ -47,9 +47,17 @@ This ensures that an update to a service will work between the rest of the servi
 ### Trigger a deployment
 
 1. Merge your development branch to `master`.
-2. Concourse will test, build and deploy to the Staging environments.
+2. Concourse will test, build, and deploy a new image to ECR in Staging.
 3. Run the job in the pipeline, titled `Confirm Deploy to <service> Production`.
-4. Concourse will deploy to the Production environments.
+4. Concourse will deploy a new image to ECR in Production.
+
+Deployments also force the relevant ECS task to update via the `deploy.sh` script (e.g., [here](https://github.com/alphagov/govwifi-logging-api/blob/master/ci/tasks/scripts/deploy.sh#L14) and [see here for the specific command](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101)).
+
+Forcing the task to update means the ECS task definition will point to the newly deployed (latest) image in ECR for either Staging or Production.
+
+**Note**: `govwifi-frontend` is an exception to this pattern. In order to propagate changes, the `frontend-cluster` tasks must be restarted.
+
+We recommend restarting the cluster using the `safe-restarter` scheduled task which is part of the `api-cluster`. This can take 1-2 hours.
 
 ## Docs and the product page
 
@@ -73,8 +81,8 @@ Each repo has it's own pipeline which deploys out to [GovPaaS][govpaas] whenever
 3. Verify contents is deployed (you may need to add a `GET` parameter to bust the cache).
 
 
-[gds_concourse]: https://cd.gds-reliability.engineering/
-[concourse_deploy_pipeline]: https://cd.gds-reliability.engineering/teams/govwifi/pipelines/deploy
+[govwifi_concourse]: https://govwifi-cd.wifi.service.gov.uk/
+[concourse_deploy_pipeline]: https://govwifi-cd.wifi.service.gov.uk/teams/govwifi/pipelines/deploy
 [concourse_deploy_pipeline_repo]: https://github.com/alphagov/govwifi-concourse-deploy-pipeline
 [dev-docs-repo]: https://github.com/alphagov/govwifi-dev-docs
 [tech-docs-repo]: https://github.com/alphagov/govwifi-tech-docs

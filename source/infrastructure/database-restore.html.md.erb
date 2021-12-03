@@ -1,0 +1,40 @@
+---
+title: Database restore
+weight: 50
+last_reviewed_on: 2021-11-30
+review_in: 6 months
+---
+
+# Restoring Databases
+
+The nightly database backups for each environment are stored an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. IT also keep an additional copy of these backups. In the event that we loose access to our AWS accounts, we can request a copy directly from IT. Databases can be restored from the nightly backups by following the instructions below:
+
+Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
+```
+PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/<s3_encryption_file_name>
+```
+
+Download the file database backup file that you need and run:
+
+To decrypt with gpg
+```
+gpg --output govwifi-backup-databasename.sql.gz --decrypt govwifi-backup-databasenam.sql.gz.gpg
+```
+
+Then upload to the file to the bastion server in the eu-west-2 region, for example:
+
+```
+mkdir /tmp/db_restore
+
+scp govwifi-backup-databasenam.sql.gz.gpg bastion.staging.govwifi:/tmp/db_restore
+```
+
+Unzip the file:
+```
+gzip -d govwifi-backup-admin-databasename.sql.gz
+```
+
+Import into mysql (the database credentials are located in AWS secret manager)
+```
+mysql -u <username> -h <hostname> -D <databasename> -p < govwifi-backup-databasename.sql
+```

@@ -7,7 +7,7 @@ review_in: 6 months
 
 # Restoring Databases
 
-The nightly database backups for each environment are stored an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. IT also keep an additional copy of these backups. In the event that we loose access to our AWS accounts, we can request a copy directly from IT. Databases can be restored from the nightly backups by following the instructions below:
+The nightly database backups for each environment are stored an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. IT also keep an additional copy of these backups. In the event that we loose access to our AWS accounts, we can [request a copy](https://docs.google.com/document/d/1h07adu7Ym6yN4kULbDskHQO91LhHpKMFSi4wxyZi1zs/edit#heading=h.v8cb2maaksg4) directly from IT. Databases can be restored from the nightly backups by following the instructions below:
 
 Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
 ```

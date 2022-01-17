@@ -1,8 +1,8 @@
 ---
 title: Monitoring
 weight: 20
-last_reviewed_on: 2021-10-11
-review_in: 1 month
+last_reviewed_on: 2022-01-13
+review_in: 2 months
 ---
 
 # Monitoring
@@ -16,16 +16,17 @@ There are two self hosted Grafana instances for the Production and
 Staging environments, and one Grafana instance hosted by the GOV.UK
 PaaS team which exposes data regarding the product page and tech docs.
 
-### Self Hosted
+### Self-hosted
 
-This is used for monitoring GovWifi infrastructure and APIs. This
+The self-hosted Grafana is used for monitoring GovWifi infrastructure and APIs. This
 [Google Document contains in-depth information on the technical
 setup][Govwifi Grafana Setup Doc] (you must be a member of the Govwifi
-team to view this document). You can access this dashboard at the
-links below (you must be signed into the dashboard to do this):
+team to view this document).
 
-[Production](https://grafana.wifi.service.gov.uk/)
-[Staging](https://grafana.staging.wifi.service.gov.uk/)
+You can access the dashboard using the links below (you must be signed into the dashboard to do this):
+
+- [Production](https://grafana.wifi.service.gov.uk/)
+- [Staging](https://grafana.staging-temp.wifi.service.gov.uk/)
 
 [GovWifi Grafana Setup Doc]: https://docs.google.com/document/d/1mmYZPagv0pPrs4f4iGANEoj5GTMisZU1RyN1qaP5dck/
 
@@ -41,13 +42,13 @@ monitoring performance of GovWifi Product Pages and Tech Docs.
 ## Concourse
 
 Concourse is an open source CI/CD platform, and we use it for
-automating jobs for building, testing and deploying software, as part
+automating jobs for building, testing, and deploying software, as part
 of pipelines.
 
 Most of [GovWifi's core pipelines][Concourse pipelines] are exposed
 (i.e. public, but read-only and without logs).
 
-[Concourse pipelines]: https://cd.gds-reliability.engineering/?search=team%3A%20govwifi
+[Concourse pipelines]: https://govwifi-cd.wifi.service.gov.uk/
 
 It is useful to keep an eye on these, so that blocked pipelines can be
 spotted early and resolved.

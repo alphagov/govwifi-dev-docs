@@ -1,15 +1,15 @@
 ---
 title: Test capacity
 weight: 100
-last_reviewed_on: 2021-08-20
+last_reviewed_on: 2022-02-21
 review_in: 6 months
 ---
 
 # Capacity Testing
 
-To simulate RADIUS connections you can use the eapol_test tool with GNU parallel. There are other RADIUS performance testing tools available, however they do not support TLS and EAP which is why we need to use eapol_test.
+To simulate RADIUS connections you can use the [eapol_test](https://manpages.debian.org/testing/eapoltest/eapol_test.8.en.html) tool with GNU parallel. There are other RADIUS performance testing tools available, however they do not support TLS and EAP which is why we need to use eapol_test.
 
-As eapol_test only supports a singular test, we must utilise GNU parallel to coordinate and record the running of many tests. Parallel can run tasks in parallel and sequentially.
+As eapol_test only supports a singular test, we must utilise [GNU parallel](https://www.gnu.org/software/parallel/) to coordinate and record the running of many tests. Parallel can run tasks in parallel and sequentially.
 
 GNU parallel will run tasks in parallel up to the number of cores or CPUs available. As the RADIUS servers only have two cores it will only run two tests simultaneously.
 
@@ -17,7 +17,7 @@ GNU parallel will run tasks in parallel up to the number of cores or CPUs availa
 
 Start by choosing a staging RADIUS server to connect to and then follow the [SSH instructions](https://govwifi-dev-docs.cloudapps.digital/infrastructure/access-bastion-servers.html#ssh-config) in order to access the machine.
 
-Run the following commands from your laptop (must be on the GDS VPN).
+Run the following commands from your laptop (you must be on the GDS VPN).
 
 ```
 $ ssh radius<number>.staging.govwifi
@@ -26,7 +26,7 @@ $ docker exec -it <docker container ID> /bin/sh
 $ apk add parallel bash
 ```
 
-This command connects to designated RADIUS machine, uses docker to connect the relevant running container, and adds GNU parallel and bash to the container.
+This command connects to the designated RADIUS machine, uses Docker to connect the relevant running container, and adds GNU parallel and bash to the container.
 
 ## Configure capacity test script
 

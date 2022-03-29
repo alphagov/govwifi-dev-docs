@@ -1,7 +1,7 @@
 ---
 title: Deploy Terraform
 weight: 60
-last_reviewed_on: 2021-09-21
+last_reviewed_on: 2022-03-25
 review_in: 6 months
 ---
 
@@ -17,16 +17,10 @@ The instructions here provide a high level overview of deploying changes in our 
 
 | Environment |  Region |         Name        |  AWS Account        |
 |:-----------:|:-------:|:-------------------:|:-------------------:|
-| Staging     | London  | staging-london-temp | 99**********        |
-|             | Ireland | staging-dublin-temp | 99**********        |
+| Staging     | London  | staging-london      | 99**********        |
+|             | Ireland | staging-dublin      | 99**********        |
 | Production  | London  | wifi-london         | 78**********        |
 |             | Ireland | wifi                | 78**********        |
-
-**Note**
-
-Our secondary AWS account used for staging includes the suffix `temp`. This was to avoid a naming conflict with our staging components that previously existed in the primary AWS account.
-
-It will be changed in the future.
 
 ## Prerequisites
 
@@ -43,8 +37,8 @@ Deployments in `govwifi-terraform` pull in changes using modules configured in t
 
 For staging, these are:
 
-* [`govwifi/staging-london-temp`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-london-temp)
-* [`govwifi/staging-dublin-temp`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-dublin-temp)
+* [`govwifi/staging-london`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-london)
+* [`govwifi/staging-dublin`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-dublin)
 
 To deploy Terraform changes to the staging environment, navigate to the project root:
 
@@ -57,13 +51,13 @@ Ensure the branch is up-to-date by pulling the latest changes from git (`git pul
 Run the relevant `make` command, pointing to the desired staging environment and region:
 
 ```
-$ make staging-london-temp plan
+$ make staging-london plan
 ```
 
 If you are using the `gds-cli`, use to the staging GovWifi account:
 
 ```
-$ gds aws govwifi-staging -- make staging-london-temp plan
+$ gds aws govwifi-staging -- make staging-london plan
 ```
 
 ## Deploy to production

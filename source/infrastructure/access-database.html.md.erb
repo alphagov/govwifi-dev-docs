@@ -1,13 +1,13 @@
 ---
 title: Access databases
 weight: 40
-last_reviewed_on: 2021-09-22
+last_reviewed_on: 2022-04-01
 review_in: 6 months
 ---
 
 # Access databases
 
-To access each one, you will need to use their respective credentials and bastion server.
+To access each one, you will need to use their respective credentials and **bastion** server.
 
 ## Admin database
 
@@ -20,7 +20,7 @@ This database exists for the Admin site, storing organisation details.
 
 Connect to the admin database:
 
-**Endpoint**: View in the AWS Console
+**Endpoint**: View in the AWS Console([instructions for doing this can be found here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.Connect.html))
 
 **Username** and **Password**: View the password in AWS Secrets Manager:
 
@@ -39,7 +39,7 @@ This database exists for the authentication service, for storing user credential
 - Production: `wifi-production-user-db` and `wifi-production-user-rr`
 - Staging: `wifi-staging-user-db` and `wifi-staging-user-rr`
 
-**Endpoint**: View in the AWS Console.
+**Endpoint**: View in the AWS Console([instructions for doing this can be found here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.Connect.html))
 
 **Username** and **Password**: View the password in AWS Secrets Manager:
 
@@ -58,7 +58,7 @@ This database exists for the logging service, for tracking user sessions.
 - Production: `wifi-wifi-db` and `wifi-db-rr`
 - Staging: `wifi-staging-db`
 
-**Endpoint**: View in the AWS Console.
+**Endpoint**: View in the AWS Console([instructions for doing this can be found here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_CommonTasks.Connect.html)).
 
 **Username** and **Password**: View the password in AWS Secrets Manager:
 

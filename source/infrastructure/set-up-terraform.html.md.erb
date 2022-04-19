@@ -33,7 +33,7 @@ There are several prerequisites to running [govwifi-terraform](https://github.co
 
 If you are running terraform commands for the first time you'll need to initialise terraform, this involves decrypting secrets and getting the backend state from S3. This is handled by one make command:
 
-**Note**: `env` refers to `staging | staging-london | wifi | wifi-london`
+**Note**: `env` refers to `staging | wifi | wifi-london`
 
 ```
 aws-vault exec govwifi -- make <env> init-backend

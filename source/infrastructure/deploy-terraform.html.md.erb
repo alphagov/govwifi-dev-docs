@@ -17,8 +17,8 @@ The instructions here provide a high level overview of deploying changes in our 
 
 | Environment |  Region |         Name        |  AWS Account        |
 |:-----------:|:-------:|:-------------------:|:-------------------:|
-| Staging     | London  | staging-london      | 99**********        |
-|             | Ireland | staging-dublin      | 99**********        |
+| Staging     | London  | staging             | 99**********        |
+|             | Ireland | (also staging)      | 99**********        |
 | Production  | London  | wifi-london         | 78**********        |
 |             | Ireland | wifi                | 78**********        |
 
@@ -33,12 +33,11 @@ It's recommended but not required to use the [`gds-cli`](https://github.com/alph
 
 ## Deploy to Staging
 
-Deployments in `govwifi-terraform` pull in changes using modules configured in the `main.tf` file located in `govwifi` sub-directory.
+Deployments in `govwifi-terraform` pull in changes using modules
+configured in the Terraform files located in `govwifi/staging`
+directory:
 
-For staging, these are:
-
-* [`govwifi/staging-london`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-london)
-* [`govwifi/staging-dublin`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging-dublin)
+* [`govwifi/staging`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging)
 
 To deploy Terraform changes to the staging environment, navigate to the project root:
 
@@ -48,16 +47,16 @@ $ cd govwifi-terraform
 
 Ensure the branch is up-to-date by pulling the latest changes from git (`git pull`).
 
-Run the relevant `make` command, pointing to the desired staging environment and region:
+Run the relevant `make` command:
 
 ```
-$ make staging-london plan
+$ make staging plan
 ```
 
 If you are using the `gds-cli`, use to the staging GovWifi account:
 
 ```
-$ gds aws govwifi-staging -- make staging-london plan
+$ gds aws govwifi-staging -- make staging plan
 ```
 
 ## Deploy to production

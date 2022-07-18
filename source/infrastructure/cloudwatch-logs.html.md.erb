@@ -60,8 +60,8 @@ The application log group naming is inconsistent. It roughly uses the following 
 |                | Production  | `wifi-frontend-docker-log-group`             |
 | Admin          | Staging     | `staging-admin-log-group`                    |
 |                | Production  | `wifi-admin-log-group`                       |
-| Authentication | Staging     | `staging-authorisation-api-docker-log-group` |
-|                | Production  | `wifi-authorisation-api-docker-logs`         |
+| Authentication | Staging     | `staging-authentication-api-docker-log-group` |
+|                | Production  | `wifi-authentication-api-docker-logs`         |
 | User Sign-up   | Staging     | `staging-user-signup-api-docker-log-group`   |
 |                | Production  | `wifi-user-signup-api-docker-log-group`      |
 | Logging        | Staging     | `staging-logging-api-docker-log-group`       |
@@ -74,7 +74,6 @@ The application log group naming is inconsistent. It roughly uses the following 
 **Note**:
 
 - "Production" is referred to as "wifi" throughout the infrastructure. So `wifi-admin-log-group` refers to the Production Admin API log group.
-- There's a naming conflation between the Authentication API and "authorisation" in the logs. This is a misnomer.
 
 ### System log types
 

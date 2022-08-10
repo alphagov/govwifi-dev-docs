@@ -1,7 +1,7 @@
 ---
 title: GovWifi Team Manual
 weight: 1
-last_reviewed_on: 2022-01-21
+last_reviewed_on: 2022-07-21
 review_in: 6 months
 ---
 
@@ -44,14 +44,13 @@ config.delete_cookie_on_logout = false # Delete cookie when user signs out, to f
 
 ## Configuring how 2FA is enforced
 
-The `two_factor_authentication` gem will enforce 2FA for all users by default. We control how 2FA is applied via the [`need_two_factor_authentication?` method on the User model](https://github.com/alphagov/govwifi-admin/blob/master/app/models/user.rb#L54).  
+The `two_factor_authentication` gem will enforce 2FA for all users by default. We control how 2FA is applied via the [`need_two_factor_authentication?` method on the User model](https://github.com/alphagov/govwifi-admin/blob/master/app/models/user.rb#L54).
 With this method we can include or exclude users from other organisations, it's also possible to configure whether 2FA is necessary in specific environments.
 
 ## Reset 2FA
 
-Admins can reset 2FA for other admins who are part of their organisation. They can do this from the 'Team members' section of their GovWifi admin account. 
+Admins can reset 2FA for other admins who are part of their organisation. They can do this from the 'Team members' section of their GovWifi admin account.
 
 If this does not work, or if the admin does not have a team member who can do this for them, we have a [manual process](https://docs.google.com/document/d/1WDG-owrxYe58GDSjkxco1u7E-EG5_t7HLCaHT2udIvw/edit#heading=h.dr97twgaw0tc). This involves the GovWifi team setting up a video call with the admin and asking to see some ID. This is to be sure it's really them trying to access GovWifi admin.
 
-Admins may get in touch with us to ask about resetting their 2FA. There's more information about how to respond to these requests in the [Zendesk section of the Team Manual](https://govwifi-dev-docs.cloudapps.digital/zendesk-support/). 
-
+Admins may get in touch with us to ask about resetting their 2FA. There's more information about how to respond to these requests in the [Zendesk section of the Team Manual](https://govwifi-dev-docs.cloudapps.digital/zendesk-support/).

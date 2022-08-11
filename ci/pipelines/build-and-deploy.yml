@@ -85,7 +85,7 @@ jobs:
               curl -sL https://deb.nodesource.com/setup_14.x | bash -
               apt-get install -y nodejs
               bundle install --without development
-              bundle exec middleman build
+              bundle exec middleman build --verbose
     on_success:
       put: govwifi-dev-docs-pr
       params:

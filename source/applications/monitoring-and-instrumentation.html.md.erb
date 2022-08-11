@@ -1,0 +1,19 @@
+---
+title: Monitoring and instrumentation
+weight: 20
+last_reviewed_on: 2022-07-18
+review_in: 6 months
+---
+
+# Monitoring and instrumentation
+
+Generally, this is done with the AWS tooling. There is information in
+ECS about resource usage, and further information in Cloudwatch.
+
+## Admin app
+
+Additionally, requests that pass through the load balancer for the
+Admin app are recorded in an S3 bucket.
+
+These logs are queryable through AWS Athena, for example to find
+requests that resulted in a 504 response.

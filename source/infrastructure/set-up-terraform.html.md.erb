@@ -1,7 +1,7 @@
 ---
 title: Set up Terraform
 weight: 60
-last_reviewed_on: 2022-01-13
+last_reviewed_on: 2022-08-13
 review_in: 6 months
 ---
 
@@ -36,14 +36,25 @@ If you are running terraform commands for the first time you'll need to initiali
 **Note**: `env` refers to `staging | wifi | wifi-london`
 
 ```
-aws-vault exec govwifi -- make <env> init-backend
+aws-vault exec govwifi-staging -- make <env> init-backend
 ```
-(use a staging env when testing your setup).
+or if you are using the gds-cli:
+
+```
+gds aws govwifi-staging -- make <env> init-backend
+```
+
+Use a staging env when testing your setup, when you are confident your setup works as expected, you can then change `govwifi-staging` to `govwifi` to run in production).
 
 After this you should be able to run `plan` to verify everything works:
 
 ```
-aws-vault exec govwifi -- make <env> plan
+aws-vault exec govwifi-staging -- make <env> plan
+```
+or if you are using the gds-cli:
+
+```
+gds aws govwifi-staging -- make <env> plan
 ```
 
 You should see the confirmation message:

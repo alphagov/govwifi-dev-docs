@@ -1,67 +1,32 @@
 ---
-title: Learn about FreeRADIUS
+title: GovWifi's FreeRADIUS Implementation
 weight: 80
-last_reviewed_on: 2022-01-14
+last_reviewed_on: 2022-08-19
 review_in: 6 months
 ---
 
-# Learn about FreeRADIUS
+# GovWifi's FreeRADIUS Implementation
 
-## AAA
+GovWifi operates six FreeRADIUS servers, hosted on AWS.
 
-GovWifi currently has a set of six RADIUS servers. These servers control network access with [AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
-![Exchange with Supplicant](/images/radius_exchange.png)
+## Authentication
 
-### Authentication
+Authentication requests are received on the default port, 1812.
 
-- Runs on port 1812.
-- Requests user details stored in the database via the [Authentication API](https://github.com/alphagov/govwifi-authentication-api).
+User details are checked against the GovWifi users database via the FreeRADIUS REST module, which communicates with the [ GovWifi Authentication API](https://github.com/alphagov/govwifi-authentication-api).
 
-### Authorisation
+## Authorisation
 
-- We do not have different levels of access so this is a NOOP.
+GovWifi authenticates users seeking to access WiFi networks operated by host organisations which have adopted the GovWifi service. It is not used to authorise users' access to particular network services (though FreeRADIUS can be used for this). 
 
-### Accounting
+>The processing sections concerned with authorisation (distinct from the 'authorize' processing section, see above) are configured to carry out no operations in the GovWifi FreeRADIUS configuration.
 
-- Runs on Port 1813. Although port 1813 is open and running GovWifi does not perform any accounting.
-- We don't block accounting requests, but we don't do anything with them –– instead our configuration returns a NOOP. If an organisation requires accounting, they can enable it on their local infrastructure.
+## Accounting
 
-## Unlang
+GovWifi's FreeRADIUS configuration allows accounting requests on the default port, 1813. However, accounting is outside the scope of the GovWifi service. GovWifi's FreeRADIUS servers log, but otherwise ignore, accounting requests. 
 
-FreeRADIUS is configured using a language called [Unlang](https://freeradius.org/radiusd/man/unlang.html).
+>These logs can be found in the `frontend` in the `govwifi` AWS account.
 
-We favor keeping all complex functionality in the backend APIs, instead of in Unlang.
+## Learn More
 
-This way it is easier to test and change in the future.
-
-![FreeRADIUS](/images/free_radius.png)
-
-## FreeRADIUS Server
-
-This is the software installed on our RADIUS servers.
-
-It is open source and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
-
-![FreeRADIUS server](/images/free_radius_server.png)
-
-## The RADIUS Healthcheck
-
-The [Route53 healthcheck](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html) connects to port `3000` on a specific FreeRADIUS servers. For example:
-```http://12.345.678.91:3000/
-```
-
-A Ruby process listens on port `3000`. When it receives a request for `"/"`, it automatically runs an [`eapol_test`](https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28) command, which then connects to the Authentication API and returns a `200` response in case a successful response is received.
-
-The [configuration for the healthcheck](https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/peap-mschapv2.conf.erb) `eapol_test` can be found on GitHub.
-
-If you need to manually test the healthcheck in a radius docker container you can do:
-```eapol_test -c /usr/src/healthcheck/peap-mschapv2.conf -s $(echo $HEALTH_CHECK_RADIUS_KEY)
-```
-
-The secret can also be found by logging in as a GovWifi administrator (for staging you would login [here](https://admin.staging-temp.wifi.service.gov.uk/) ), switching to the GDS CTS organisation, then selecting “Locations” and scrolling to “Health check user”.
-
-It should also be noted that the last login of the health check user is no longer recorded in the User database.
-
-The failure of the health check does not actually trigger a new Radius docker container to be spawned. It only sends a notification email to govwifi-devops@digital.cabinet-office.gov.uk .
-
-You can learn more about the healthcheck [here](https://github.com/alphagov/govwifi-frontend#healthcheck).
+See the 'Learn about FreeRADIUS' page for more information on how FreeRADIUS works and how to configure it.

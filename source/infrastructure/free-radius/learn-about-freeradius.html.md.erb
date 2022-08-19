@@ -1,0 +1,167 @@
+---
+title: Learn about FreeRADIUS
+weight: 80
+last_reviewed_on: 2022-08-19
+review_in: 3 months
+---
+
+# Learn about FreeRADIUS
+
+## What is FreeRADIUS?
+
+FreeRADIUS is an application which determines whether an end-user device should be allowed access to a network (authentication) and particular network services (authorisation). It can also be used to collect data on a user/device's usage of a network and its services (accounting). An application which carries out these functions is often referred to as an 'AAA' server.
+
+The first version of FreeRADIUS was released in 1999. GovWifi uses version 3 and this document refers to version 3 unless explicitly stated otherwise.
+
+FreeRADIUS is open source and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
+
+## What is RADIUS?
+
+RADIUS stands for *Remote Authentication Dial In User Service*. It is a network protocol for communicating between devices and designed specifically for sending authentication, authorisation and accounting requests and responses.
+
+RADIUS was introduced in 1991 to allow internet service providers to authenticate network access centrally. FreeRADIUS implements the RADIUS protocol but most of the work it does involves processing messages sent using the protocol before sending response messages using the same protocol. It does much more than simply implement the RADIUS protocol.
+
+## How does FreeRADIUS work?
+
+FreeRADIUS does not communicate directly with end-user devices. Devices seeking network access do so via a *Network Access Server* (NAS) which in turn sends a combination of data provided by the end-user device (e.g. credentials or a certificate) and data held by the NAS itself (e.g. its MAC address, a shared secret). In the case of GovWifi the 'NAS' is always a WiFi access point.
+
+FreeRADIUS is a highly mature, sophisticated piece of software but what it does in principle is simple. It *processes messages* in line with *policies*. 
+
+For example, a mobile phone seeks to access GovWifi via an access point. The access point transmits an 'Access-Request' message, the format of which is determined by the RADIUS specification. FreeRADIUS passess the message data through a set of stages, called 'sections'. In each section, it carries out one of more actions - determined by 'policies' - which may change the data. Simultaneously, it begins building up data to include in a response message.
+
+One all the stages are complete FreeRADIUS discards the incoming message data and sends the final, complete response message back to the NAS. In the example of a mobile phone seeking authentication, the response message will either be an 'Access-Accept' or 'Access-Reject' message (RADIUS also specifies an 'Accept-Challenge' message - i.e. "I need more information" but GovWifi does not use this).
+
+It is then up to the NAS to act on the message. FreeRADIUS does not enforce accept/reject messages or even check whether they have been given effect. It has no knowledge of the state of any connection between an end user device and the NAS.
+
+FreeRADIUS is highly flexible. It can be configured to carry out a large range of actions as part of each of its sections, for example checking whether the credentials sent in an Access-Request message are in a database or directory, logging all or part of the request/response messages, writing accounting information to a database or running external programs. This activity is determined by policies. The result of any of this activity is *always* the creation or updating of message data as it flows through the sections. It's input is always a message and its output is always a message. It's up to a NAS or other hardware/software to do something useful with the response message.
+
+The [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) provides a more complete summary of what the server does.
+
+## Processing Sections
+
+There are ten stages or 'sections' through which messages flow within the FreeRADIUS application but GovWifi is concerned with just three:
+
+- **authorize**
+- **authenticate**
+- **post-auth**
+
+A request message does not necessarily pass through all three sections. For example, if it is determined that a request should be rejected in one section an Access-Reject message could be sent immediately, without further processing.
+
+Messages will in some cases pass through the remaining seven sections (session, preacct, accounting, pre-proxy, post-proxy, recv-coa and send-coa) but GovWifi's FreeRADIUS servers are configured to take no action in each of these sections.
+
+> The work carried out in each processing section is specified in a block sharing the name of the relevant section either in the 'root' of the main config file or a 'server' section in that file, if using virtual servers (see below).
+
+### The authorize Section
+
+The name 'authorize' for the first is historical - it is the first part of the authentication process and the [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) says it is better described as 'pre-authentication'.
+
+Passwords are retrieved from any database, directory or file in the authorize section.
+
+### The authenticate Section
+
+The authenticate section is broken down into a number of subsections. Only one subsection is executed per request, determined by the Auth-Type attrribute found in the control list. This is added to the control list by the authorize section.
+
+Like processing sections, these subsections call one or more modules to handle authentication.
+
+### The post-auth Section
+
+The post-auth stage takes place once any other processing is complete, making it a useful place to log any information about the request/response.
+
+The post-auth section is run before any response message is sent.
+
+More information on processing sections can be found on the [Network Radius Wiki](https://networkradius.com/doc/3.0.10/raddb/sites-available/default.html).
+
+
+## Modules
+
+Each processing section calls one or more [modules](https://networkradius.com/doc/current/raddb/mods-available/home.html). For example, the authorize section can call any of several modules which look for the credentials provided in the request message in a database or directory. In the case of GovWifi, the REST module is called, which communicates with the GovWifi authentication API. This, in turn, checks the credentials against the users database and sends a response to FreeRADIUS.
+
+As each module is called it may (or may not) create or update message data before providing a return code to the processing section. Depending on the return code the section might carry on processing (by calling another module), hand off to the next section or trigger transmission of the response message.
+
+>Each module has its own configuration file in the 'sites-available' directory and can be enabled by creating a symlink to that file in the 'sites-enabled' directory. The modules are thoroughly documented through comments in the the default configuration files. Online documentation, including [the wiki](https://networkradius.com/doc/current/raddb/mods-available/home.html) is a bit more hit and miss.
+
+FreeRADIUS 3.0 comes with over 60 modules, each of which can be called by one or sometimes several processing sections. Additional modules can be installed separately.
+
+>When a module can be called by more than one processing section, the work it carries out on behalf of that section is specified in a block with the same name. E.g. the REST module file has (amongst others) an 'authorize' block and a 'post-auth' block.
+
+## Attribute Lists
+
+As each section and module does its work, several 'lists' of attributes are created or modified. These contain data from the incoming message and data which is used to populate the outgoing message. They might also contain temporary data used to manage the work of the server. There are four lists useful in the context of GovWifi:
+
+- **request**: Contains attributes that were received in the request.
+- **reply**: Contains the attributes that will be sent in any reply.
+- **control**: Contains internal attributes that are used by the server as a temporary storage area. None of these attributes are sent in a request or reply.
+- **session-state**: the more complex authentication methods - such as EAP-MSCHAPv2 used by GovWifi - involve the exchange of several messages between FreeRADIUS and the NAS before a final Access-Accept or Access-Request message is sent. This list contains temporary data which is needed throughout the whole exchange process. This is an exception to the general principle that FreeRADIUS does not maintain state between requests.
+
+While the FreeRADIUS documentation refers to these as 'lists' they have more in common with a hash/dictionary/struct than a list or array.
+
+For a full explanation of attribute lists see the [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf).
+
+>The contents of all attribute lists can be printed to the terminal when the server is run in debugging mode by adding `debug_all` to the `post-auth` section of either the main config or the config for a virtual server `server` section.
+
+## Virtual Servers
+
+FreeRADIUS 2 introduced the concept of ['vitual servers'](https://wiki.freeradius.org/config/Virtual-server). From a configuration point of view, virtual servers simply represent separate sets of policies. For example, a FreeRADIUS configuration could specify two virtual servers, each of which handles messages from different IP addresses/ranges and handles them differently.
+
+>Each virtual server is configured in a 'server' block. All server blocks can be included in the main configuration file or in separate files which the main config file imports with an `$INCLUDE` directive. Each server block has its own set of authorize, authenticate (etc) blocks which confgure the processing sections for that server.
+
+GovWifi makes use of two virtual servers, in line with the default FreeRADIUS configuration: 'default' and 'inner-tunnel'. The latter handles requests which have been encrypted in a TLS tunnel using an EAP tunnel, in the case of GovWifi EAP-MSCHAPv2 (also known as PEAPv0 or PEAP-MSCHAPv2).
+
+## Navigating the Configuration Files
+
+The main configuration file is `radiusd.conf`, in the root of the configuration directory.
+
+>The configuration directory is `/etc/raddb` for all Linux distributions with the exception of Debian and its derivatives, where it is `/etc/freeradius/`.
+
+The entire configuration can be put in this file and that was the way FreeRADIUS 1 was designed to work. Since version 2, the configuration is by default split across separate files for virtual servers, modules and important configuration elements such as allowed IP addresses (`clients.conf`). All of these are imported into the main configuration file with an `$INCLUDE` directive. 
+
+Individual config files or whole directories of config files can be imported with `$INCLUDE`. In either case, using `$INCLUDE` is equivalent to copying and pasting the contents of the included file(s) at the point where it is used.
+
+The FreeRADIUS config directory contains the following sub-directories:
+
+- **certs**: contains any certificates used as part of TLS/EAP based authentication
+- **mods-available**: contains the main configuration files for all installed modules. Much of the FreeRADIUS documentation refers to these files as 'modules' themselves though in reality they specify the work each module will undertake
+- **mods-config**: additional configuration files for modules. Not all modules needs or have them. 
+>The directory structure within `mods-config` reflects the namespacing used within FreeRADIUS's main config, e.g. `mods-config/files/authorize` includes configuration for the 'files' module which is used in that module's 'authorize' block.
+- **mods-enabled**: contains symlinks to files in `mods-available`. The existence of a symlink is what enables the module. Around 30 of the modules in `mods-available` have symlinks in `mods-enabled` by default (and are therefore enabled by default). The entire contents of the directory are imported into the main config with an `$INCLUDE` directive. 
+>Instead of creating a symlink to a module you want enabled, you can replace the symlink of the relevant module with a fresh configuration file. This is useful when trying things out because it avoids replacing the default files in 'mods-available'. These contain useful documentation but can be a headache to edit because of the sheer number of comments.
+- **policy.d**: contains policies, described using Unlang, which determine how the server processes messages. For example, `policy.d/debug` determines what information to print to the terminal when the server is run in debug mode.
+>It's important to note that the `policy.d` directory is not the only place containing policies. Policies are anything written in Unlang, throughout the configuration files, which describes how data should be processed as it flows through the processing sections.
+- **sites-available**: contains configuration files for virtual servers. By design, a separate file is used for each virtual server, though this isn't essential. FreeRADIUS 3 comes with configurations for around 25 virtual servers.
+- **sites-enabled**: contains symlinks to one or more of the files in `sites-available`. As with the module files, it's the existence of a symlink which enables the virtual server. The default FreeRADIUS 3 configuration enables the `default` and `inner-tunnel` virtual servers which are also the only two used by GovWifi.
+
+## Policies and Unlang
+
+'Policies' determine how attribute lists, and therefore messages, are processed as they flow through the server's processing sections.
+
+Policies are written in 'Unlang' which has some features of a progamming language but is intentionally designed not to be a substitute for a full, general-purpose language (hence the name). The [Unlang man page](https://freeradius.org/radiusd/man/unlang.html) has more detail.
+
+Unlang can retrieve and update variables in attribute lists. Attributes cannot be created at runtime and must exist in the server's dictionary file. However, if an attribute list *can* include a pre-defined variable but does not, that variable and an associated value can be added to the list.
+
+>Attributes can be retrieved using %{...} notation. Attribute lists are referenced with "`&`" E.g. `"%{&request:User-Name}"` will retrieve the User-Name attribute from the request list.
+
+Care should be taken with strings. Strings in single quotes, double quotes, backticks and no quotes are allowed but behave differently (use of double quotes and backticks allows variable expansion (string interpolation) but single quotes and unquoted strings do not.
+
+>If a string is included in backticks it is treated as a shell command, with the output treated as a string. This can be very useful for debugging.
+
+Unlang allows the setting of variables which are distinct from attributes and are not contained in attribute lists, though attributes can be assigned the value of a variable. See the [Network Radius variables page](https://networkradius.com/doc/3.0.10/raddb/syntax/config_reference.html) for more information.
+
+>Freeradius variables are references with `"${...}"` notation. Environment variables can be referenced with `"$ENV{...}"` notation, which can be helpful for debugging.
+
+
+### Further Reading
+
+The perceived quality of the documentation is a somewhat controversial subject on the [FreeRADIUS users mailing list](https://lists.freeradius.org/mailman/listinfo/freeradius-users). However, it is hard to argue that there are no weaknesses in the documentation.
+
+
+- The configuration and module files (`sites-available/*`) are documented with comments. While this documentation is very thorough, the use of comments can make the configuration files hard to read and edit (it's usually best to create fresh ones)
+- Each of the configuration directories has a helpful `README.rst` file. The readme in the config root directory has some helpful information on upgrading to FreeRADIUS 3, which can help when adapting documentation written with earlier versions in mind.
+- The [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) is a useful resource. It is based on version 2 which was released in 2008. However, in places it seems to be referring to v3. It contradicts itself in places (are there nine processing sections or ten) and includes material errors in others. Some care needs to be taken when using it.
+- The FreeRADIUS wiki includes a large amount of information but it is not always clear which version is being referred to and can be unintuitive to navigate. The [Getting Started](https://wiki.freeradius.org/guide/Getting-Started), [Basic Configuration](https://wiki.freeradius.org/guide/Basic-configuration-HOWTO) and [FAQ](https://wiki.freeradius.org/guide/faq) pages are good places to start.
+> One poorly documented change in v3 is that test users are created in `mods-config/files/authorize`, not the `users.conf` referred to in most of the wiki. The `users.conf` file still exists in v3 however, which can be confusing.
+- The FreeRADIUS wiki has a good [page on setting up EAP-based authentication](https://wiki.freeradius.org/guide/eduroam) as part of a basic Eduroam config.
+- The [Network Radius wiki](https://networkradius.com/doc/3.0.10/index.html) has probably the best online reference for the various configuration options but has some significant gaps, e.g. not all the modules are documented and the page for the [`mods-config` directory](https://networkradius.com/doc/3.0.10/raddb/mods-config/home.html) is somewhat sparse. It has detail on Unlang not found in the Unlang man page, however.
+
+
+
+

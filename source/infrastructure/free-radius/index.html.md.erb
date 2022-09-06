@@ -1,29 +1,34 @@
 ---
-title: Learn about FreeRADIUS
+title: GovWifi's FreeRADIUS Implementation
 weight: 80
-last_reviewed_on: 2022-01-14
+last_reviewed_on: 2022-08-19
 review_in: 6 months
 ---
 
-# Learn about FreeRADIUS
+# GovWifi's FreeRADIUS Implementation
 
-## AAA
+GovWifi operates six FreeRADIUS servers, hosted on AWS.
+
 
 The FreeRADIUS servers operated by the GovWifi team control network access with
 [AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
 
 ![Exchange with Supplicant](/images/radius_exchange.png)
 
-### Authentication
+## Authentication
 
-- Runs on port 1812.
-- Requests user details stored in the database via the [Authentication API](https://github.com/alphagov/govwifi-authentication-api).
+Authentication requests are received on the default port, 1812.
 
-### Authorisation
+User details are checked against the GovWifi users database via the FreeRADIUS REST module, which communicates with the [ GovWifi Authentication API](https://github.com/alphagov/govwifi-authentication-api).
 
-- We do not have different levels of access so this is a NOOP.
+## Authorisation
 
-### Accounting
+GovWifi authenticates users seeking to access WiFi networks operated by host organisations which have adopted the GovWifi service. It is not used to authorise users' access to particular network services (though FreeRADIUS can be used for this). 
+
+>The processing sections concerned with authorisation (distinct from the 'authorize' processing section, see above) are configured to carry out no operations in the GovWifi FreeRADIUS configuration.
+
+
+## Accounting
 
 Traffic on port 1813 isn't routed through to FreeRADIUS.
 
@@ -54,3 +59,7 @@ come from deployments of GovWifi. This includes connecting to the
 Authentication and Logging APIs.
 
 [frontend-eapol]: https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28
+
+## Learn More
+
+See the 'Learn about FreeRADIUS' page for more information on how FreeRADIUS works and how to configure it.

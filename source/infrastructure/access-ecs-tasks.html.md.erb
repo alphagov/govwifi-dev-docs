@@ -1,0 +1,41 @@
+---
+title: Access ECS tasks
+weight: 30
+last_reviewed_on: 2022-08-30
+review_in: 3 months
+---
+
+# Access ECS tasks with ECS Exec
+
+[ECS Exec][ecs exec] is a way of using the AWS CLI to launch programs
+within ECS tasks, including interactive programs like shells.
+
+[ecs exec]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
+
+## Prerequsites
+
+You'll need both the AWS CLI, plus the [Session Manager plugin][session manager plugin].
+
+The Session Manager plugin can be downloaded from AWS or installed
+using package managers like Homebrew.
+
+[session manager plugin]: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html
+
+## Examples
+
+This is a general template to launch an interactive shell within a
+specific task and container:
+
+
+```sh
+gds aws ACCOUNT -- aws ecs execute-command --region REGION --cluster CLUSTER --task TASK --container CONTAINER --interactive --command "/bin/sh"
+```
+
+For example, getting a shell within a frontend task in staging would look like:
+
+```sh
+gds aws govwifi-staging -- aws ecs execute-command --region=eu-west-2 --cluster frontend-fargate --task 180f3f7138704925bcfcecda1996f5b4 --container frontend-radius --interactive --command "/bin/sh"
+```
+
+The specific cluster names, task IDs and container names can be found
+through the AWS website.

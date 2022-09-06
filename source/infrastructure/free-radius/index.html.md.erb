@@ -9,6 +9,12 @@ review_in: 6 months
 
 GovWifi operates six FreeRADIUS servers, hosted on AWS.
 
+
+The FreeRADIUS servers operated by the GovWifi team control network access with
+[AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
+
+![Exchange with Supplicant](/images/radius_exchange.png)
+
 ## Authentication
 
 Authentication requests are received on the default port, 1812.
@@ -21,11 +27,38 @@ GovWifi authenticates users seeking to access WiFi networks operated by host org
 
 >The processing sections concerned with authorisation (distinct from the 'authorize' processing section, see above) are configured to carry out no operations in the GovWifi FreeRADIUS configuration.
 
+
 ## Accounting
 
-GovWifi's FreeRADIUS configuration allows accounting requests on the default port, 1813. However, accounting is outside the scope of the GovWifi service. GovWifi's FreeRADIUS servers log, but otherwise ignore, accounting requests. 
+Traffic on port 1813 isn't routed through to FreeRADIUS.
 
->These logs can be found in the `frontend` in the `govwifi` AWS account.
+## Unlang
+
+FreeRADIUS is configured using a language called [Unlang](https://freeradius.org/radiusd/man/unlang.html).
+
+We favor keeping all complex functionality in the backend APIs, instead of in Unlang.
+
+This way it is easier to test and change in the future.
+
+![FreeRADIUS](/images/free_radius.png)
+
+## FreeRADIUS Server
+
+This is the software installed on our RADIUS servers.
+
+It is open source and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
+
+![FreeRADIUS server](/images/free_radius_server.png)
+
+## The frontend health check
+
+Within the frontend task, a Ruby process listens on port `3000`. When
+it receives a request for `"/"`, it runs
+[`eapol_test`][frontend-eapol]), which replicates the requests that
+come from deployments of GovWifi. This includes connecting to the
+Authentication and Logging APIs.
+
+[frontend-eapol]: https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28
 
 ## Learn More
 

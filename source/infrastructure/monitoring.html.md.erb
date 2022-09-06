@@ -1,7 +1,7 @@
 ---
 title: Monitoring
 weight: 20
-last_reviewed_on: 2022-03-25
+last_reviewed_on: 2022-08-10
 review_in: 3 months
 ---
 
@@ -79,7 +79,13 @@ If you have SSH access, you can run the commands below to see the
 dashboard.  If not, please speak to the reliability engineers on the
 team about access.
 
-Staging
+Staging Ireland
+
+```
+ssh -L 9090:127.0.0.1:9090 prometheus-ie.staging.govwifi
+```
+
+Staging London
 
 ```
 ssh -L 9090:127.0.0.1:9090 prometheus.staging.govwifi

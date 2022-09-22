@@ -11,13 +11,13 @@ review_in: 6 months
 
 Starting the FreeRADIUS server with the `-X` flag will enable verbose logging.
 
-This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to the volume of transactions on production, enabling this will have an impact on performance.
+This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to the volume of transactions on production, enabling this will have a significant impact on performance and is not recommended in production.
 
 A better way to use this would be to enable it on staging and to have the client who is having trouble connect to that IP.
 
 Production and staging logs can be found in CloudWatch under `wifi-frontend-docker-log-group` and `staging-frontend-docker-log-group` respectively.
 
-It will contain all the details of the authentication request which can be used to diagnose issues.
+It will contain all the details of the authentication request which can be used to diagnose issues. While the debug output is comprehensive, there may be information it doesn't provide which is useful to surface. See the 'Learning about FreeRADIUS' page for options.
 
 ![free radius logs]
 
@@ -26,6 +26,8 @@ It will contain all the details of the authentication request which can be used 
 You can get help from the FreeRADIUS community by asking questions on their [user mailing list][mailing list link].
 
 You will need to sign up before you can ask questions or gain access to the archives.
+
+
 
 ## eapol_test
 

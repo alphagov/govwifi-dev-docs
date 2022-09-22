@@ -17,25 +17,41 @@ FreeRADIUS is open source and can be found on [Github](https://github.com/FreeRA
 
 ## What is RADIUS?
 
-RADIUS stands for *Remote Authentication Dial In User Service*. It is a network protocol for communicating between devices and designed specifically for sending authentication, authorisation and accounting requests and responses.
+RADIUS stands for *Remote Authentication Dial In User Service*. It is a network protocol for communicating between devices and designed specifically for sending authentication, authorisation and accounting requests and responses. It also specifies how such messages should be handled and is therefore more than simply a communications protocol.
 
-RADIUS was introduced in 1991 to allow internet service providers to authenticate network access centrally. FreeRADIUS implements the RADIUS protocol but most of the work it does involves processing messages sent using the protocol before sending response messages using the same protocol. It does much more than simply implement the RADIUS protocol.
+RADIUS was introduced in 1991 to allow internet service providers to authenticate network access requests centrally.
+
+RADIUS is a binary protocol. This means that interpreting messages requires a dictionary file to give meaning to each data item. This is in contrast to e.g. JSON where field names/keys (as well as data) are transmitted in plain text.
+
+FreeRADIUS implements the RADIUS protocol.
+
+>The ITEF 'standards track' RFC for the RADIUS protocol is [2856](https://www.ietf.org/rfc/rfc2865.txt). There are many other RFCs covering extensions to the RADIUS protocol - a list can be found [here](https://freeradius.org/rfc/)
 
 ## How does FreeRADIUS work?
 
-FreeRADIUS does not communicate directly with end-user devices. Devices seeking network access do so via a *Network Access Server* (NAS) which in turn sends a combination of data provided by the end-user device (e.g. credentials or a certificate) and data held by the NAS itself (e.g. its MAC address, a shared secret). In the case of GovWifi the 'NAS' is always a WiFi access point.
+FreeRADIUS does not communicate directly with end-user devices. Devices seeking network access do so via a *Network Access Server* (NAS) which in turn sends a combination of data provided by the end-user device (e.g. credentials or a certificate) and data held by the NAS itself (e.g. its MAC address, a shared secret). In the case of GovWifi the 'NAS' can be a WiFi access point or a server managing several access points. GovWifi does not supprt other types of non-wifi network access, though FreeRADIUS supports many.
 
 FreeRADIUS is a highly mature, sophisticated piece of software but what it does in principle is simple. It *processes messages* in line with *policies*.
 
 For example, a mobile phone seeks to access GovWifi via an access point. The access point transmits an 'Access-Request' message, the format of which is determined by the RADIUS specification. FreeRADIUS passess the message data through a set of stages, called 'sections'. In each section, it carries out one of more actions - determined by 'policies' - which may change the data. Simultaneously, it begins building up data to include in a response message.
 
-One all the stages are complete FreeRADIUS discards the incoming message data and sends the final, complete response message back to the NAS. In the example of a mobile phone seeking authentication, the response message will either be an 'Access-Accept' or 'Access-Reject' message (RADIUS also specifies an 'Accept-Challenge' message - i.e. "I need more information" but GovWifi does not use this).
+One all the stages are complete FreeRADIUS discards the incoming message data and sends the final, complete response message back to the NAS. In the example of a mobile phone seeking authentication, the response message will either be an 'Access-Accept' or 'Access-Reject' message.
 
-It is then up to the NAS to act on the message. FreeRADIUS does not enforce accept/reject messages or even check whether they have been given effect. It has no knowledge of the state of any connection between an end user device and the NAS.
+It is then up to the NAS to act on any response messages. FreeRADIUS does not enforce accept/reject messages or even check whether they have been given effect. It has no knowledge of the state of any connection between an end user device and the NAS.
 
 FreeRADIUS is highly flexible. It can be configured to carry out a large range of actions as part of each of its sections, for example checking whether the credentials sent in an Access-Request message are in a database or directory, logging all or part of the request/response messages, writing accounting information to a database or running external programs. This activity is determined by policies. The result of any of this activity is *always* the creation or updating of message data as it flows through the sections. It's input is always a message and its output is always a message. It's up to a NAS or other hardware/software to do something useful with the response message.
 
 The [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) provides a more complete summary of what the server does.
+
+### FreeRADIUS is (mostly) stateless
+
+The RADIUS protocol also specifies an 'Accept-Challenge' message - i.e. "I need more information". These are an integral part of the EAP-MSCHAPv2/PEAPv0 authentication method used by GovWifi, which involves the shuttling of several messages back and forth while a TLS-based connection is negotiated.
+
+With the exception of this brief exchange of messages, the server is stateless. Even then, incoming request messages are discarded each time a response is sent, with some required data needed throughout the whole exchange kept in a special 'session-state' data structure.
+
+> The term used in the context of FreeRADIUS for its internal data structures such as 'session-state' is 'attribute lists'
+
+Once the whole exchange has been completed and a final Access-Accept or Access-Reject message is sent, the data in the session-state attribute list is discarded.
 
 ## Processing Sections
 
@@ -53,13 +69,15 @@ Messages will in some cases pass through the remaining seven sections (session, 
 
 ### The authorize Section
 
-The name 'authorize' for the first is historical - it is the first part of the authentication process and the [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) says it is better described as 'pre-authentication'.
+The name 'authorize' for the first section is historical - it is the first part of the authentication process and the [FreeRADIUS technical guide](https://networkradius.com/doc/FreeRADIUS%20Technical%20Guide.pdf) says it is better described as 'pre-authentication'.
 
 Passwords are retrieved from any database, directory or file in the authorize section.
 
+This section also determines the authentication type being attempted and adds this to the 'control' attribute list.
+
 ### The authenticate Section
 
-The authenticate section is broken down into a number of subsections. Only one subsection is executed per request, determined by the Auth-Type attrribute found in the control list. This is added to the control list by the authorize section.
+The authenticate section is broken down into a number of subsections. Only one subsection is executed per request, determined by the Auth-Type attrribute found in the control attribute list.
 
 Like processing sections, these subsections call one or more modules to handle authentication.
 
@@ -68,6 +86,10 @@ Like processing sections, these subsections call one or more modules to handle a
 The post-auth stage takes place once any other processing is complete, making it a useful place to log any information about the request/response.
 
 The post-auth section is run before any response message is sent.
+
+> Care must be taken when calling modules or external programs within the post-auth section. If one of these fails and the error is not explicitly caught using a `redundant` block, an Access-Reject message will be sent regardless of the validity of the request being handled.
+
+### More on processing sections
 
 More information on processing sections can be found on the [Network Radius Wiki](https://networkradius.com/doc/3.0.10/raddb/sites-available/default.html).
 
@@ -101,7 +123,7 @@ For a full explanation of attribute lists see the [FreeRADIUS technical guide](h
 
 ## Virtual Servers
 
-FreeRADIUS 2 introduced the concept of ['vitual servers'](https://wiki.freeradius.org/config/Virtual-server). From a configuration point of view, virtual servers simply represent separate sets of policies. For example, a FreeRADIUS configuration could specify two virtual servers, each of which handles messages from different IP addresses/ranges and handles them differently.
+FreeRADIUS 2 introduced the concept of ['vitual servers'](https://wiki.freeradius.org/config/Virtual-server). From a configuration point of view, virtual servers simply represent separate sets of policies. For example, a FreeRADIUS configuration could specify two virtual servers, each of which handles messages from different IP addresses/ranges and applies different sets of policies.
 
 >Each virtual server is configured in a 'server' block. All server blocks can be included in the main configuration file or in separate files which the main config file imports with an `$INCLUDE` directive. Each server block has its own set of authorize, authenticate (etc) blocks which confgure the processing sections for that server.
 
@@ -127,8 +149,9 @@ The FreeRADIUS config directory contains the following sub-directories:
 >Instead of creating a symlink to a module you want enabled, you can replace the symlink of the relevant module with a fresh configuration file. This is useful when trying things out because it avoids replacing the default files in 'mods-available'. These contain useful documentation but can be a headache to edit because of the sheer number of comments.
 - **policy.d**: contains policies, described using Unlang, which determine how the server processes messages. For example, `policy.d/debug` determines what information to print to the terminal when the server is run in debug mode.
 >It's important to note that the `policy.d` directory is not the only place containing policies. Policies are anything written in Unlang, throughout the configuration files, which describes how data should be processed as it flows through the processing sections.
-- **sites-available**: contains configuration files for virtual servers. By design, a separate file is used for each virtual server, though this isn't essential. FreeRADIUS 3 comes with configurations for around 25 virtual servers.
-- **sites-enabled**: contains symlinks to one or more of the files in `sites-available`. As with the module files, it's the existence of a symlink which enables the virtual server. The default FreeRADIUS 3 configuration enables the `default` and `inner-tunnel` virtual servers which are also the only two used by GovWifi.
+- **sites-available**: contains configuration files for virtual servers. By default, a separate file is used for each virtual server, though this isn't essential. FreeRADIUS 3 comes with configurations for around 25 virtual servers.
+- **sites-enabled**: contains symlinks to one or more of the files in `sites-available`. As with the module files, it's the existence of a symlink which enables the virtual server. The default FreeRADIUS 3 configuration enables the `default` and `inner-tunnel` virtual servers which are also the main two used by GovWifi.
+> The GovWifi FreeRADIUS configuration also enables the `status` virtual server. A NAS can use a status request to check that a FreeRADIUS server is ready to handle access requests and the `status` virtual server responds to these.
 
 ## Policies and Unlang
 
@@ -136,20 +159,124 @@ The FreeRADIUS config directory contains the following sub-directories:
 
 Policies are written in 'Unlang' which has some features of a progamming language but is intentionally designed not to be a substitute for a full, general-purpose language (hence the name). The [Unlang man page](https://freeradius.org/radiusd/man/unlang.html) has more detail.
 
-Unlang can retrieve and update variables in attribute lists. Attributes cannot be created at runtime and must exist in the server's dictionary file. However, if an attribute list *can* include a pre-defined variable but does not, that variable and an associated value can be added to the list.
+### Attributes in Unlang
+
+Data relating to particular incoming/outgoing messages is stored in 'attributes' which are the closest thing Unlang has to runtime variables. 'Variables' (see below) relate only to configuration data and are read only once, when the server starts.
+
+Unlang can retrieve and update attributes in attribute lists as well as perform simple logic, such as testing conditions. Attributes cannot be created at runtime and must exist in the server's dictionary file.
 
 >Attributes can be retrieved using %{...} notation. Attribute lists are referenced with "`&`" E.g. `"%{&request:User-Name}"` will retrieve the User-Name attribute from the request list.
 
-Care should be taken with strings. Strings in single quotes, double quotes, backticks and no quotes are allowed but behave differently (use of double quotes and backticks allows variable expansion (string interpolation) but single quotes and unquoted strings do not.
+The RADIUS protocol only allows one byte for each attribute key, meaning a total of 256 possible attributes. The small number of available attributes means arbitrary attributes cannot simply be created in Unlang as one would do in a general purpose language.
 
->If a string is included in backticks it is treated as a shell command, with the output treated as a string. This can be very useful for debugging.
+> Local attributes - attributes which are never transmitted between FreeRADIUS and a NAS - *can* be used if they are added to the dictionary file and given a key value of greater than 255. By convention a key value of >= 3000 is used. See comments in the default FreeRADIUS [dictionary file](https://github.com/FreeRADIUS/freeradius-server/blob/master/raddb/dictionary). The dictionary file is read once, when the server starts, so this does not eliminate the restriction that attributes/variables cannot be declared at runtime (only assigned).
 
-Unlang allows the setting of variables which are distinct from attributes and are not contained in attribute lists, though attributes can be assigned the value of a variable. See the [Network Radius variables page](https://networkradius.com/doc/3.0.10/raddb/syntax/config_reference.html) for more information.
+Care should be taken with strings. Strings in single quotes, double quotes, backticks and no quotes are allowed but behave differently (e.g. use of double quotes and backticks allows variable expansion/string interpolation but single quotes and unquoted strings do not.
+
+>If a string is included in backticks it is treated as a shell command, with the output treated as a string. This can be very useful for debugging, e.g. calling `echo` and passing it an attribute.
+
+### Variables in Unlang
+
+Variables hold configuration data, *not data relating to access requests or responses*. They play a similar role to `#define` directives or constants in general purpose languages. More information can be found [here](https://networkradius.com/doc/3.0.10/raddb/syntax/config_reference.html).
 
 >Freeradius variables are references with `"${...}"` notation. Environment variables can be referenced with `"$ENV{...}"` notation, which can be helpful for debugging.
 
 
-### Further Reading
+## A (very) basic FreeRADIUS configuration
+
+It is possible to configure FreeRADIUS using a single file (`radiusd.conf`) rather than using `$INCLUDE` directives to import additional configuration from other files.
+
+The following is an example of an extremely basic FreeRADIUS configuration including the key components virtual servers, processing sections and modules.
+
+```
+# IP addresses from which the server will accept requests and a shared
+# secret which must be provided by the NAS for any request to be accepted
+# Normally included from a separate clients.conf file
+
+client default {
+  ipaddr = "127.0.0.1"
+  secret = "testsecret"
+}
+
+# Configuration for any modules used by the server. By default each module
+# has its own configuration file, included in bulk from the mods-enabled/
+# directory
+
+modules {
+  files { # Block containing config for the 'files' module
+    filename = "${confdir}/files/authorize" # A file with user details
+  }
+
+  # PAP is the most basic auth type supported by FreeRADIUS
+  # An empty block, so use the default config
+
+  pap {
+  }
+
+  rest { # Contains all config for the REST module
+
+    # Tells the REST module what to do when called by the post-auth
+    # processing section
+
+    post-auth {
+        uri = "http://127.0.0.1/"
+        method = 'post'
+        data = "{ \
+          \"user_name\": \"%{User-Name}\", \
+          \"client_ip_address\": \"%{Client-IP-Address}\" \
+        }"
+        body = 'json'
+    }
+  }
+}
+
+# The configuration for the default virtual server
+
+server default {
+  listen {
+    type   = "auth"
+    ipv4addr = "127.0.0.1"
+  }
+
+  # The authorize processing section
+  # Calls the files module and the PAP module
+  # The files module will check if the provided user name is in the users
+  # file specified in the modules block above. In the real world this
+  # would check a database or directory. The PAP module will determine
+  # if the request is a PAP request and, if so, set the Auth-Type to 'PAP'
+
+  authorize {
+    files
+    pap
+  }
+
+  # The authenticate processing section
+  # If the Auth-Type has been set to 'PAP' in the previous section it
+  # calls the PAP module again to handle aunthentication.
+
+  authenticate {
+    Auth-Type PAP {
+      pap
+    }
+
+  # The authenticate processing section. Runs after the authentication has
+  # succeeded/failed but before a response message is sent. This calls
+  # the REST module which carries out the work specified in the modules
+  # block. Wrapping the call to the REST module in a redundant block,
+  # and specifying an 'ok' return code stops the whole authentication
+  # attempt failing if the REST module returns an error
+
+  post-auth {
+    redundant {
+        rest
+        ok
+    }
+  }
+}
+
+```
+
+## Further Reading
 
 The perceived quality of the documentation is a somewhat controversial subject on the [FreeRADIUS users mailing list](https://lists.freeradius.org/mailman/listinfo/freeradius-users). However, it is hard to argue that there are no weaknesses in the documentation.
 

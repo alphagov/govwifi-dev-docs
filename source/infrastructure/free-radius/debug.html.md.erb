@@ -15,25 +15,50 @@ This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to
 
 A better way to use this would be to enable it on staging and to have the client who is having trouble connect to that IP.
 
-Production and staging logs can be found in CloudWatch under `wifi-frontend-docker-log-group` and `staging-frontend-docker-log-group` respectively.
-
 It will contain all the details of the authentication request which can be used to diagnose issues. While the debug output is comprehensive, there may be information it doesn't provide which is useful to surface. See the 'Learning about FreeRADIUS' page for options.
 
-![free radius logs]
+## Command line testing tools
 
-## Mailing List
+Most Linux distributions include a FreeRADIUS utils package (`freeradius-utils` in both Ubuntu and Alpine) which includes the `radtest` command line tool. If using MacOS homebrew it is part of the `freeradius-server` package.
 
-You can get help from the FreeRADIUS community by asking questions on their [user mailing list][mailing list link].
+Radtest can be used to test that a FreeRADIUS server is broadly working but does not support the more advanced EAP/TLS methods used by GovWifi. It can be invoked as follows:
 
-You will need to sign up before you can ask questions or gain access to the archives.
+```
+radtest testing password localhost 0 testing123"
+```
 
+...where:
+- 'testing' is a valid username (e.g. set in mods-config/files/authorize)
+- 'password' is the valid password for the 'testing' user
+- the server is running on the same host (replace 'localhost' with the correct IP address if not)
+- '0' is the NAS-Port number. It can be set to anything.
+- 'testing123' is the shared secret set in the `clients.conf` file for the host on which radtest is being run. 
 
+To test EAP/TLS based authentication methods use the `eapol_test` tools. It is currently used in full-stack automated testing and health checking. Unfortunately `eapol_test` is not available in the repositories of most Linux distributions and has to be compiled. It is not available in homebrew and it is not practical to compile under MacOS.
 
-## eapol_test
+The following Dockerfile will create a minimal Ubuntu Docker image and compile eapol_test:
 
-In order to simulate UDP requests locally, there is a tool called [eapol_test][eapol test link].
+```
+FROM ubuntu:20.04
 
-This is currently used in full-stack automated testing and health checking.
+RUN apt-get update -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    --no-install-recommends ca-certificates \
+    git build-essential pkg-config libssl-dev libnl-3-dev \
+    libnl-genl-3-dev && \
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists
+
+RUN git clone --depth 1 --single-branch --branch v3.2.x https://github.com/FreeRADIUS/freeradius-server.git && \
+    /freeradius-server/scripts/ci/eapol_test-build.sh && \
+    cp /freeradius-server/scripts/ci/eapol_test/eapol_test \
+    /usr/local/bin/ && \
+    rm -rf /freeradius-server
+
+CMD ["/bin/bash"]
+
+```
 
 ## Common error messages
 ```
@@ -47,6 +72,4 @@ invalid Request Authenticator! (Shared secret is incorrect.)
 The server knows the IP but it failed to authenticate with its pre-shared key.
 
 [eapol test link]: http://deployingradius.com/scripts/eapol_test/
-[free radius logs]: /images/free_radius_logs.png "Radius Verbose logging"
-[mailing list link]: http://lists.freeradius.org/mailman/listinfo/freeradius-users
 [govwifi terraform link]: https://github.com/alphagov/govwifi-terraform

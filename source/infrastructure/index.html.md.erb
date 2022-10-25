@@ -1,7 +1,7 @@
 ---
 title: GovWifi infrastructure
 weight: 7
-last_reviewed_on: 2022-03-25
+last_reviewed_on: 2022-10-25
 review_in: 6 months
 ---
 
@@ -19,7 +19,7 @@ All connections must be made via the GDS VPN. Please contact your local service 
 
 ## Elastic IPs
 
-The RADIUS servers are configured to use elastic IPs (EIPs). There are six in total: three for the London AWS region and three for Ireland. Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
+The RADIUS servers are deployed as ECS Fargate tasks and respond to authentication requests addressed to Elastic IPs (EIPs) configured on the Network Load Balancers (NLBs). NLBs are deployed across three Availability Zones (AZs) in the London AWS region and three AZs in the Ireland AWS region (six Elastic IPs in total). Organisations which use our service allow-list these IPs and use them to connect to GovWifi.
 
 It is critical the EIPs do not change since this would break the configuration between organisations and our services, thereby removing organisations' access to GovWifi.
 
@@ -48,9 +48,9 @@ There are 12 databases in total:
   - Primary in London
   - Replica in London
   - Replica in Dublin
-- Concourse, PostgreSQL 13.3
+- Concourse, PostgreSQL 13.7
   - Primary in London
-- Concourse Grafana, PostgreSQL 10.17
+- Concourse Grafana, PostgreSQL 10.21
   - Primary in London
 
 ### Staging

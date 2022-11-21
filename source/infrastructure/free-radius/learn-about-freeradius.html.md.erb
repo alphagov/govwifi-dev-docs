@@ -1,7 +1,7 @@
 ---
 title: Learn about FreeRADIUS
 weight: 80
-last_reviewed_on: 2022-08-19
+last_reviewed_on: "2022-08-19"
 review_in: 3 months
 ---
 
@@ -25,7 +25,7 @@ RADIUS was introduced in 1991 to allow internet service providers to authenticat
 
 FreeRADIUS does not communicate directly with end-user devices. Devices seeking network access do so via a *Network Access Server* (NAS) which in turn sends a combination of data provided by the end-user device (e.g. credentials or a certificate) and data held by the NAS itself (e.g. its MAC address, a shared secret). In the case of GovWifi the 'NAS' is always a WiFi access point.
 
-FreeRADIUS is a highly mature, sophisticated piece of software but what it does in principle is simple. It *processes messages* in line with *policies*. 
+FreeRADIUS is a highly mature, sophisticated piece of software but what it does in principle is simple. It *processes messages* in line with *policies*.
 
 For example, a mobile phone seeks to access GovWifi via an access point. The access point transmits an 'Access-Request' message, the format of which is determined by the RADIUS specification. FreeRADIUS passess the message data through a set of stages, called 'sections'. In each section, it carries out one of more actions - determined by 'policies' - which may change the data. Simultaneously, it begins building up data to include in a response message.
 
@@ -113,7 +113,7 @@ The main configuration file is `radiusd.conf`, in the root of the configuration 
 
 >The configuration directory is `/etc/raddb` for all Linux distributions with the exception of Debian and its derivatives, where it is `/etc/freeradius/`.
 
-The entire configuration can be put in this file and that was the way FreeRADIUS 1 was designed to work. Since version 2, the configuration is by default split across separate files for virtual servers, modules and important configuration elements such as allowed IP addresses (`clients.conf`). All of these are imported into the main configuration file with an `$INCLUDE` directive. 
+The entire configuration can be put in this file and that was the way FreeRADIUS 1 was designed to work. Since version 2, the configuration is by default split across separate files for virtual servers, modules and important configuration elements such as allowed IP addresses (`clients.conf`). All of these are imported into the main configuration file with an `$INCLUDE` directive.
 
 Individual config files or whole directories of config files can be imported with `$INCLUDE`. In either case, using `$INCLUDE` is equivalent to copying and pasting the contents of the included file(s) at the point where it is used.
 
@@ -121,9 +121,9 @@ The FreeRADIUS config directory contains the following sub-directories:
 
 - **certs**: contains any certificates used as part of TLS/EAP based authentication
 - **mods-available**: contains the main configuration files for all installed modules. Much of the FreeRADIUS documentation refers to these files as 'modules' themselves though in reality they specify the work each module will undertake
-- **mods-config**: additional configuration files for modules. Not all modules needs or have them. 
+- **mods-config**: additional configuration files for modules. Not all modules needs or have them.
 >The directory structure within `mods-config` reflects the namespacing used within FreeRADIUS's main config, e.g. `mods-config/files/authorize` includes configuration for the 'files' module which is used in that module's 'authorize' block.
-- **mods-enabled**: contains symlinks to files in `mods-available`. The existence of a symlink is what enables the module. Around 30 of the modules in `mods-available` have symlinks in `mods-enabled` by default (and are therefore enabled by default). The entire contents of the directory are imported into the main config with an `$INCLUDE` directive. 
+- **mods-enabled**: contains symlinks to files in `mods-available`. The existence of a symlink is what enables the module. Around 30 of the modules in `mods-available` have symlinks in `mods-enabled` by default (and are therefore enabled by default). The entire contents of the directory are imported into the main config with an `$INCLUDE` directive.
 >Instead of creating a symlink to a module you want enabled, you can replace the symlink of the relevant module with a fresh configuration file. This is useful when trying things out because it avoids replacing the default files in 'mods-available'. These contain useful documentation but can be a headache to edit because of the sheer number of comments.
 - **policy.d**: contains policies, described using Unlang, which determine how the server processes messages. For example, `policy.d/debug` determines what information to print to the terminal when the server is run in debug mode.
 >It's important to note that the `policy.d` directory is not the only place containing policies. Policies are anything written in Unlang, throughout the configuration files, which describes how data should be processed as it flows through the processing sections.

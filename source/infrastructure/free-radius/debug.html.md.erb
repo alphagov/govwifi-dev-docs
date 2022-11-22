@@ -15,7 +15,7 @@ This is managed through the [GovWifi Terraform][govwifi terraform link].  Due to
 
 A better way to use this would be to enable it on staging and to have the client who is having trouble connect to that IP.
 
-It will contain all the details of the authentication request which can be used to diagnose issues. While the debug output is comprehensive, there may be information it doesn't provide which is useful to surface. See the 'Learning about FreeRADIUS' page for options.
+It will contain all the details of the authentication request which can be used to diagnose issues. While the debug output is comprehensive, there may be information it doesn't provide which is useful to surface. See the ['Learning about FreeRADIUS'](learn-about-freeradius.html) page for options.
 
 ## Command line testing tools
 
@@ -28,11 +28,12 @@ radtest testing password localhost 0 testing123"
 ```
 
 ...where:
+
 - 'testing' is a valid username (e.g. set in mods-config/files/authorize)
 - 'password' is the valid password for the 'testing' user
 - the server is running on the same host (replace 'localhost' with the correct IP address if not)
 - '0' is the NAS-Port number. It can be set to anything.
-- 'testing123' is the shared secret set in the `clients.conf` file for the host on which radtest is being run. 
+- 'testing123' is the shared secret set in the `clients.conf` file for the host on which radtest is being run.
 
 To test EAP/TLS based authentication methods use the `eapol_test` tools. It is currently used in full-stack automated testing and health checking. Unfortunately `eapol_test` is not available in the repositories of most Linux distributions and has to be compiled. It is not available in homebrew and it is not practical to compile under MacOS.
 

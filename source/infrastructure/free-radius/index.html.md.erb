@@ -1,7 +1,7 @@
 ---
 title: GovWifi's FreeRADIUS Implementation
 weight: 80
-last_reviewed_on: "2022-08-19"
+last_reviewed_on: "2022-11-22"
 review_in: 6 months
 ---
 
@@ -12,8 +12,6 @@ GovWifi operates six FreeRADIUS servers, hosted on AWS.
 
 The FreeRADIUS servers operated by the GovWifi team control network access with
 [AAA authentication](https://en.wikipedia.org/wiki/AAA_(computer_security)).
-
-![Exchange with Supplicant](/images/radius_exchange.png)
 
 ## Authentication
 
@@ -40,15 +38,11 @@ We favor keeping all complex functionality in the backend APIs, instead of in Un
 
 This way it is easier to test and change in the future.
 
-![FreeRADIUS](/images/free_radius.png)
-
 ## FreeRADIUS Server
 
 This is the software installed on our RADIUS servers.
 
 It is open source and can be found on [Github](https://github.com/FreeRADIUS/freeradius-server).
-
-![FreeRADIUS server](/images/free_radius_server.png)
 
 ## The frontend health check
 

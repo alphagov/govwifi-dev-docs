@@ -1,7 +1,7 @@
 ---
 title: View CloudWatch logs
 weight: 20
-last_reviewed_on: "2022-09-07"
+last_reviewed_on: "2022-11-24"
 review_in: 6 months
 ---
 
@@ -56,12 +56,12 @@ The application log group naming is inconsistent. It roughly uses the following 
 
 |   Service/API  | Environment |                  Log group                 |
 |----------------|-------------|--------------------------------------------|
-| FreeRADIUS     | Staging     | `staging-frontend-docker-log-group`          |
-|                | Production  | `wifi-frontend-docker-log-group`             |
+| FreeRADIUS     | Staging     | `frontend`                                   |
+|                | Production  | `frontend`                                   |
 | Admin          | Staging     | `staging-admin-log-group`                    |
 |                | Production  | `wifi-admin-log-group`                       |
-| Authentication | Staging     | `staging-authorisation-api-docker-log-group` |
-|                | Production  | `wifi-authorisation-api-docker-logs`         |
+| Authentication | Staging     | `staging-authentication-api-docker-log-group` |
+|                | Production  | `wifi-authentication-api-docker-logs`         |
 | User Sign-up   | Staging     | `staging-user-signup-api-docker-log-group`   |
 |                | Production  | `wifi-user-signup-api-docker-log-group`      |
 | Logging        | Staging     | `staging-logging-api-docker-log-group`       |
@@ -74,7 +74,7 @@ The application log group naming is inconsistent. It roughly uses the following 
 **Note**:
 
 - "Production" is referred to as "wifi" throughout the infrastructure. So `wifi-admin-log-group` refers to the Production Admin API log group.
-- There's a naming conflation between the Authentication API and "authorisation" in the logs. This is a misnomer.
+- We have deprecated the <staging | wifi>-frontend-docker-log-group groups since moving the Frontend ECS clusters from EC2 instances to ECS Fargate.
 
 ### System log types
 
@@ -91,4 +91,4 @@ System logs for EC2 instances follow a separate pattern:
 | Frontend ECS cluster | Staging | `staging/var/log/*`                      |
 |                | Production  | `wifi/var/log/*`                           |
 
-**Note**: The Frontend ECS clusters which run on EC2 instances don't have an instance name in their log group naming pattern.
+**Note**: The Frontend ECS clusters run on Fargate and follow this naming pattern: `/aws/ecs/containerinsights/frontend-fargate/*`

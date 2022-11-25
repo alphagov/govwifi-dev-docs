@@ -1,13 +1,15 @@
 ---
 title: Continuous Delivery
 weight: 70
-last_reviewed_on: "2022-04-29"
+last_reviewed_on: "2022-11-25"
 review_in: 6 months
 ---
 
 # Continuous Delivery
 
-GovWifi uses [Concourse](https://concourse-ci.org/) for its continuous delivery.
+GovWifi uses [AWS CodeBuild](https://aws.amazon.com/codebuild/) for its continuous delivery.
+
+## GovWifi CI/CD history
 
 Previously, the team was part of a multi-tenanted Concourse, known as Big Concourse, maintained by the GDS Automate team.
 Big Concourse was decommissioned on 15 December, 2021.
@@ -16,53 +18,39 @@ The team migrated to a single-tenanted Concourse, known as GovWifi Concourse, ma
 on the [`big-little-concourse`](https://github.com/alphagov/big-little-concourse-deployment) repo developed by the
 Platform as a Service (PaaS) team.
 
-## GovWifi Concourse
+Over the course of 2022 the team migrated to AWS CodeBuild to align with Cabinet Office Digital tooling.
 
-GovWifi Concourse is configured in the following repositories:
+## GovWifi CodeBuild
 
-**GovWifi Concourse Terraform**
+GovWifi CodeBuild is configured in the following repository:
 
-- [`govwifi-concourse-deployment`](https://github.com/alphagov/govwifi-concourse-deployment): a forked copy of the [`big-little-concourse`](https://github.com/alphagov/big-little-concourse-deployment) repo.
-- [`govwifi-concourse`](https://github.com/alphagov/govwifi-concourse): a companion repo to `govwifi-concourse-deployment`.
+- [`govwifi-terraform`](https://github.com/alphagov/govwifi-terraform) under [`govwifi-deploy`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi-deploy)
 
-**GovWifi Concourse pipeline configuration**
+Updates to the pipeline configuration happen in Terraform code. Please follow the `govwifi-terraform` [README guidelines](https://github.com/alphagov/govwifi-terraform#govwifi-terraform) for contributing, updating, and deploying code changes.
 
-- [`govwifi-concourse-deploy-pipeline`](https://github.com/alphagov/govwifi-concourse-deploy-pipeline): the team's main
-deploy pipeline for the majority of its apps.
-- [`govwifi-concourse-runner`](https://github.com/alphagov/govwifi-concourse-runner): the runner image for GovWifi pipelines.
-- [`govwifi-builder-task`](https://github.com/alphagov/govwifi-builder-task): a task for building Docker images without a Docker daemon.
+## Deploy using CodeBuild
 
-There is further pipeline configuration in many of the GovWifi repos under a `ci` directory.
+The deployment documentation for Frontend FreeRADIUS code, GovWifi APIs, and Admin app requires access to Google Drive.
 
-This includes task configuration (e.g., deploy, pre-build), relevant scripts, and a "pull request" YAML
-configuration (`pr.yml`) for specific pull request pipelines that run tasks like `lint` and `test`.
+Use the following instructions for deployment:
 
-GovWifi Concourse is configured with three teams:
+- [Deploying Frontend](https://docs.google.com/document/d/1bJVGpvwC3uSWNiQ0yJyCbupk-xu4soOo1nsaHe-z550/edit#heading=h.qkkz8te2glxc)
+- [Deploying the APIs and Admin app](https://docs.google.com/document/d/1ORrF2HwrqUu3tPswSlB0Duvbi3YHzvESwOqEY9-w6IQ/edit#heading=h.j6kp1kgy7mfw)
 
-- `main`: owned by the GovWifi RE GitHub team; meant for elevated admin privileges on pipelines and configuration.
-- `govwifi`: owned by the GovWifi CI/CD GitHub team; meant for general use, including running pipelines.
-- `sandbox`: owned by the GovWifi RE GitHub team; meant for testing Concourse configuration, spikes, etc.
+### Deployment access
 
-### Access GovWifi Concourse
+A team member must be added as an admin to the `govwifi-tools` user account in the `tech-ops-private` repo in order to access and deploy pipelines in the AWS console. If you don't have access ask in the #govwif Slack channel to be onboarded.
 
-In order to access GovWifi Concourse you must be on the VPN and be an approved member of the relevant GitHub team.
+Once this onboarding is complete then team members can log in to the AWS console as the `govwifi-tools` user:
 
-Please speak to the GovWifi SREs if you require access.
+```bash
+$ gds aws govwifi-tools -l
+```
 
-The GovWifi Concourse console can be accessed [here](https://govwifi-cd.wifi.service.gov.uk/).
+### Monitor deployments
 
-### Update GovWifi Concourse
+GovWifi CodeBuild uses built-in AWS monitoring for general observability of its infrastructure.
 
-GovWifi Concourse is updated by running Terraform on `govwifi-concourse-deployment`. Instructions for running Terraform are in the repo's [README](https://github.com/alphagov/govwifi-concourse-deployment#running-terraform-for-govwifi-concourse).
+You must be on the VPN and have access to the AWS console to access the monitoring.
 
-Pipelines are updated using Concourse's `fly` command. Instructions for updating pipelines using `fly` are also listed on the repo's [README](https://github.com/alphagov/govwifi-concourse-deployment#terraform-init-and-setting-up-fly).
-
-### Monitor GovWifi Concourse
-
-GovWifi Concourse uses Prometheus and a Grafana-based monitoring setup for general observability of its infrastructure.
-
-You must be on the VPN and be part of the relevant GitHub team in order to access the GovWifi Concourse Grafana.
-
-The GovWifi Concourse Grafana dashboard can be accessed [here](https://grafana.monitoring.govwifi-cd.wifi.service.gov.uk/).
-
-Prometheus acts a data source for Grafana, pulling data from the relevant components to be displayed on Grafana dashboards.
+Log in as the `govwifi-tools` user and navigate to AWS CloudWatch to view metrics about the deploy process and pipelines.

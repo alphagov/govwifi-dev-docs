@@ -1,7 +1,7 @@
 ---
 title: Deploy FreeRADIUS changes
 weight: 60
-last_reviewed_on: "2022-09-07"
+last_reviewed_on: "2023-01-20"
 review_in: 6 months
 ---
 
@@ -11,9 +11,8 @@ GovWifi's implementation of FreeRADIUS is managed by the [`alphagov/govwifi-fron
 
 This repo generates an ECR image containing the FreeRADIUS server code which will run on ECS.
 
-Pushing these images to ECR is handled in Concourse via the [`Frontend` pipeline](https://govwifi-cd.wifi.service.gov.uk/teams/govwifi/pipelines/deploy?group=Frontend) under the main `deploy` pipeline.
+Pushing these images to ECR is handled by AWS Codebuild. You can find indepth documentation on this [here](https://docs.google.com/document/d/1bJVGpvwC3uSWNiQ0yJyCbupk-xu4soOo1nsaHe-z550/edit#heading=h.qkkz8te2glxc)(you need to be part of the GovWifi team to access this document).
 
-Ensure the image has been pushed by checking the ECS registry tags have been updated with the SHA shown in the Concourse log.
 
 ## Manually restarting the ECS tasks
 
@@ -32,8 +31,6 @@ Once the first set tasks have been stopped and restarted in a region, and health
 To check the containers are healthy, navigate to the "Healthchecks" section of the Route53 AWS page and ensure all the healthchecks for each region on healthy.
 
 ## Deploying certificates and keys
-
-Deploying certificates and keys is managed by the Concourse `sync-frontend-certs` pipeline which pulls from the [`alphagov/govwifi-build` repo](https://github.com/alphagov/govwifi-build/blob/master/ci/pipelines/sync-certs.yml).
 
 Certificates are stored encrypted under `passwords/certs/`, and hosted in S3 buckets.
 

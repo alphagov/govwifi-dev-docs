@@ -1,7 +1,7 @@
 ---
 title: Deploying applications
 weight: 20
-last_reviewed_on: "2022-09-07"
+last_reviewed_on: "2023-01-20"
 review_in: 6 months
 ---
 
@@ -10,54 +10,23 @@ review_in: 6 months
 Deploying 9 systems out at the same time can be a non-trivial task. This should
 help explain how we do it.
 
-## Concourse
+## AWS Codepipeline
 
-Deploying GovWifi is done via Concourse, [maintained by GovWifi][govwifi_concourse].
-
-You will need to be part of the GovWifi CI/CD Github team, logged in to the Concourse console via Github single sign-on, and be on the VPN.
+Deploying GovWifi is done via AWS Codepipeline and Codebuild. The code for this is found in the govwifi-deploy module of the [govwifi-terraform repo](https://github.com/alphagov/govwifi-terraform).
 
 ## Core services
 
-For the core services, there is a [central deployment pipeline][concourse_deploy_pipeline].
-
-The code is hosted in the [pipeline repo][concourse_deploy_pipeline_repo]
+Instructions for deploying the core services can be found [here](https://docs.google.com/document/d/1ORrF2HwrqUu3tPswSlB0Duvbi3YHzvESwOqEY9-w6IQ/edit#heading=h.j6kp1kgy7mfw). You will need to be a member of the GovWifi team to access these instructions.
 
 This covers the:
 
 - Admin site
 - Authentication API
 - Logging API
-- User Signup API
-- Frontend RADIUS
-- Safe 'Canary' Restarter
 
-The general process is:
+When the deployment is complete the ECS service will automatically be restarted. 
 
-1. Run tests.
-2. Deploy Staging.
-3. Run the [smoke tests] (except for Frontend FreeRADIUS and Safe Restarter).
-4. Manually trigger "Confirm Deploy to <service> Production" to allow Production deploy.
-5. Deploy Production.
-
-Each service is deployed independently.
-
-To ensure interoperability between the services, we run Cross-Service tests for the Frontend, and APIs.
-This ensures that an update to a service will work between the rest of the services.
-
-### Trigger a deployment
-
-1. Merge your development branch to `master`.
-2. Concourse will test, build, and deploy a new image to ECR in Staging.
-3. Run the job in the pipeline, titled `Confirm Deploy to <service> Production`.
-4. Concourse will deploy a new image to ECR in Production.
-
-Deployments also force the relevant ECS task to update via the `deploy.sh` script (e.g., [here](https://github.com/alphagov/govwifi-logging-api/blob/master/ci/tasks/scripts/deploy.sh#L14) and [see here for the specific command](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101)).
-
-Forcing the task to update means the ECS task definition will point to the newly deployed (latest) image in ECR for either Staging or Production.
-
-**Note**: `govwifi-frontend` is an exception to this pattern. In order to propagate changes, the `frontend-cluster` tasks must be restarted.
-
-We recommend restarting the cluster using the `safe-restarter` scheduled task which is part of the `api-cluster`. This can take 1-2 hours.
+Instructions for deploying the Frontend RADIUS service can be found [here](https://docs.google.com/document/d/1bJVGpvwC3uSWNiQ0yJyCbupk-xu4soOo1nsaHe-z550/edit#heading=h.qkkz8te2glxc). You will need to be a member of the GovWifi team to access these instructions.
 
 ## Docs and the product page
 

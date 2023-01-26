@@ -14,27 +14,34 @@ Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alp
 PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/<s3_encryption_file_name>
 ```
 
-Download the file database backup file that you need and run:
+Locate the correct database file, e.g. staging backup files:
+```
+gds-cli aws govwifi-staging -- aws s3 ls govwifi-staging-london-mysql-backup-data
+```
 
-To decrypt with gpg
+Download the database backup file that you need, e.g. staging admin DB:
+```
+gds-cli aws govwifi-staging -- aws s3 cp s3://govwifi-staging-london-mysql-backup-data/govwifi-backup-admin-2023-01-25-00-30.sql.gz.gpg .
+```
+
+Decrypt with gpg:
 ```
 gpg --output govwifi-backup-databasename.sql.gz --decrypt govwifi-backup-databasenam.sql.gz.gpg
 ```
 
-Then upload to the file to the bastion server in the eu-west-2 region, for example:
+Then upload to the file to the staging bastion server in the eu-west-2 region, e.g.:
 
 ```
-mkdir /tmp/db_restore
-
-scp govwifi-backup-databasenam.sql.gz.gpg bastion.staging.govwifi:/tmp/db_restore
+scp govwifi-databasename-datetime.sql.gz bastion.staging.govwifi:/tmp
 ```
 
-Unzip the file:
+Login to the bastion server and unzip the file:
 ```
+cd /tmp
 gzip -d govwifi-backup-admin-databasename.sql.gz
 ```
 
-Import into mysql (the database credentials are located in AWS secret manager)
+Import into mysql (the database credentials are located in AWS secrets manager)
 ```
 mysql -u <username> -h <hostname> -D <databasename> -p < govwifi-backup-databasename.sql
 ```

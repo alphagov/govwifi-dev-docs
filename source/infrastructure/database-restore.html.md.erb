@@ -7,6 +7,8 @@ review_in: 6 months
 
 # Restoring Databases
 
+Note: gds-cli maybe installed and accessible via either gds-cli or gds depending on your installation. gds is also an alias belonging to github cli tools.
+
 The nightly database backups for each environment are stored an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. IT also keep an additional copy of these backups. In the event that we loose access to our AWS accounts, we can [request a copy](https://docs.google.com/document/d/1h07adu7Ym6yN4kULbDskHQO91LhHpKMFSi4wxyZi1zs/edit#heading=h.v8cb2maaksg4) directly from IT. Databases can be restored from the nightly backups by following the instructions below:
 
 Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
@@ -14,27 +16,34 @@ Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alp
 PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/<s3_encryption_file_name>
 ```
 
-Download the file database backup file that you need and run:
+Locate the correct database file, e.g. staging backup files:
+```
+gds-cli aws govwifi-staging -- aws s3 ls govwifi-staging-london-mysql-backup-data
+```
 
-To decrypt with gpg
+Download the database backup file that you need, e.g. staging admin DB:
+```
+gds-cli aws govwifi-staging -- aws s3 cp s3://govwifi-staging-london-mysql-backup-data/govwifi-backup-admin-2023-01-25-00-30.sql.gz.gpg .
+```
+
+Decrypt with gpg:
 ```
 gpg --output govwifi-backup-databasename.sql.gz --decrypt govwifi-backup-databasenam.sql.gz.gpg
 ```
 
-Then upload to the file to the bastion server in the eu-west-2 region, for example:
+Then upload to the file to the staging bastion server in the eu-west-2 region, e.g.:
 
 ```
-mkdir /tmp/db_restore
-
-scp govwifi-backup-databasenam.sql.gz.gpg bastion.staging.govwifi:/tmp/db_restore
+scp govwifi-databasename-datetime.sql.gz bastion.staging.govwifi:/tmp
 ```
 
-Unzip the file:
+Login to the bastion server and unzip the file:
 ```
+cd /tmp
 gzip -d govwifi-backup-admin-databasename.sql.gz
 ```
 
-Import into mysql (the database credentials are located in AWS secret manager)
+Import into mysql (the database credentials are located in AWS secrets manager)
 ```
 mysql -u <username> -h <hostname> -D <databasename> -p < govwifi-backup-databasename.sql
 ```

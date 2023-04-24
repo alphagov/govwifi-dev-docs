@@ -1,7 +1,7 @@
 ---
 title: GovWifi infrastructure
 weight: 7
-last_reviewed_on: "2022-10-25"
+last_reviewed_on: "2023-04-24"
 review_in: 6 months
 ---
 
@@ -35,7 +35,7 @@ That is to say:
 
 ## Databases
 
-There are 12 databases in total:
+Currently there are 16 databases in total:
 
 ### Production
 
@@ -48,10 +48,6 @@ There are 12 databases in total:
   - Primary in London
   - Replica in London
   - Replica in Dublin
-- Concourse, PostgreSQL 13.7
-  - Primary in London
-- Concourse Grafana, PostgreSQL 10.21
-  - Primary in London
 
 ### Staging
 
@@ -62,6 +58,20 @@ There are 12 databases in total:
 - Users, MySQL 8.0
   - Primary in London
   - Replica in Dublin
+
+### Development
+
+- Admin, MySQL 5.7
+  - Primary in London
+- Sessions, MySQL 5.7
+  - Primary in London
+  - Replica in London
+- Users, MySQL 8.0
+  - Primary in London
+  - Replica in London
+  - Replica in Dublin
+
+
 
 [getting-a-secret]: /secrets.html#Getting-a-secret
 [gds-cli]: https://github.com/alphagov/gds-cli

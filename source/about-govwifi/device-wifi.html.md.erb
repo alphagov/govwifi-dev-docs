@@ -1,7 +1,7 @@
 ---
 title: About the Device Wifi Alpha
 weight: 11
-last_reviewed_on: "2023-03-03"
+last_reviewed_on: "2023-04-24"
 review_in: 12 months
 ---
 
@@ -67,9 +67,9 @@ To edit this file, do this:
 
 `PASSWORD_STORE_DIR=<password_store_dir> pass edit passwords/certs/production/ca.pem`
 
-Once a change has been made to this file and it has been merged into the main branch, the Concourse pipeline `sync-frontend-certs` gets triggered, which syncs the certificates to an S3 bucket which is read by the FreeRADIUS servers during initialisation.
+Once a change has been made to this file and it has been merged into the main branch, the AWS project `govwifi-codebuild-sync-certs` gets triggered, which syncs the certificates to an S3 bucket which is read by the FreeRADIUS servers during initialisation.
 
-This is only synced to staging automatically. Syncing to production must be triggered manually from Concourse, in order for any changes to take effect for production users.
+This is only synced to staging automatically. Syncing to production must be triggered manually in GovWifi AWS Production account, Codebuild, in order for any changes to take effect for production users.
 
 ## Common issues with device wifi
 

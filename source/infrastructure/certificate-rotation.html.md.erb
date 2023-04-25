@@ -1,7 +1,7 @@
 ---
 title: GovWifi Certificates
 weight: 90
-last_reviewed_on: "2023-03-03"
+last_reviewed_on: "2023-04-21"
 review_in: 6 months
 ---
 
@@ -11,9 +11,30 @@ We rotate the GovWifi certificate every year.
 
 The actual rotation is handled by the SREs.
 
-When the rotation is done, we need to update the following things.
+# How to rotate the certificates
+
+You will need to renew the certificate with our provider (currently this is Digicert). Once you have the new certificate files [upload them to this location](https://github.com/alphagov/govwifi-build/tree/master/passwords/certs) under their appropriate environments. 
+
+To copy the new certificate files to the GovWifi Radius servers you will need to run the Codebuild "sync-certs" job the code for which is found here: https://github.com/alphagov/govwifi-terraform/tree/master/govwifi-sync-certs
+
+The job takes the encrypted certificate files which are currently stored [here](https://github.com/alphagov/govwifi-build/tree/master/passwords/certs) and copies them to an S3 bucket starting with the prefix "frontend-cert-". When the Radius ECS tasks start up, they copy the certificate files directly from S3.
+
+To run the sync certs job follow the instructions below:
+1. Log into the AWS account that contains the Radius servers that you are updating.
+2. Ensure you are either in the London (eu-west-2) or Ireland (eu-west-1) regions.
+3. Click [this link](https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/projects?) to take you to the "Codebuild" section. 
+4. Search for the term "sync-certs" under "Build projects" and select the "govwifi-codebuild-sync-certs" project.
+5. Click the "Start Build" button. <a href="../images/start_build.png" ><img src="/images/start_build.png" alt="start_build"></a>
+6. Wait for the job to finish running. 
+7. After it succeeds, restart the Radius severs in that region so they can pick up the newly uploaded certificate.
+8. Run the smoke-tests (full instructions on how to do this can be found [here] (https://docs.google.com/document/d/1RHNkGxJLr4BPPUlFgqDzCF6mSOXK0Kj2Yfb-GHXXNIA/edit) )
+9. Repeat this process in the other region, if you wish to release the new certificates there.
+
+A separate sync-cert job exists for our two GovWifi regions (eu-west-1 and eu-west-2). This allows us to test the effects of a certificate change in one region only, and is very useful for network administrations when they are testing their configurations. 
 
 ## Update the product pages
+
+When the rotation is done, we need to update the following things.
 
 The [product pages](https://www.wifi.service.gov.uk/) mention the certificate GovWifi uses in text and screenshots.
 

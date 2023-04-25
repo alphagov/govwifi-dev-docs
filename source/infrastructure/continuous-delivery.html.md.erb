@@ -1,13 +1,13 @@
 ---
 title: Continuous Delivery
 weight: 70
-last_reviewed_on: "2022-11-25"
+last_reviewed_on: "2023-04-24"
 review_in: 6 months
 ---
 
 # Continuous Delivery
 
-GovWifi uses [AWS CodeBuild](https://aws.amazon.com/codebuild/) for its continuous delivery.
+GovWifi uses [AWS CodeBuild](https://aws.amazon.com/codebuild/) and [AWS CodePipeline](https://aws.amazon.com/codepipeline/) for its continuous delivery.
 
 ## GovWifi CI/CD history
 
@@ -18,15 +18,17 @@ The team migrated to a single-tenanted Concourse, known as GovWifi Concourse, ma
 on the [`big-little-concourse`](https://github.com/alphagov/big-little-concourse-deployment) repo developed by the
 Platform as a Service (PaaS) team.
 
-Over the course of 2022 the team migrated to AWS CodeBuild to align with Cabinet Office Digital tooling.
+Over the course of 2022 the team migrated to AWS CodePipeline & CodeBuild to align with Cabinet Office Digital tooling.
 
-## GovWifi CodeBuild
+Currently, GovWifi CI / CD exists in Github Actions for Docs repositories and AWS CodePipeline & CodeBuild for AWS hosted services.
 
-GovWifi CodeBuild is configured in the following repository:
+## GovWifi CodePipeline & CodeBuild
+
+GovWifi CodePipeline and CodeBuild tasks are configured in the following repository:
 
 - [`govwifi-terraform`](https://github.com/alphagov/govwifi-terraform) under [`govwifi-deploy`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi-deploy)
 
-Updates to the CodeBuild infrastructure configuration happen in Terraform code. Please follow the `govwifi-terraform` [README guidelines](https://github.com/alphagov/govwifi-terraform#govwifi-terraform) for contributing, updating, and deploying code changes.
+Updates to the CI/CD infrastructure configuration happen in Terraform code. Please follow the `govwifi-terraform` [README guidelines](https://github.com/alphagov/govwifi-terraform#govwifi-terraform) for contributing, updating, and deploying code changes.
 
 Pipeline configuration exists in `buildspec.yml` files in individual repos ([here is an example](https://github.com/alphagov/govwifi-admin/blob/master/buildspec.yml) for `govwifi-admin`)
 
@@ -51,7 +53,7 @@ $ gds aws govwifi-tools -l
 
 ### Monitor deployments
 
-GovWifi CodeBuild uses built-in AWS monitoring for general observability of its infrastructure.
+GovWifi CodePipeline & CodeBuild use built-in AWS monitoring for general observability of its infrastructure.
 
 You must be on the VPN and have access to the AWS console to access the monitoring.
 

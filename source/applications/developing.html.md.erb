@@ -1,7 +1,7 @@
 ---
 title: Developing applications
 weight: 10
-last_reviewed_on: "2023-01-25"
+last_reviewed_on: "2023-04-24"
 review_in: 6 months
 ---
 
@@ -49,4 +49,4 @@ Once approved and merged your PR is automatically built and deployed to our stag
 
 Our pipelines include a step to force an update to the ECS tasks which are configured to use the latest image pushed to ECR.
 
-The update ECS tasks command is a function declared in the [`aws_helpers.sh` script](https://github.com/alphagov/govwifi-concourse-deploy-pipeline/blob/699cd3c989e4affbd7e0c5e5aea454e4bce85a38/aws-helpers.sh#L101), part of the `govwifi-concourse-deploy-pipeline` repo. This function is called by the `deploy.sh` script which is found in many of our repos (see [`govwifi-admin`](https://github.com/alphagov/govwifi-admin/blob/master/ci/tasks/scripts/deploy.sh) as an example).
+The update ECS projects, exist in GovWifi AWS Production account, Codebuild. These are triggered by the GovWifi AWS Tools account, Codepipeline & Codebuild projects.

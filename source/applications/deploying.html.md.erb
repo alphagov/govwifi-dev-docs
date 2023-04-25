@@ -1,7 +1,7 @@
 ---
 title: Deploying applications
 weight: 20
-last_reviewed_on: "2023-01-20"
+last_reviewed_on: "2023-04-24"
 review_in: 6 months
 ---
 
@@ -12,7 +12,7 @@ help explain how we do it.
 
 ## AWS Codepipeline
 
-Deploying GovWifi is done via AWS Codepipeline and Codebuild. The code for this is found in the govwifi-deploy module of the [govwifi-terraform repo](https://github.com/alphagov/govwifi-terraform).
+Deploying GovWifi is achieved via AWS Codepipeline and Codebuild. The code for this is found in the govwifi-deploy module of the [govwifi-terraform repo](https://github.com/alphagov/govwifi-terraform).
 
 ## Core services
 
@@ -46,13 +46,10 @@ Each repo has it's own pipeline which deploys out to [GovPaaS][govpaas] whenever
 #### Trigger a deployment
 
 1. Merge your development branch to `master`.
-2. Concourse will build + deploy to GovPaaS.
+2. Github Actions will build + deploy to GovPaaS.
 3. Verify contents is deployed (you may need to add a `GET` parameter to bust the cache).
 
 
-[govwifi_concourse]: https://govwifi-cd.wifi.service.gov.uk/
-[concourse_deploy_pipeline]: https://govwifi-cd.wifi.service.gov.uk/teams/govwifi/pipelines/deploy
-[concourse_deploy_pipeline_repo]: https://github.com/alphagov/govwifi-concourse-deploy-pipeline
 [dev-docs-repo]: https://github.com/alphagov/govwifi-dev-docs
 [tech-docs-repo]: https://github.com/alphagov/govwifi-tech-docs
 [product-page-repo]: https://github.com/alphagov/govwifi-product-page

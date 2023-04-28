@@ -20,6 +20,7 @@ To copy the new certificate files to the GovWifi Radius servers you will need to
 The job takes the encrypted certificate files which are currently stored [here](https://github.com/alphagov/govwifi-build/tree/master/passwords/certs) and copies them to an S3 bucket starting with the prefix "frontend-cert-". When the Radius ECS tasks start up, they copy the certificate files directly from S3.
 
 To run the sync certs job follow the instructions below:
+
 1. Log into the AWS account that contains the Radius servers that you are updating.
 2. Ensure you are either in the London (eu-west-2) or Ireland (eu-west-1) regions.
 3. Click [this link](https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/projects?) to take you to the "Codebuild" section. 

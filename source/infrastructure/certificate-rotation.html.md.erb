@@ -1,7 +1,7 @@
 ---
 title: GovWifi Certificates
 weight: 90
-last_reviewed_on: "2023-04-21"
+last_reviewed_on: "2023-05-25"
 review_in: 6 months
 ---
 
@@ -9,11 +9,15 @@ review_in: 6 months
 
 We rotate the GovWifi certificate every year.
 
-The actual rotation is handled by the SREs.
+The actual rotation is handled by the SREs (Site Reliablity Engineers).
 
-# How to rotate the certificates
+# How To Purchase A New Certificate
 
-You will need to renew the certificate with our provider (currently this is Digicert). Once you have the new certificate files [upload them to this location](https://github.com/alphagov/govwifi-build/tree/master/passwords/certs) under their appropriate environments. 
+In depth information on how to purchase new certificates, generate keys and validate the certificate files can be found [here](https://docs.google.com/document/d/1lr3f1svljXxRNknoB_67WaItAmZJpj5Y2ao1Yw7wxxU/). The document contains sensitive information, so you will need to be a verfied member of GovWifi team in order to access it.
+
+# How To Rotate The Certificates On The Radius Servers
+
+You will need to renew the certificate with our provider (currently this is Digicert see the previous section for instructions on how to do this). Once you have the new certificate files [upload them to this location](https://github.com/alphagov/govwifi-build/tree/master/passwords/certs) under their appropriate environments. 
 
 To copy the new certificate files to the GovWifi Radius servers you will need to run the Codebuild "sync-certs" job the code for which is found here: https://github.com/alphagov/govwifi-terraform/tree/master/govwifi-sync-certs
 

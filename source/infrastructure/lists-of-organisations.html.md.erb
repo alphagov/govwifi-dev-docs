@@ -1,0 +1,43 @@
+---
+title: Lists of organisations
+weight: 101
+last_reviewed_on: "2023-06-09"
+review_in: 6 months
+---
+
+ # Lists of organisations
+
+GovWifi has 3 different lists of organisations.
+
+1. [The public list](https://www.wifi.service.gov.uk/connect-to-govwifi/organisations-using-govwifi/): this is the list we share on our product page. The primary goal is to show potential organisations that GovWifi is trusted and used across government. We also assume it reassures some end users that it’s ok to use.
+2. [The admin organisation list](https://admin.wifi.service.gov.uk/super_admin/organisations): superadmins can see this list to check what organisations have signed up on the admin tool.
+3. [The allow list](https://admin.wifi.service.gov.uk/super_admin/allowlist/organisation_names): this list helps to filter out inappropriate organisations from signing up
+
+## The public list
+
+The public list should mostly mirror the list of organisations setup on the admin tool. It isn’t an exact copy because:
+
+- Some organisations don’t want to be shown publicly for security reasons
+- Some admin organisation names are for the third party who operates their network and we’re trying to show public sector organisations where it’s available not operators
+- Some organisations’ locations have GovWifi but they don’t control it, for example, another organisation may run the building's network. In this case we’d still like to show the ‘consuming admin’s’ organisation
+
+The public list can be updated manually by editing the [file](https://github.com/alphagov/govwifi-product-page/blob/master/data/organisations.yml).
+
+## The admin organisation list
+
+The admin tool list is an accurate list of organisations which are signed up as admins so that we know who’s offering GovWifi and can contact them if necessary. When a new organisation signs up as an admin it does not automatically go on the public list.
+
+This list is updated by new organisations signing up. An organisation can be deleted by a superadmin.
+
+## The allow list
+
+The allow list helps to prevent inappropriate organisations signing up to GovWifi. If an organisation wants to register but is not on the list they will be prompted to contact GovWifi for help and we can add them to the allow list. 
+
+This list is comprised of two lists:
+
+1. A [list on admin tool](https://admin.wifi.service.gov.uk/super_admin/allowlist/new) that superadmins can add or remove
+2. A [hard coded list](https://github.com/alphagov/govwifi-admin/blob/master/lib/gateways/govuk_organisations_register_gateway.rb) which was created when the previous register of organisations was switched off
+
+You will only be able to register an organisation if the name appears on either of these lists. You cannot register if that organisation has already been registered. These lists will get out of date as new organisations get created or existing ones get renamed. In this instance we expect organisations who are trying to register will tell us and we’ll update one of the lists.
+
+The allow list can be edited by a Superadmin in the [allow list tab](https://admin.wifi.service.gov.uk/super_admin/allowlist/new).

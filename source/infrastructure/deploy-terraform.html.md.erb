@@ -1,7 +1,7 @@
 ---
 title: Deploy Terraform
 weight: 60
-last_reviewed_on: "2022-11-24"
+last_reviewed_on: "2023-06-15"
 review_in: 6 months
 ---
 
@@ -53,10 +53,12 @@ Run the relevant `make` command:
 $ make staging plan
 ```
 
-If you are using the `gds-cli`, use to the staging GovWifi account:
+If you are using the `gds-cli` which may be aliased to 'gds', use to the staging GovWifi account:
 
 ```
 $ gds aws govwifi-staging -- make staging plan
+or
+$ gds-cli aws govwifi-staging -- make staging plan
 ```
 
 ## Deploy to production

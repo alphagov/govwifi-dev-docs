@@ -13,7 +13,13 @@ The nightly database backups for each environment are stored in an S3 bucket for
 
 Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
 ```
-PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/<s3_encryption_file_name>
+PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/govwifi-database-<environment-name>-s3-encryption-key
+```
+
+For example:
+
+```
+PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/govwifi-database-development-s3-encryption-key
 ```
 
 Locate the correct database file, e.g. staging backup files:

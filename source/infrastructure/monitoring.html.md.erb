@@ -1,40 +1,45 @@
 ---
 title: Monitoring
 weight: 20
-last_reviewed_on: "2023-03-03"
-review_in: 3 months
+last_reviewed_on: "2023-11-10"
+review_in: 6 months
 ---
 
 # Monitoring
 
 ## Grafana
 
-Grafana is an open source analytics and monitoring platform, and we
-use it for monitoring the health of GovWifi in realtime.
+Grafana is an open source analytics and monitoring platform. We use it for monitoring the health of GovWifi in realtime.
 
-There are two self hosted Grafana instances for the Production and
-Staging environments, and one Grafana instance hosted by the GOV.UK
-PaaS team which exposes data regarding the product page and tech docs.
-
-### Self-hosted
-
-The self-hosted Grafana is used for monitoring GovWifi infrastructure and APIs. This
-[Google Document contains in-depth information on the technical
-setup][Govwifi Grafana Setup Doc] (you must be a member of the Govwifi
+Every GovWifi environment has its own Grafana instance. Which runs on AWS EC2. This [Google Document contains in-depth information on the technical setup][Govwifi Grafana Setup Doc] (you must be a member of the Govwifi
 team to view this document).
 
-You can access the dashboard using the links below (you must be signed into the dashboard to do this):
+You can access the dashboard using the links below (you must be logged into the VPN and signed into the dashboard to do this):
 
 - [Production](https://grafana.wifi.service.gov.uk/)
 - [Staging](https://grafana.staging.wifi.service.gov.uk/)
 
 [GovWifi Grafana Setup Doc]: https://docs.google.com/document/d/1mmYZPagv0pPrs4f4iGANEoj5GTMisZU1RyN1qaP5dck/
 
+### Where The Data Comes From / Grafana Data Sources
+
+The data in our Grafana is primarily comes from Prometheus and Elasticsearch. Both of these services are hosted in AWS. Prometheus collects data relating to our Radius servers. For example how many authentication requests are happening over a given period. The fine grained data from Prometheus tends to be more useful to engineers, whilst the data from Elasticsearch provides a high level overview of how the system is being used. The Elasticsearch data is also used to generate [monthly reports that are sent to GPA](https://docs.google.com/document/d/1pwrHGLFBkeLOIk-yawjPrbZgQQdn76AwKFo3YCePN78/).
+
+#### Elasticsearch
+
+The admin and logging-api have functions that collect and push a range of metrics (like active users in a specific time period) to our Elasticsearch cluster in AWS. This data is pulled from our databases at various intervals (hourly, daily, monthly etc) and sent to Elasticserch via an ECS scheduled job. These scheduled jobs run rake tasks that push the data to Elasticsearch at specified intervals. [This is an example of such a job in our terraform code](https://github.com/alphagov/govwifi-terraform/blob/c40e0ef9167a234f2d0c0d5e0d2705aa4f88c9db/govwifi-api/logging-scheduled-tasks.tf#L137). 
+
+The metrics are also backed up in an S3 bucket in each GovWifi environment. This is configured by the [govwifi-dashboard module in terraform](https://github.com/alphagov/govwifi-terraform/blob/master/govwifi-dashboard/s3.tf). The diagram below shows the resources that Elasticsearch interacts with. [A scalable version is available in our team drive](https://app.diagrams.net/#G1-_q1WP4lg6Vp_Eof8lQfjb6hH1y3ksbY#%7B%22pageId%22%3A%22ZV0GcbZi5lNXhyqezGf6%22%7D):
+
+![metrics]
+
+### Using Grafana Data To Generate Montly Reports
+
+The GovWifi team uses the metrics in Grafana to [generate monthly reports](https://docs.google.com/spreadsheets/d/1ucsIku1VRu7vVlOLrsWwYve1wm_4rXsbMprBSFcjeyY/). [In depth instructions on generating the monthly reports can be found in this document (you will need to be a member of the GovWifi team to see it).](https://docs.google.com/document/d/1pwrHGLFBkeLOIk-yawjPrbZgQQdn76AwKFo3YCePN78/)
+
 ### Hosted on GOV.UK PaaS (Platform as a Service)
 
-The [GOV.UK PaaS][GOV.UK PaaS] hosts a [GovWifi dashboard][GovWifi dashboard],
-developers and RE have admin-level access. It is used for
-monitoring performance of GovWifi Product Pages and Tech Docs.
+Prior to November 2023 there was an additional Grafana which was hosted on GOV.UK PaaS. It was used for monitoring performance of [GovWifi Product Pages](https://www.wifi.service.gov.uk/) and [Tech Docs](https://docs.wifi.service.gov.uk/). This data is now collected by Google Analytics. The PaaS is scheduled to be decommissioned at the end of December 2023 and the Product Pages and Techdocs are now hosted on Github Pages.
 
 [GOV.UK PaaS]: https://docs.cloud.service.gov.uk/#gov-uk-platform-as-a-service
 [GovWifi dashboard]: https://grafana-paas.cloudapps.digital/d/KMxSG3DWk/govwifi
@@ -93,3 +98,7 @@ After running the command you should be able to access the Prometheus
 dashboard by entering the following address in your browser:
 
 [http://localhost:9090/](http://localhost:9090/)
+
+
+[metrics]: ../images/elasticsearch.png
+

@@ -1,10 +1,10 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: govwifi-dev-docs.cloudapps.digital
+host: dev-docs.wifi.service.gov.uk
 
 # Header-related options
 show_govuk_logo: false
 service_name: GovWifi Team Manual
-service_link: https://govwifi-dev-docs.cloudapps.digital/
+service_link: https://dev-docs.wifi.service.gov.uk
 phase: Internal
 
 # Links to show on right-hand-side of header

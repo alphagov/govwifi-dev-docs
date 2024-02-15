@@ -1,19 +1,25 @@
 ---
 title: Database restore
 weight: 50
-last_reviewed_on: "2022-09-07"
+last_reviewed_on: "2023-06-15"
 review_in: 6 months
 ---
 
 # Restoring Databases
 
-Note: gds-cli maybe installed and accessible via either gds-cli or gds depending on your installation. gds is also an alias belonging to github cli tools.
+Note: gds-cli maybe installed and accessible via either gds-cli or gds depending on your installation. gds is also an alias belonging to [github cli tools](https://github.com/alphagov/gds-cli). In case of a Business Continiuity restore of the Production environmnet to the new AWS account, ensure that your Bastion server has at least 100GB volume provisioned and the Session database instance has 100GB of storage allocated.
 
-The nightly database backups for each environment are stored an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. IT also keep an additional copy of these backups. In the event that we loose access to our AWS accounts, we can [request a copy](https://docs.google.com/document/d/1h07adu7Ym6yN4kULbDskHQO91LhHpKMFSi4wxyZi1zs/edit#heading=h.v8cb2maaksg4) directly from IT. Databases can be restored from the nightly backups by following the instructions below:
+The nightly database backups for each environment are stored in an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. The CO/GDS IT Infrastructure team also keeps an additional copy of these backups. In the event that we loose access to our AWS accounts, we can [request a copy](https://docs.google.com/document/d/1h07adu7Ym6yN4kULbDskHQO91LhHpKMFSi4wxyZi1zs/edit#heading=h.v8cb2maaksg4) directly from the IT team. Databases can be restored from the nightly backups by following the instructions below (note: gds-cli may be aliased to gds):
 
 Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
 ```
-PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/<s3_encryption_file_name>
+PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/govwifi-database-<environment-name>-s3-encryption-key
+```
+
+For example:
+
+```
+PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/govwifi-database-development-s3-encryption-key
 ```
 
 Locate the correct database file, e.g. staging backup files:
@@ -26,20 +32,20 @@ Download the database backup file that you need, e.g. staging admin DB:
 gds-cli aws govwifi-staging -- aws s3 cp s3://govwifi-staging-london-mysql-backup-data/govwifi-backup-admin-2023-01-25-00-30.sql.gz.gpg .
 ```
 
-Decrypt with gpg:
+Then upload the file to the staging bastion server in the eu-west-2 region, e.g.:
+
 ```
+scp govwifi-databasename-datetime.sql.gz.gpg bastion.staging.govwifi:/tmp
+```
+
+Login to the bastion server and decrypt the gpg file:
+```
+cd /tmp
 gpg --output govwifi-backup-databasename.sql.gz --decrypt govwifi-backup-databasenam.sql.gz.gpg
 ```
 
-Then upload to the file to the staging bastion server in the eu-west-2 region, e.g.:
-
+Unzip the file:
 ```
-scp govwifi-databasename-datetime.sql.gz bastion.staging.govwifi:/tmp
-```
-
-Login to the bastion server and unzip the file:
-```
-cd /tmp
 gzip -d govwifi-backup-admin-databasename.sql.gz
 ```
 

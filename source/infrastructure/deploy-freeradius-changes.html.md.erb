@@ -1,7 +1,7 @@
 ---
 title: Deploy FreeRADIUS changes
 weight: 60
-last_reviewed_on: "2023-01-20"
+last_reviewed_on: "2023-09-05"
 review_in: 6 months
 ---
 
@@ -26,7 +26,7 @@ Restart one ECS task at a time in each region by selecting the task and clicking
 
 The newly started task will use the most recent ECS task definition as well as the most recent ECR image.
 
-Once the first set tasks have been stopped and restarted in a region, and healthchecks are green with no alarms raised, then restart the remaining three in the other region.
+Once the first set of tasks have been stopped and restarted in a region, and healthchecks are green with no alarms raised, then restart the remaining three in the other region.
 
 To check the containers are healthy, navigate to the "Healthchecks" section of the Route53 AWS page and ensure all the healthchecks for each region on healthy.
 

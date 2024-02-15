@@ -1,7 +1,7 @@
 ---
 title: Test capacity
-weight: 100
-last_reviewed_on: "2023-06-15"
+weight: 90
+last_reviewed_on: "2023-09-05"
 review_in: 2 months
 ---
 
@@ -15,18 +15,15 @@ GNU parallel will run tasks in parallel up to the number of cores or CPUs availa
 
 ## Connection and setup
 
-Start by choosing a staging RADIUS server to connect to and then follow the [SSH instructions](https://govwifi-dev-docs.cloudapps.digital/infrastructure/access-bastion-servers.html#ssh-config) in order to access the machine.
+Start by choosing a staging RADIUS server to connect to and then follow the [instructions](https://govwifi-dev-docs.cloudapps.digital/infrastructure/access-ecs-tasks.html) in order to access the ECS tasks (you must also be on the GDS VPN).
 
-Run the following commands from your laptop (you must be on the GDS VPN).
+Run the following commands:
 
 ```
-$ ssh radius<number>.staging.govwifi
-$ docker ps -a
-$ docker exec -it <docker container ID> /bin/sh
 $ apk add parallel bash
 ```
 
-This command connects to the designated RADIUS machine, uses Docker to connect the relevant running container, and adds GNU parallel and bash to the container.
+This command adds GNU parallel and bash to the container.
 
 ## Configure capacity test script
 

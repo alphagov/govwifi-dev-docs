@@ -1,5 +1,11 @@
 require 'govuk_tech_docs'
 
+set :relative_links, true
+
+configure :build do
+  activate :relative_assets
+end
+
 GovukTechDocs.configure(self)
 
 helpers do

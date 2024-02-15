@@ -1,7 +1,7 @@
 ---
 title: Deploying applications
 weight: 20
-last_reviewed_on: "2023-04-24"
+last_reviewed_on: "2023-10-27"
 review_in: 6 months
 ---
 
@@ -31,28 +31,21 @@ Instructions for deploying the Frontend RADIUS service can be found [here](https
 ## Docs and the product page
 
 The [Dev Docs][dev-docs-repo], [Tech Docs][tech-docs-repo], and [Product Page][product-page-repo]
-use a static site generator called [Middleman][middleman].
-
-### Pull Request Previews
-
-Automatic branch previews are deployed to Heroku.
-
-When a PR is raised, a deploy is triggered automatically and the link appears inline on the PR.
+use a static site generator called [Middleman][middleman]. They are hosted on Github Pages.
 
 ### Production
 
-Each repo has it's own pipeline which deploys out to [GovPaaS][govpaas] whenever a change is made to the `master` branch.
+Each repo has it's own Github actions workflow which deploys to [Github Pages][https://docs.github.com/en/pages] whenever a PR is pushed to the `master` branch. Example from our [dev-docs](https://github.com/alphagov/govwifi-dev-docs/blob/master/.github/workflows/deploy.yml).
 
 #### Trigger a deployment
 
 1. Merge your development branch to `master`.
-2. Github Actions will build + deploy to GovPaaS.
-3. Verify contents is deployed (you may need to add a `GET` parameter to bust the cache).
+2. Github Actions will build + deploy to Github Pages.
+3. Verify contents is deployed (you may need to open an incognito window to clear your cache).
 
 
 [dev-docs-repo]: https://github.com/alphagov/govwifi-dev-docs
 [tech-docs-repo]: https://github.com/alphagov/govwifi-tech-docs
 [product-page-repo]: https://github.com/alphagov/govwifi-product-page
-[govpaas]: https://www.cloud.service.gov.uk/
 [middleman]: https://middlemanapp.com/
 [smoke tests]: https://github.com/alphagov/govwifi-smoke-tests

@@ -1,7 +1,7 @@
 ---
 title: Deploy FreeRADIUS changes
 weight: 60
-last_reviewed_on: "2023-09-05"
+last_reviewed_on: "2024-05-05"
 review_in: 6 months
 ---
 
@@ -34,7 +34,7 @@ To check the containers are healthy, navigate to the "Healthchecks" section of t
 
 Certificates are stored encrypted under `passwords/certs/`, and hosted in S3 buckets.
 
-All S3 buckets should contain the CA certificates.
+Both frontend-cert S3 buckets should contain the CA certificates.
 
 Staging buckets should hold the keys and certificates prefixed with `staging`.
 

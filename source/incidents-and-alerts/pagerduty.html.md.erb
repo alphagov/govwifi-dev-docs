@@ -1,61 +1,46 @@
 ---
 title: PagerDuty
 weight: 10
-last_reviewed_on: "2024-05-24"
-review_in: 4 months
+last_reviewed_on: "2024-04-26"
+review_in: 6 months
 ---
 
 # Alerts and PagerDuty
 
-PagerDuty is used for out of hours alerting. PagerDuty listens to
-notifications from AWS about a subset of the CloudWatch alarms.
+PagerDuty is used for out of hours alerting. PagerDuty listens to sns notifications from AWS about a subset of the CloudWatch alarms.
 
 ## CloudWatch alarms
 
 There are alarms in all three AWS regions.
 
-### US East (`us-east-1`)
-
-#### `wifi-Dublin-Frontend-overall-healthcheck`
-
-This alarm enters the ALARM state if the healthchecks for all three
-RADIUS servers in the Dublin region are failing.
-
-This means access points connecting to the Ireland region RADIUS
-servers could be unable to authenicate users.
-
-To start investigating this, check the status of the load balancer and
-the related target group. If there are targets, but the healthchecks
-are failing, then investigate the cause of the healthcheck failures.
-
-#### `wifi-London-Frontend-overall-healthcheck`
-
-This alarm enters the ALARM state if the healthchecks for all three
-RADIUS servers in the London region are failing.
-
-This means access points connecting to the London region RADIUS
-servers could be unable to authenicate users.
-
-To start investigating this, check the status of the load balancer and
-the related target group. If there are targets, but the healthchecks
-are failing, then investigate the cause of the healthcheck failures.
-
 ### Ireland (`eu-west-1`)
+
+#### 'wifi frontend no healthy hosts'
+
+This alarm enters the ALARM state if there are no healthy hosts for all three RADIUS servers in the Dublin region.
+
+This means access points connecting to the Ireland region RADIUS servers could be unable to authenticate users.
+
+To start investigating this, check the status of the load balancer and the related target group. If there are targets, but the healthchecks are failing, then investigate the cause of the healthcheck failures, cloudwatch logs, etc.
 
 #### `wifi authentication API no healthy hosts`
 
-This alarm enters the ALARM state if there are no healthy hosts behind
-the load balancer for the Authentication API.
+This alarm enters the ALARM state if there are no healthy hosts behind the load balancer for the Authentication API.
 
-As this is relied upon by the RADIUS servers in the Ireland region,
-this could mean that access points using RADIUS servers in this region
-are unable to authenticate users.
+As this is relied upon by the RADIUS servers in the Ireland region, this could mean that access points using RADIUS servers in this region are unable to authenticate users.
 
-To start investigating this, check the status of the load balancer and
-the related target group. If there are targets, but the healthchecks
-are failing, then investigate the cause of the healthcheck failures.
+To start investigating this, check the status of the load balancer and the related target group. If there are targets, but the healthchecks are failing, then investigate the cause of the healthcheck failures.
 
 ### London (`eu-west-2`)
+
+#### 'wifi frontend no healthy hosts'
+
+This alarm enters the ALARM state if there are no healthy hosts for all three RADIUS servers in the London region.
+
+This means access points connecting to the London region RADIUS servers could be unable to authenticate users.
+
+To start investigating this, check the status of the load balancer and the related target group. If there are targets, but the healthchecks are failing, then investigate the cause of the healthcheck failures.
+
 
 #### `wifi authentication API no healthy hosts`
 

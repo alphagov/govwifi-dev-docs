@@ -53,7 +53,7 @@ If you make changes to the `config/tech-docs.yml` configuration file, you need t
 To build the HTML pages from content in your `source` folder, run:
 
 ```
-bundle exec middleman build`
+bundle exec middleman build
 ```
 
 Every time you run this command, the `build` folder gets generated from scratch. This means any changes to the `build` folder that are not part of the build command will get overwritten.
@@ -66,9 +66,9 @@ Run `bundle exec middleman build --verbose` to get detailed error messages to he
 
 ## CI / CD
 
-You can find the pipeline [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs-deploy). It self updates when you merge any changes.
+[You can find the pipeline docs hhere](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/dev-docs-deploy). It self updates when you merge any changes.
 
-See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14) to set up variables.
+[Follow this link to set up variables](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/jobs/show-available-pipeline-variables/builds/14).
 
 ## How to contribute
 
@@ -77,14 +77,14 @@ See [here](https://cd.gds-reliability.engineering/teams/govwifi/pipelines/info/j
 3. Make your changes (with tests if applicable)
 4. Raise a pull request
 
-## Licence
+## License
 
 Unless stated otherwise, the codebase is released under [the MIT License][mit].
 This covers both the codebase and any sample code in the documentation.
 
 The documentation is [© Crown copyright][copyright] and available under the terms of the [Open Government 3.0][ogl] licence.
 
-[mit]: LICENCE
+[mit]: LICENSE
 [copyright]: http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/
 [ogl]: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 [mmt]: https://middlemanapp.com/advanced/project_templates/

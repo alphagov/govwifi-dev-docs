@@ -2,7 +2,7 @@ build: stop
 	docker-compose build
 
 serve: build
-	docker-compose run --service-ports app bundle exec middleman server
+	docker-compose run --service-ports app bundle exec middleman server --watcher-force-polling
 
 stop:
 	docker-compose kill

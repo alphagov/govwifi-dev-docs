@@ -3,4 +3,4 @@
 set -eu
 
 bundle check || bundle install
-NO_CONTRACTS=true bundle exec middleman server
+NO_CONTRACTS=true bundle exec middleman server --watcher-force-polling

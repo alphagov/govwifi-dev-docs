@@ -1,0 +1,39 @@
+---
+title: CloudWatch Alarms
+weight: 10
+last_reviewed_on: "2024-05-08"
+review_in: 6 months
+---
+
+# CloudWatch Alarms
+
+## Alarm Setup
+The alarms have 2 main notification categories, Critical Alerts and Capacity Monitoring.
+The Alarms trigger 1 of 5 actions, PagerDuty SNS (For out of hours support, see the PagerDuty page for more information), Slack Alerts SNS, which are sent to the govwifi-alerts channel to be investigated immediately,
+Slack Monitoring SNS notifications are sent to the govWifi-monitoring channel which can be investigated in slower time, Devops SES, sent to the devops govwifi email account and finally cloudwatch logs for auto scaling. 
+
+## List of Alarms
+There is a Spread sheet containing the [list of alerts in priority order](https://docs.google.com/spreadsheets/d/1A9df3qxgrcFYJ_QLlZ8KI1QZydWgJb4DDbSMnlzr7Lk/) in the GovWifi Google Drive, you'll need to a member of the govwifi group to access this.
+
+## Alarm types and how to fix.
+### No Healthy Hosts.
+These are critical alarms and are [detailed on the PagerDuty page](/incidents-and-alerts/pagerduty.html), as these are also monitored out of hours.
+
+### Radius Cannot Connect to API.
+This can occur if a Security Group has been miss configured, preventing Radius accessing the Authentication or logging API's, check CloudWatch logs. This is a filter on the Frontend cloudwatch group looking for messages containing "ERROR: Server returned no data", 
+
+### Bastion Status Alarm.
+this alarm will trigger if the EC2 instance responsible for the bastion is not responding, check the Cloudwatch logs, EC2 Instance Health, restart the instance if'it's failed.
+
+### DB CPU High
+Indicates high load on the database (Admin, User, Session), investigate CloudWatch logs, check for suspect activity or number of connections.
+
+### DB Free Memory Low
+This would indicate that there a lot of long running transactions, or a lot of queries running, this may also raise other alerts like high CPU usage, check database connections as each one uses memory, run performance query on the db to show any lingering queries 
+
+### DB Storage Low
+Look for temp tables that haven't been removed, check the full process list by running query on the DB to show active connections and queries.  Check cloudwatch logs for the affected table to trace down the issue.
+
+### DB burst balance 
+Database's available IOPS burst balance is running low. Investigate disk usage on the RDS instance.
+

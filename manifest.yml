@@ -1,10 +1,9 @@
----
 applications:
-- name: govwifi-dev-docs
+- name: dev-docs
   memory: 64M
   instances: 2
   path: ./build
   buildpacks:
-   - staticfile_buildpack
+  - staticfile_buildpack
   routes:
-    - route: govwifi-dev-docs.cloudapps.digital
+  - route: dev-docs.wifi.service.gov.uk

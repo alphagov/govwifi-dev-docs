@@ -37,3 +37,6 @@ Look for temp tables that haven't been removed, check the full process list by r
 ### DB burst balance 
 Database's available IOPS burst balance is running low. Investigate disk usage on the RDS instance.
 
+### Logging or Auth CPU Low
+This can happen during certificate rotation, where front end tasks are bring taken down and bought back up with a new certificate, when the tasks are stopped, this will lower the cpu utilisation on the mentioned Clusters and triggers this alarm, monitor this, it should return to normal within 10 minutes.
+

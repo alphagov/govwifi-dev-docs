@@ -1,7 +1,7 @@
 ---
 title: Deploying applications
 weight: 20
-last_reviewed_on: "2023-10-27"
+last_reviewed_on: "2024-06-21"
 review_in: 6 months
 ---
 
@@ -35,7 +35,13 @@ use a static site generator called [Middleman][middleman]. They are hosted on Gi
 
 ### Production
 
-Each repo has it's own Github actions workflow which deploys to [Github Pages][https://docs.github.com/en/pages] whenever a PR is pushed to the `master` branch. Example from our [dev-docs](https://github.com/alphagov/govwifi-dev-docs/blob/master/.github/workflows/deploy.yml).
+Each repo has it's own Github actions workflow which both tests and deploys to [Github Pages][https://docs.github.com/en/pages], when a PR is created it will run a test then when a PR is pushed to the `master` branch it will deploy to github pages. Example from our [dev-docs](https://github.com/alphagov/govwifi-dev-docs/blob/master/.github/workflows/deploy.yml).
+
+#### Trigger a test build.
+
+1. Push your changes to a branch and raise a PR
+2. Github Actions will attempt to build the app.
+3. if successful a green tick will appear next to the PR, this is useful to identify if Dependabot changes will affect the build.
 
 #### Trigger a deployment
 

@@ -1,0 +1,51 @@
+---
+title: Access the AWS CLI and SSM plugin
+weight: 20
+last_reviewed_on: "2024-08-21"
+review_in: 6 months
+---
+
+# AWS CLI
+If you have not done already, you'll need to [visit the AWS CLI webpage for instructions on how to install for your operating system](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+# AWS SSM Plugin for AWS CLI.
+To access the EC2, you'll need to have the SSM Client plugin installed, [visit the SSM Client webpage for instructions on how to install for your operating system](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
+
+# Start SSM session via AWS Console.
+Log into the AWS CLI on either dev, staging or prod (need to use admin account).
+Go to Systems Manager, under 'Node Management' on the left menu select 'Session Manager'
+Press the Orange 'start session' button, the next screen should show a list of instances eg
+```
+Alpaca Grafana-Server
+Alpaca Bastion - backend 
+Alpaca Prometheus-Server
+```
+Select the radio button next to the instance needed, then click the  'start session' button
+A new window with a terminal session will be shown.
+
+# Start SSM session via AWS CLI.
+Assuming the SSM plugin has been installed, you can start a standard SSM (NOT SSH) session by
+
+```
+gds aws govwifi-development -- aws ssm start-session --target <EC2 instance Id>
+````
+
+# SSH over SSM
+
+To do this, the hosts file will need to be setup, SSH keys downloaded.
+
+For instructions on how to setup the hosts file and obtain the keys, decrypt and read the instructions from the build repo.
+```sh
+PASSWORD_STORE_DIR=<path_to_password_store_dir> pass show ssh/instructions.txt
+```
+
+# SCP over SSM
+Once the hosts file has been configured and can successfully SSH into the instance, then to upload and download file via SCP do this.
+### Upload
+```
+scp ./<file-to-upload> bastion.dev.govwifi:<path-from-root>
+```
+### Download
+```
+scp bastion.dev.govwifi:<path-from-root>/<file-to-download> <path/to/store/file-to-download>
+```

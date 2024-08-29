@@ -1,25 +1,26 @@
 ---
 title: Access bastion servers
 weight: 30
-last_reviewed_on: "2024-06-15"
+last_reviewed_on: "2024-08-15"
 review_in: 6 months
 ---
 
 # Access bastion servers
+As we move from SSH to SSM, this server is now used to access the database, access to the other ec2's is made directly via SSM.
 
 ## Secrets
 
 [Extract the SSH Key secrets](https://dev-docs.wifi.service.gov.uk/infrastructure/secrets.html#get-started-using-secrets) for the bastion server:
 
-- staging secret name: `keys/govwifi-staging-temp-bastion-key-20200717`
+- Dev (alpaca) secret name: `keys/alpaca-bastion-20230120`
+- staging secret name: `keys/govwifi-staging-bastion-key-20200717`
 - production secret name: `keys/govwifi-bastion-key`
 
-Find out the Elastic IPs for the bastion servers. You can do this by logging into the AWS console,
-and finding the instances which contain the word "Bastion".
+## SSH/SSM Config
 
-## SSH Config
+We have transitioned to SSM, there should be no differences when running commands, the only difference is in the config, for example you'll now need to know the instance id of the host rather than the IP address.
 
-We recommended setting up an SSH config for ease of use. Instructions how to set up your SSH config exist in the Password Store of GovWifi where you can run:
+We recommended setting up a SSH config for ease of use. Instructions how to set up your SSH config exist in the Password Store of GovWifi where you can run:
 
 ```sh
 PASSWORD_STORE_DIR=<password_store_dir> pass show ssh/instructions.txt

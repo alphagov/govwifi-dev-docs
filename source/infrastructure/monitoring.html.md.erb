@@ -1,7 +1,7 @@
 ---
 title: Monitoring
 weight: 20
-last_reviewed_on: "2024-06-21"
+last_reviewed_on: "2024-09-06"
 review_in: 6 months
 ---
 
@@ -66,32 +66,27 @@ the actual FreeRADIUS server state and the packages being processed.
 The information is used for diagnostics and tracking service
 availability.
 
-If you have SSH access, you can run the commands below to see the
+If you have SSM access, you can run the commands below to see the
 dashboard.  If not, please speak to the reliability engineers on the
 team about access.
 
-Staging Ireland
-
+The previous SSH method is in the process of being deprecated and will be removed soon, advise to setup SSM access.
 ```
-ssh -L 9090:127.0.0.1:9090 prometheus-ie.staging.govwifi
-```
-
-Staging London
-
-```
-ssh -L 9090:127.0.0.1:9090 prometheus.staging.govwifi
+ssh -L 9090:127.0.0.1:9090 prometheus.<env>.govwifi
 ```
 
-Production Ireland
+The below code gets the instance ID and uses it to start tunnel session via SSM, update the example with the Server name and region.
 
 ```
-ssh -L 9090:127.0.0.1:9090 prometheus-ie.govwifi
+INSTANCE_ID=$(gds aws govwifi-development -- aws ec2 describe-instances --filter "Name=tag:Name,Values=<ENV> Prometheus-Server" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --region <region> --output text)
+gds aws govwifi-<env> -- aws ssm start-session --target $INSTANCE_ID --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["9090"],"localPortNumber":["9090"]}' --region <region>
 ```
 
-Production London
 
+eg for Dev London
 ```
-ssh -L 9090:127.0.0.1:9090 prometheus.govwifi
+INSTANCE_ID=$(gds aws govwifi-development -- aws ec2 describe-instances --filter "Name=tag:Name,Values=Alpaca Prometheus-Server" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --region eu-west-2 --output text)
+gds aws govwifi-development -- aws ssm start-session --target $INSTANCE_ID --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["9090"],"localPortNumber":["9090"]}' --region eu-west-2
 ```
 
 After running the command you should be able to access the Prometheus

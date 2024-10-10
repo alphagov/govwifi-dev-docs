@@ -16,3 +16,5 @@ GovWifi databases are exported using `mysqldump`. The contents of the SQL dump a
 Backups are scheduled to run nightly and target replica instances. This is in addition to automated RDS snapshots of primary servers.
 
 The backup script runs as a scheduled container task using Amazon ECS which is configured in [govwifi-terraform](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi-api) under `database-backup-task.tf`.
+
+We need to rotate the IAM Access keys for IT periodically. [Detailed instructions are kept in Google Docs](https://docs.google.com/document/d/1cUKkSkV1I1sRa5SJFZGIPWUqPhMBHv7C3GnwVi3IzlM/edit?tab=t.0) (you will need to be a member of the GovWifi Team to access these).

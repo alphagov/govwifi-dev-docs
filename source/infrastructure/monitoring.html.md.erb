@@ -1,7 +1,7 @@
 ---
 title: Monitoring
 weight: 20
-last_reviewed_on: "2024-09-06"
+last_reviewed_on: "2024-10-16"
 review_in: 6 months
 ---
 
@@ -27,7 +27,7 @@ The data in our Grafana is primarily comes from Prometheus and Elasticsearch. Bo
 
 #### Elasticsearch
 
-The admin and logging-api have functions that collect and push a range of metrics (like active users in a specific time period) to our Elasticsearch cluster in AWS. This data is pulled from our databases at various intervals (hourly, daily, monthly etc) and sent to Elasticserch via an ECS scheduled job. These scheduled jobs run rake tasks that push the data to Elasticsearch at specified intervals. [This is an example of such a job in our terraform code](https://github.com/alphagov/govwifi-terraform/blob/c40e0ef9167a234f2d0c0d5e0d2705aa4f88c9db/govwifi-api/logging-scheduled-tasks.tf#L137). 
+The admin and logging-api have functions that collect and push a range of metrics (like active users in a specific time period) to our Elasticsearch cluster in AWS. This data is pulled from our databases at various intervals (hourly, daily, monthly etc) and sent to Elasticserch via an ECS scheduled job. These scheduled jobs run rake tasks that push the data to Elasticsearch at specified intervals. [This is an example of such a job in our terraform code](https://github.com/alphagov/govwifi-terraform/blob/c40e0ef9167a234f2d0c0d5e0d2705aa4f88c9db/govwifi-api/logging-scheduled-tasks.tf#L137).
 
 The metrics are also backed up in an S3 bucket in each GovWifi environment. This is configured by the [govwifi-dashboard module in terraform](https://github.com/alphagov/govwifi-terraform/blob/master/govwifi-dashboard/s3.tf). The diagram below shows the resources that Elasticsearch interacts with. [A scalable version is available in our team drive](https://app.diagrams.net/#G1-_q1WP4lg6Vp_Eof8lQfjb6hH1y3ksbY#%7B%22pageId%22%3A%22ZV0GcbZi5lNXhyqezGf6%22%7D):
 
@@ -46,7 +46,7 @@ Prior to November 2023 there was an additional Grafana which was hosted on GOV.U
 
 ## Google Analytics
 
-We currently have a [Google Analytics](https://lookerstudio.google.com/u/0/reporting/60ddcf7e-668b-4a29-b5ab-e27007b5e27e/page/ycpjB) dashboard which shows a summary of visits to our Product Page and Admin site. 
+We currently have a [Google Analytics](https://lookerstudio.google.com/u/0/reporting/60ddcf7e-668b-4a29-b5ab-e27007b5e27e/page/ycpjB) dashboard which shows a summary of visits to our Product Page and Admin site.
 
 There is an [additional dashboard](https://lookerstudio.google.com/u/0/reporting/d2311db4-fa9f-407e-ad8b-57bbd9496510/page/K2nbC) which used to allow for more detailed investigations of how people used these pages. However, this dashboard is currently broken.
 
@@ -96,4 +96,3 @@ dashboard by entering the following address in your browser:
 
 
 [metrics]: ../images/elasticsearch.png
-

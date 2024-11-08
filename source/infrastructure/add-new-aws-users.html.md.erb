@@ -1,15 +1,17 @@
 ---
 title: Add new AWS users
 weight: 10
-last_reviewed_on: "2024-04-15"
+last_reviewed_on: "2024-11-15"
 review_in: 6 months
 ---
 
 # Add new AWS users
 
-You can add new AWS users to the GovWifi AWS accounts by:
+You can add new AWS users to the GovWifi AWS accounts by following the instructions below:
 
-1. First verify with the GovWifi developers whether to grant `admin` or `read-only` access. Only team members with security clearance can be allowed `admin` access. Until security clearance is passed `read-only` access is allowed.
+1. Ensure the person has been added to the central AWS user management account gds-users, if they haven't [they can request to be added via this form](https://request-an-aws-account.gds-reliability.engineering/).
+
+1. Verify with the GovWifi developers whether to grant `admin` or `read-only` access. Only team members with security clearance can be allowed `admin` access. Until security clearance is passed `read-only` access is allowed.
 
 1. Add the user with the appropriate privileges to the [Terraform code that describes GovWifi's account](https://github.com/alphagov/tech-ops-private/blob/master/reliability-engineering/terraform/deployments/re-govwifi/account/site.tf). You need to get the pull request approved and merged by Reliability Engineering.
 

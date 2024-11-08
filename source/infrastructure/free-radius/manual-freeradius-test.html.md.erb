@@ -1,7 +1,7 @@
 ---
 title: Test FreeRADIUS on the ECS task level
 weight: 70
-last_reviewed_on: "2024-05-01"
+last_reviewed_on: "2024-11-08"
 review_in: 6 months
 ---
 
@@ -23,11 +23,7 @@ gds-cli aws <account-name> --region eu-west-2 -- aws ecs list-tasks --cluster fr
 
 ## Connect to the FreeRADIUS tasks
 
-Use the task ID obtained in the previous step and run the following command to estabilish ssh session to the task:
-
-```
-gds-cli aws <account-name> -- aws ecs execute-command --cluster frontend-fargate --task one_of_the_task_IDs_from_the_previous_step_here --container frontend-radius --interactive --command "/bin/sh"
-```
+Use the task ID obtained in the previous step and run the following command to estabilish ssh session to the task using the instructions on the [Access ECS Tasks page of this manual]( https://dev-docs.wifi.service.gov.uk/infrastructure/access-ecs-tasks.html#access-ecs-tasks-with-ecs-exec)
 
 ## Check the healthcheck’s config file name
 
@@ -77,7 +73,7 @@ SUCCESS
 
 ## Healthchecks credential explained
 
-`HEALTH_CHECK_IDENTITY` and `HEALTH_CHECK_PASSWORD` secrets are passed to the healtcheck from the Environmnet variables (you can check these using `export` command in the console). 
+`HEALTH_CHECK_IDENTITY` and `HEALTH_CHECK_PASSWORD` secrets are passed to the healtcheck from the Environmnet variables (you can check these using `export` command in the console).
 
 `HEALTH_CHECK_RADIUS_KEY` is also passed from the Environmnet variables. It must match the secret injected to the FreeRADIUS configuration in Line 1 of following config file:
 

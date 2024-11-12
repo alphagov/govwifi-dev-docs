@@ -7,6 +7,8 @@ review_in: 6 months
 
 # Access the AWS console
 
+First ensure that your access has been set up. [If you need to add someone to the GovWifi AWS account follow this guide](https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#use-the-command-line).
+
 Access is via [gds-users](https://gds-users.signin.aws.amazon.com/console), and then assuming your role from the GovWifi account. You must be on the VPN to access the console.
 
 Staging and Production are hosted in different AWS accounts.
@@ -17,7 +19,7 @@ Ask the reliability engineers for the GovWifi account IDs. AWS roles are in the 
 
 You can also use the [`gds-cli`](https://github.com/alphagov/gds-cli) to access the GovWifi AWS console.
 
-Review the [configuration instructions](https://github.com/alphagov/gds-cli#configuration) on the `gds-cli` README to set it up. Note: gds-cli may be aliased to gds.
+Review the [configuration instructions](https://github.com/alphagov/gds-cli#configuration) on the `gds-cli` README to set it up. Note: gds-cli may be aliased to gds. [Indepth guidance on setting up the gds-cli can be found on GDS's help pages](https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#installing-gds-cli).
 
 Once the `gds-cli` is set up, run the following command from anywhere in your terminal to login as `read-only` to Production:
 
@@ -61,4 +63,3 @@ You can login as `admin` to Recovery by running the following command:
 ```
 $ gds aws govwifi-recovery -l
 ```
-

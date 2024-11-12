@@ -1,7 +1,7 @@
 ---
 title: Deploy FreeRADIUS changes
 weight: 60
-last_reviewed_on: "2024-05-05"
+last_reviewed_on: "2024-11-08"
 review_in: 6 months
 ---
 
@@ -11,7 +11,7 @@ GovWifi's implementation of FreeRADIUS is managed by the [`alphagov/govwifi-fron
 
 This repo generates an ECR image containing the FreeRADIUS server code which will run on ECS.
 
-Pushing these images to ECR is handled by AWS Codebuild. You can find indepth documentation on this [here](https://docs.google.com/document/d/1bJVGpvwC3uSWNiQ0yJyCbupk-xu4soOo1nsaHe-z550/edit#heading=h.qkkz8te2glxc)(you need to be part of the GovWifi team to access this document).
+Pushing these images to ECR is handled by AWS Codebuild. [You can find indepth documentation on this in our team Google drive](https://docs.google.com/document/d/1bJVGpvwC3uSWNiQ0yJyCbupk-xu4soOo1nsaHe-z550/edit#heading=h.qkkz8te2glxc)(you need to be part of the GovWifi team to access this document).
 
 
 ## Manually restarting the ECS tasks
@@ -39,3 +39,5 @@ Both frontend-cert S3 buckets should contain the CA certificates.
 Staging buckets should hold the keys and certificates prefixed with `staging`.
 
 Production buckets should hold the keys and certificates prefixed with `wifi`.
+
+[For more information on the annual certificate rotation, please see this indepth guide](https://dev-docs.wifi.service.gov.uk/infrastructure/certificate-rotation.html).

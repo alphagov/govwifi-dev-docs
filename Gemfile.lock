@@ -52,7 +52,7 @@ GEM
     google-protobuf (4.28.3-x86_64-linux)
       bigdecimal
       rake (>= 13)
-    govuk_tech_docs (4.1.0)
+    govuk_tech_docs (4.1.1)
       autoprefixer-rails (~> 10.2)
       base64
       bigdecimal
@@ -141,7 +141,7 @@ GEM
     middleman-syntax (3.4.0)
       middleman-core (>= 3.2)
       rouge (~> 3.2)
-    mini_portile2 (2.8.7)
+    mini_portile2 (2.8.8)
     minitest (5.25.1)
     multi_json (1.15.0)
     mutex_m (0.2.0)
@@ -172,10 +172,10 @@ GEM
     rexml (3.3.9)
     rouge (3.30.0)
     sass (3.4.25)
-    sass-embedded (1.80.5)
+    sass-embedded (1.81.0)
       google-protobuf (~> 4.28)
       rake (>= 13)
-    sass-embedded (1.80.5-x86_64-linux-gnu)
+    sass-embedded (1.81.0-x86_64-linux-gnu)
       google-protobuf (~> 4.28)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -196,14 +196,14 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    webrick (1.8.2)
+    webrick (1.9.0)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
-  govuk_tech_docs (~> 4.1.0)
+  govuk_tech_docs (~> 4.1.1)
   tzinfo-data
   wdm (~> 0.1.0)
 

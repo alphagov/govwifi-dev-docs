@@ -1,7 +1,7 @@
 ---
 title: Database restore
 weight: 50
-last_reviewed_on: "2024-06-15"
+last_reviewed_on: "2024-12-19"
 review_in: 6 months
 ---
 
@@ -11,7 +11,7 @@ Note: gds-cli maybe installed and accessible via either gds-cli or gds depending
 
 The nightly database backups for each environment are stored in an S3 bucket for each Govwifi environment called govwifi-<subdomain-name/environment-name>-london-mysql-backup-data. The CO/GDS IT Infrastructure team also keeps an additional copy of these backups. In the event that we loose access to our AWS accounts, we can [request a copy](https://docs.google.com/document/d/1h07adu7Ym6yN4kULbDskHQO91LhHpKMFSi4wxyZi1zs/edit#heading=h.v8cb2maaksg4) directly from the IT team. Databases can be restored from the nightly backups by following the instructions below (note: gds-cli may be aliased to gds):
 
-Locate the gpg passphrase you need in the [govwifi-build](https://github.com/alphagov/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/alphagov/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
+Locate the gpg passphrase you need in the [govwifi-build](https://github.com/GovWifi/govwifi-build/) repo (for example the passphrase for staging is located [here](https://github.com/GovWifi/govwifi-build/blob/master/passwords/keys/govwifi-database-staging-s3-encryption-key.gpg)). Retrieve the secret using the following command
 ```
 PASSWORD_STORE_DIR=~/path_to_govwifi-build-repo-on-your-machine/passwords pass edit keys/govwifi-database-<environment-name>-s3-encryption-key
 ```

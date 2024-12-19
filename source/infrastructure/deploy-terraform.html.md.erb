@@ -1,15 +1,15 @@
 ---
 title: Deploy Terraform
 weight: 60
-last_reviewed_on: "2024-06-15"
+last_reviewed_on: "2024-12-09"
 review_in: 6 months
 ---
 
 # Deploy Terraform
 
-Terraform is deployed on the commandline using `make` commands configured in the `govwifi-terraform` [Makefile](https://github.com/alphagov/govwifi-terraform/blob/master/Makefile).
+Terraform is deployed on the commandline using `make` commands configured in the `govwifi-terraform` [Makefile](https://github.com/GovWifi/govwifi-terraform/blob/master/Makefile).
 
-Please refer to the `govwifi-terraform` [README](https://github.com/alphagov/govwifi-terraform/blob/master/README.md) for detailed instructions on running Terraform.
+Please refer to the `govwifi-terraform` [README](https://github.com/GovWifi/govwifi-terraform/blob/master/README.md) for detailed instructions on running Terraform.
 
 The instructions here provide a high level overview of deploying changes in our Terraform
 
@@ -37,7 +37,7 @@ Deployments in `govwifi-terraform` pull in changes using modules
 configured in the Terraform files located in `govwifi/staging`
 directory:
 
-* [`govwifi/staging`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/staging)
+* [`govwifi/staging`](https://github.com/GovWifi/govwifi-terraform/tree/master/govwifi/staging)
 
 To deploy Terraform changes to the staging environment, navigate to the project root:
 
@@ -67,8 +67,8 @@ The deploy process is very similar to staging.
 
 The production modules in `govwifi-terraform` are:
 
-* [`govwifi/wifi-london`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/wifi-london)
-* [`govwifi/wifi`](https://github.com/alphagov/govwifi-terraform/tree/master/govwifi/wifi)
+* [`govwifi/wifi-london`](https://github.com/GovWifi/govwifi-terraform/tree/master/govwifi/wifi-london)
+* [`govwifi/wifi`](https://github.com/GovWifi/govwifi-terraform/tree/master/govwifi/wifi)
 
 **Note**: `wifi` refers to components in eu-west-1 (Ireland).
 

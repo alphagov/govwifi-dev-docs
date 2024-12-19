@@ -1,7 +1,7 @@
 ---
 title: GovWifi's FreeRADIUS Implementation
 weight: 80
-last_reviewed_on: "2024-06-15"
+last_reviewed_on: "2024-12-24"
 review_in: 6 months
 ---
 
@@ -17,7 +17,7 @@ The FreeRADIUS servers operated by the GovWifi team control network access with
 
 Authentication requests are received on the default port, 1812.
 
-User details are checked against the GovWifi users database via the FreeRADIUS REST module, which communicates with the [ GovWifi Authentication API](https://github.com/alphagov/govwifi-authentication-api).
+User details are checked against the GovWifi users database via the FreeRADIUS REST module, which communicates with the [ GovWifi Authentication API](https://github.com/GovWifi/govwifi-authentication-api).
 
 ## Authorisation
 
@@ -52,7 +52,7 @@ it receives a request for `"/"`, it runs
 come from deployments of GovWifi. This includes connecting to the
 Authentication and Logging APIs.
 
-[frontend-eapol]: https://github.com/alphagov/govwifi-frontend/blob/master/healthcheck/app.rb#L28
+[frontend-eapol]: https://github.com/GovWifi/govwifi-frontend/blob/master/healthcheck/app.rb#L28
 
 ## Learn More
 
